@@ -22,4 +22,7 @@ autoreconf -i
 ./configure
 ./configure
 make
-
+sudo make install
+cd $TMP_DIR
+cd ..
+sudo rm -rf $TMP_DIR
