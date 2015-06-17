@@ -36,9 +36,6 @@ extern "C" {
 #endif
 
 
-// for Hubo
-#include "mds-daemonID.h"
-
 //888888888888888888888888888888888888888888
 //---------[Prerequisites for ACH]----------
 #include <stdint.h>
