@@ -27,6 +27,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
@@ -46,6 +47,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // for RT
 #include <stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <sys/mman.h>
 
 // for mds
@@ -91,6 +94,20 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
+//static inline void tsnorm(struct timespec *ts);
+void tsnorm(struct timespec *ts);
+void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L);
+void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
+void getEncAllSlow(mds_state_t *s, struct can_frame *f);
+void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
+void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
+void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L);
+void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
+
+
+
+
+
 // Timing info
 #define NSEC_PER_SEC    1000000000
 
@@ -109,7 +126,7 @@ ach_channel_t chan_state;     // mds-ach-state
 ach_channel_t chan_to_sim;    // mds-ach-to-sim
 ach_channel_t chan_from_sim;  // mds-ach-from-sim
 
-void mainLoop(hubo_param_t *H_param) {
+void mainLoop() {
     double T = (double)MDS_LOOP_PERIOD;
     int interval = (int)((double)NSEC_PER_SEC*T);
     printf("T = %1.3f sec\n",T);
@@ -119,48 +136,60 @@ void mainLoop(hubo_param_t *H_param) {
     struct timespec t, time;
     double tsec;
 
+
+    // Initialize Hubo Structs
+    mds_ref_t H_ref;
+    mds_ref_t H_ref_filter;
+    mds_state_t H_state;
+    memset( &H_ref,   0, sizeof(H_ref));
+    memset( &H_state, 0, sizeof(H_state));
+    memset( &H_ref_filter,   0, sizeof(H_ref_filter));
+
+
     // get current time
     //clock_gettime( CLOCK_MONOTONIC,&t);
     clock_gettime( 0,&t);
 
 
+
+/* Create CAN Frame */
+    struct can_frame frame;
+//   Is this really how the frame should be initialized?
+    sprintf( frame.data, "1234578" );
+    frame.can_dlc = strlen( frame.data );
+
+
     int startFlag = 1;
 
     printf("Start MDS Loop\n");
-    while(!hubo_sig_quit) {
+    while(1) {
 
         // wait until next shot
         clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
 
-        fs = 0;
+        size_t fs = 0;
 
         /* Get latest ACH message */
-        int r = ach_get( &chan_hubo_ref, &H_ref, sizeof(H_ref), &fs, NULL, ACH_O_LAST );
+        int r = ach_get( &chan_ref, &H_ref, sizeof(H_ref), &fs, NULL, ACH_O_LAST );
         if(ACH_OK != r) {
             if(debug) {
                     fprintf(stderr, "Ref r = %s\n",ach_result_to_string(r));}
             }
-        else{    hubo_assert( sizeof(H_ref) == fs, __LINE__ ); }
+        else{    assert( sizeof(H_ref) == fs); 
 
         
         /* Set all Ref */
-        if(hubo_noRefTimeAll < T ) {
-            refFilterMode(&H_ref, &H_state, &H_ref_filter, HUBO_REF_FILTER_LENGTH);
-            /* This sets ref on the CAN bus */
-            setRefAll(&H_ref, H_param, &H_state, &H_gains, &frame);
-            H_state.refWait = FALSE;
-        }
-        else{
-            getBoardStatusAllSlow( &H_state, H_param, &frame);
-            hubo_noRefTimeAll = hubo_noRefTimeAll - T;
-            H_state.refWait = TRUE;
-        }
+        refFilterMode(&H_ref, &H_state, &H_ref_filter, MDS_REF_FILTER_LENGTH);
+
+        /* This sets ref on the CAN bus */
+        setRefAll(&H_ref, &H_state, &frame);
+        H_state.refWait = FALSE;
 
         /* Get all Encoder data */
-        getEncAllSlow(&H_state, H_param, &frame); 
+        getEncAllSlow(&H_state, &frame); 
 
         /* Get all motor Current data */
-        getCurrentAllSlowMod(&H_state, H_param, &frame, 20);
+        getCurrentAllSlowMod(&H_state, &frame, 20);
 
         /* Get motor status/errors  (one each loop) */
 //        getStatusIterate( &H_state, H_param, &frame);
@@ -193,18 +222,20 @@ void mainLoop(hubo_param_t *H_param) {
 
 }
 
-void clearCanBuff(hubo_state_t *s, hubo_param_t *h, struct can_frame *f) {
+void clearCanBuff(mds_state_t *s, struct can_frame *f) {
+/*
     int i = 0;
     for(i = 0; i < readBuffi; i++) {
         readCan(0, f, 0);
         decodeFrame(s, h, f);
         readCan(1, f, 0);
-        decodeFrame(s, h, f);
+        decodeFrame(s, f);
     }
+*/
 }
 
 static inline void tsnorm(struct timespec *ts){
-
+//void tsnorm(struct timespec *ts){
 //	clock_nanosleep( NSEC_PER_SEC, TIMER_ABSTIME, ts, NULL);
 	// calculates the next shot
 	while (ts->tv_nsec >= NSEC_PER_SEC) {
@@ -215,11 +246,11 @@ static inline void tsnorm(struct timespec *ts){
 }
 
 
-void refFilterMode(hubo_ref_t *r, hubo_state_t *s, hubo_ref_t *f, int L) {
+void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L) {
     int i = 0;
     double e = 0.0;
     for(i = 0; i < MDS_JOINT_COUNT; i++) {
-        int c = r->joint[i].mode;
+        int c = (int)r->joint[i].mode;
       switch (c) {
         case MDS_REF_MODE_REF: // sets reference directly
           f->joint[i].ref = r->joint[i].ref;
@@ -251,60 +282,60 @@ void refFilterMode(hubo_ref_t *r, hubo_state_t *s, hubo_ref_t *f, int L) {
 
 
 
-void setRefAll(hubo_ref_t *r, hubo_param_t *h, hubo_state_t *s,
-                hubo_pwm_gains_t *g, struct can_frame *f) {
+void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f) {
 }
 
-void getEncAllSlow(hubo_state_t *s, hubo_param_t *h, struct can_frame *f){
-}
-
-
-void getPower(hubo_state_t *s, hubo_param_t *h, struct can_frame *f){
+void getEncAllSlow(mds_state_t *s, struct can_frame *f){
 }
 
 
-
-
-
-
-void getBoardStatusAllSlow(hubo_state_t *s, hubo_param_t *h, struct can_frame *f){
+void getPower(mds_state_t *s, struct can_frame *f){
 }
 
-void getCurrentAllSlow(hubo_state_t *s, hubo_param_t *h, struct can_frame *f) {
+
+
+
+
+
+void getBoardStatusAllSlow(mds_state_t *s, struct can_frame *f){
 }
 
-void getCurrentAllSlowMod(hubo_state_t *s, hubo_param_t *h, struct can_frame *f, int mod) {
+void getCurrentAllSlow(mds_state_t *s, struct can_frame *f) {
 }
 
-void huboMessage(hubo_ref_t *r, hubo_ref_t *r_filt, hubo_param_t *h,
-                hubo_state_t *s, hubo_board_cmd_t *c, struct can_frame *f)
+void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod) {
+}
+
+void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_frame *f)
 {
 
     size_t fs;
     int status = 0;
     int i = 0;
     while ( status == 0 | status == ACH_OK | status == ACH_MISSED_FRAME ) {
-    
+    /* 
         status = ach_get( &chan_hubo_board_cmd, c, sizeof(*c), &fs, NULL, 0 );
         if( status == ACH_STALE_FRAMES) {
             break; }
         else {
-        
+    */
+        /*
             switch (c->type)
             {
                 case D_GET_STATUS:
-                     hGetBoardStatus(c->joint, s, h, f);
+                     //hGetBoardStatus(c->joint, s, f);
                      break;
                 case D_CTRL_ON:
-                    hFeedbackControllerOnOff( c->joint, r, s, h, f, D_ENABLE);
+                    //hFeedbackControllerOnOff( c->joint, r, s, f, D_ENABLE);
                     break;
                 case D_CTRL_OFF:
-                    hFeedbackControllerOnOff( c->joint, r, s, h, f, D_DISABLE);
+                    //hFeedbackControllerOnOff( c->joint, r, s, f, D_DISABLE);
                     break;
                 default:
-                    fprintf(stderr,"Unrecognized command type: %d\n\t",c->type);
+                    //fprintf(stderr,"Unrecognized command type: %d\n\t",c->type);
                     break;
             }
+        */
         }
     }
 }
@@ -313,9 +344,9 @@ void huboMessage(hubo_ref_t *r, hubo_ref_t *r_filt, hubo_param_t *h,
 
 
 
-int decodeFrame(hubo_state_t *s, hubo_param_t *h, struct can_frame *f) {
+int decodeFrame(mds_state_t *s, struct can_frame *f) {
     int fs = (int)f->can_id;
-
+/*
     if (fs == H_ENC_BASE_RXDF + 0xE)
     {
         // Voltage, Current Return Message
@@ -326,21 +357,14 @@ int decodeFrame(hubo_state_t *s, hubo_param_t *h, struct can_frame *f) {
         s->power.current = current;
         s->power.power = power;	
     }
+*/
     /* Force-Torque Readings */
+/*
     else if( (fs >= H_SENSOR_FT_BASE_RXDF) && (fs <= H_SENSOR_FT_MAX_RXDF) )
     {
-        int num = fs - H_SENSOR_FT_BASE_RXDF;
-        int16_t val;
-        if(num==h->sensor[HUBO_FT_R_FOOT].boardNo)
-        {
-            int num2 = HUBO_FT_R_FOOT;
-            decodeFTFrame(num2,s,h,f);
-        }
-        else
-            fprintf(stderr, "Invalid value for FT Sensor: %d\n\t"
-                    "Must be 1, 2, 6, or 7\n", num);
     }
     return 0;
+*/
 }
 
 int main(int argc, char **argv) {
@@ -366,11 +390,9 @@ int main(int argc, char **argv) {
     
 
     // Initialize Hubo Structs
-    hubo_ref_t H_ref;
-    hubo_board_cmd_t H_cmd;
-    hubo_state_t H_state;
+    mds_ref_t H_ref;
+    mds_state_t H_state;
     memset( &H_ref,   0, sizeof(H_ref));
-    memset( &H_cmd,  0, sizeof(H_cmd));
     memset( &H_state, 0, sizeof(H_state));
 
     // open reference
@@ -389,12 +411,12 @@ int main(int argc, char **argv) {
 //    openAllCAN( vflag );
 
     /* Put on ACH Channels */
-    ach_put(&chan__ref, &H_ref, sizeof(H_ref));
-    ach_put(&chan_board_cmd, &H_cmd, sizeof(H_cmd));
+    ach_put(&chan_ref, &H_ref, sizeof(H_ref));
+//    ach_put(&chan_board_cmd, &H_cmd, sizeof(H_cmd));
 //    ach_put(&chan_hubo_state, &H_state, sizeof(H_state));
 
     // run main loop
-    mainLoop(&H_param);
+    mainLoop();
 
 //    hubo_daemon_close();
     

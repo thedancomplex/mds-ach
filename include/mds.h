@@ -174,8 +174,8 @@ typedef struct mds_state {
 }__attribute__((packed)) mds_state_t;
 
 typedef struct mds_joint_ref {
-	double ref[MDS_JOINT_COUNT];	///< joint reference
-	int16_t mode[MDS_JOINT_COUNT]; 	///< mode 0 = filter mode, 1 = direct reference mode
+	double ref;	///< joint reference
+	int16_t mode; 	///< mode 0 = filter mode, 1 = direct reference mode
 }__attribute__((packed)) mds_joint_ref_t;
 
 typedef struct mds_ref {
