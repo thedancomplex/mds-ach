@@ -102,7 +102,8 @@ extern "C" {
 #define         MDS_JOINT_COUNT        42              ///> The max number of joints
 
 #define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> hubo ach channel
-#define		MDS_CHAN_BOARD_CMD_NAME   "mds-board-cmd"              ///> hubo console channel for ach
+#define		MDS_CHAN_BOARD_CMD_NAME   "mds-cmd"                    ///> hubo console channel for ach
+#define		MDS_CHAN_CAN_DAEMON_NAME  "mds-can-daemon"             ///> daemon for reading CAN
 #define		MDS_CHAN_STATE_NAME       "mds-state"                  ///> hubo state ach channel
 #define 	MDS_CHAN_REF_FILTER_NAME  "mds-ref-filter"             ///> hubo reference with filter ach channel
 #define 	MDS_CHAN_VIRTUAL_TO_SIM_NAME "mds-virtual-to-sim"      ///> virtual channel trigger to simulator
@@ -111,6 +112,7 @@ extern "C" {
 //#define		MDS_CAN_TIMEOUT_DEFAULT 0.0002		///> Default time for CAN to time out
 #define		MDS_CAN_TIMEOUT_DEFAULT 0.00018		///> Default time for CAN to time out
 #define         MDS_REF_FILTER_LENGTH   40
+#define         MDS_CAN_BUFFER_CLEAR_I 20
 //#define         MDS_LOOP_PERIOD         0.005  ///> period for main loopin sec (0.005 = 200hz)
 #define         MDS_LOOP_PERIOD         0.010  ///> period for main loopin sec (0.010 = 100hz)
 #define         MDS_STARTUP_SEND_REF_DELAY 0.8   ///> setup delay in secons

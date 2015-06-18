@@ -101,6 +101,7 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
 void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
+void clearCanBuff(mds_state_t *s, struct can_frame *f);
 
 
 
@@ -189,17 +190,17 @@ void mainLoop() {
         }
         
         /* Set all Ref */
-        refFilterMode(&H_ref, &H_state, &H_ref_filter, MDS_REF_FILTER_LENGTH);
+//        refFilterMode(&H_ref, &H_state, &H_ref_filter, MDS_REF_FILTER_LENGTH);
 
         /* This sets ref on the CAN bus */
-        setRefAll(&H_ref, &H_state, &frame);
-        H_state.refWait = FALSE;
+//        setRefAll(&H_ref, &H_state, &frame);
+//        H_state.refWait = FALSE;
 
         /* Get all Encoder data */
-        getEncAllSlow(&H_state, &frame); 
+//        getEncAllSlow(&H_state, &frame); 
 
         /* Get all motor Current data */
-        getCurrentAllSlowMod(&H_state, &frame, 20);
+//        getCurrentAllSlowMod(&H_state, &frame, 20);
 
         /* Get motor status/errors  (one each loop) */
 //        getStatusIterate( &H_state, H_param, &frame);
@@ -211,7 +212,7 @@ void mainLoop() {
 //        huboMessage(&H_ref, &H_ref_filter, H_param, &H_state, &H_cmd, &frame);
 
         /* Clear CAN buffer - Read any aditional data left on the buffer */
-//        clearCanBuff(&H_state, H_param, &frame);
+        clearCanBuff(&H_state, &frame);
 
 
 
@@ -233,11 +234,10 @@ void mainLoop() {
 }
 
 void clearCanBuff(mds_state_t *s, struct can_frame *f) {
-/*
-    int i = 0;
-    for(i = 0; i < readBuffi; i++) {
+/*    int i = 0;
+    for(i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
         readCan(0, f, 0);
-        decodeFrame(s, h, f);
+        decodeFrame(s, f);
         readCan(1, f, 0);
         decodeFrame(s, f);
     }
@@ -345,6 +345,12 @@ void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_fram
 
 int decodeFrame(mds_state_t *s, struct can_frame *f) {
     int fs = (int)f->can_id;
+    int cmd = (int)f->data[0];
+    printf("can\r\n");
+    return 0; 
+
+
+
 /*
     if (fs == H_ENC_BASE_RXDF + 0xE)
     {
@@ -403,8 +409,8 @@ int main(int argc, char **argv) {
     assert( ACH_OK == r);
 
     // initilize control channel
-    r = ach_open(&chan_board_cmd, MDS_CHAN_BOARD_CMD_NAME, NULL);
-    assert( ACH_OK == r);
+//    r = ach_open(&chan_board_cmd, MDS_CHAN_BOARD_CMD_NAME, NULL);
+//    assert( ACH_OK == r);
 
     /* Open all CAN */
 //    openAllCAN( vflag );

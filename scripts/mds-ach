@@ -1,0 +1,191 @@
+#!/bin/bash
+
+# Daniel M. Lofaro (dan@danlofaro.com)
+sudo ls > /dev/null
+
+
+
+export LD_LIBRARY_PATH=/usr/lib:
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
+
+
+MDS_CAN='can0'
+MDS_BAUD=1000000
+
+MDS_NAMESPACE='mds'
+MDS_REF_CHAN='mds-ref'
+MDS_STATE_CHAN='mds-state'
+MDS_CMD_CHAN='mds-cmd'
+
+DAEMON_LOG_DIR='/var/log/mds'
+LOCK_DIR='/var/lock/mds'
+
+FLAG_REMOTE=0
+FLAG_NOCONSOLE=0
+
+MDS_REMOTE_ADDRESS='0.0.0.0'
+
+trim()
+{
+  local var=$@
+  echo -n "${var//[[:space:]]/}"
+}
+
+
+MakeAch()
+{
+	ach -1 mk $MDS_REF_CHAN -m 10 -n 3000
+        ach -1 mk $MDS_STATE_CHAN -m 10 -n 3000
+        ach -1 mk $MDS_CMD_CHAN -m 10 -n 3000
+        sudo chmod 777 /dev/shm/achshm-$MDS_NAMESPACE*
+}
+
+KillAch()
+{
+        sudo rm -rf /dev/shm/achshm-$MDS_NAMESPACE*
+}
+
+OpenCan()
+{
+
+  # List details
+  ip -details -statistics link show $MDS_CAN
+
+  # set can to baud
+  sudo ip link set $MDS_CAN type can bitrate $MDS_BAUD
+  sudo ip link set $MDS_CAN type can sample-point 0.75
+
+  # put can down
+  sudo ifconfig $MDS_CAN down
+
+  # put can up
+  sudo ifconfig $MDS_CAN up
+
+  # List details
+  ip -details -statistics link show $MDS_CAN
+
+}
+
+
+KillAll()
+{
+  KillAch
+}
+Kill()
+{
+#	sudo updatedb
+	sudo kill -9 $(pidof mds-daemon)
+}
+
+Remote()
+{
+
+case "$1" in 
+'kill')
+	KillRemote
+;;
+*)
+	MakeAch
+	achd -r push $1 $MDS_REF_CHAN &
+	achd -r pull $1 $MDS_STATE_CHAN &
+	achd -r push $1 $MDS_CMD_CHAN &
+
+;;
+esac
+
+}
+
+
+KillRemote()
+{
+	sudo kill -9 $(pidof achd)
+}
+
+ShowUsage()
+{
+	echo
+	echo 'start         : Start all channels and processes and consle'
+	echo 'stop          : Close all channels and processes'
+        echo 'make          : makes all the hubo channels'
+	echo 'kill          : Emergency kill the daemon process'
+	echo 'killall       : Emergency kill the daemon process and removes all ACH channels'
+	echo 'remote        : Starts a remote connection to xxx.xxx.xxx.xxx via achd'
+	echo '		    : Options:'
+	echo '              :     (no-arg)       : Starts remote connections'
+	echo '              :     kill    : Kills remote connection'
+	echo
+}
+
+
+Start()
+{
+  OpenCan
+}
+
+SetFlags()
+{
+MDS_I=0
+MDS_TEMP1="$@"
+MDS_TEMP=($MDS_TEMP1)
+for var in "$@"
+do
+#    echo "$var"
+    case "$var" in
+      'remote' )
+	  FLAG_REMOTE=1
+          MDS_REMOTE_ADDRESS=${HUBO_TEMP[$(($MDS_I+1))]}
+	  echo "Remote address set: "$MDS_REMOTE_ADDRESS
+      ;;
+    esac
+    MDS_I=$(($MDS_I+1))
+
+done
+}
+
+
+
+SetFlags $@
+case "$1" in
+# Start all channels and processes
+	'make' )
+		MakeAch $@
+	;;
+
+# Start all channels and processes and Console
+	'start' )
+		Start $@
+	;;
+
+# Start remote via achd
+	'remote' )
+		Remote $2
+	;;
+
+# Close all channels and processes
+	'stop' )
+		StopHubo $2
+	;;
+
+# Kill all hubo processies and remove ach
+	'killall' )
+		KillAll
+	;;
+
+# Emergency kill
+	'kill' )
+		KillHubo $2
+	;;
+
+	*)
+		ShowUsage
+		exit 1
+	;;
+esac
+
+exit 0
+
+# Local Variables:
+#  indent-tabs-mode:t
+#  tab-width: 8
+#  c-basic-offset: 8
+# End:
