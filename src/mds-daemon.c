@@ -77,7 +77,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <inttypes.h>
 #include "ach.h"
-*/
+
 
 /* At time of writing, these constants are not defined in the headers */
 #ifndef PF_CAN
@@ -95,14 +95,12 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 //static inline void tsnorm(struct timespec *ts);
-void tsnorm(struct timespec *ts);
+void mainLoop();
 void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L);
 void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
 void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
-void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L);
-void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
 
 
 
@@ -125,6 +123,18 @@ ach_channel_t chan_board_cmd; // mds-ach-console
 ach_channel_t chan_state;     // mds-ach-state
 ach_channel_t chan_to_sim;    // mds-ach-to-sim
 ach_channel_t chan_from_sim;  // mds-ach-from-sim
+
+
+static inline void tsnorm(struct timespec *ts){
+//void tsnorm(struct timespec *ts){
+//	clock_nanosleep( NSEC_PER_SEC, TIMER_ABSTIME, ts, NULL);
+	// calculates the next shot
+	while (ts->tv_nsec >= NSEC_PER_SEC) {
+		//usleep(100);	// sleep for 100us (1us = 1/1,000,000 sec)
+		ts->tv_nsec -= NSEC_PER_SEC;
+		ts->tv_sec++;
+	}
+}
 
 void mainLoop() {
     double T = (double)MDS_LOOP_PERIOD;
@@ -176,7 +186,7 @@ void mainLoop() {
                     fprintf(stderr, "Ref r = %s\n",ach_result_to_string(r));}
             }
         else{    assert( sizeof(H_ref) == fs); 
-
+        }
         
         /* Set all Ref */
         refFilterMode(&H_ref, &H_state, &H_ref_filter, MDS_REF_FILTER_LENGTH);
@@ -234,16 +244,6 @@ void clearCanBuff(mds_state_t *s, struct can_frame *f) {
 */
 }
 
-static inline void tsnorm(struct timespec *ts){
-//void tsnorm(struct timespec *ts){
-//	clock_nanosleep( NSEC_PER_SEC, TIMER_ABSTIME, ts, NULL);
-	// calculates the next shot
-	while (ts->tv_nsec >= NSEC_PER_SEC) {
-		//usleep(100);	// sleep for 100us (1us = 1/1,000,000 sec)
-		ts->tv_nsec -= NSEC_PER_SEC;
-		ts->tv_sec++;
-	}
-}
 
 
 void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L) {
@@ -337,7 +337,6 @@ void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_fram
             }
         */
         }
-    }
 }
 
 
