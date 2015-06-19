@@ -115,14 +115,13 @@ extern "C" {
 #define         MDS_CAN_BUFFER_CLEAR_I 20
 //#define         MDS_LOOP_PERIOD         0.005  ///> period for main loopin sec (0.005 = 200hz)
 #define         MDS_LOOP_PERIOD         0.010  ///> period for main loopin sec (0.010 = 100hz)
+//#define         MDS_LOOP_PERIOD         0.5  ///> period for main loopin sec (0.500 = 2hz)
 #define         MDS_STARTUP_SEND_REF_DELAY 0.8   ///> setup delay in secons
 
 #define MAX_SAFE_STACK (1024*1024) /* The maximum stack size which is
 				   guaranteed safe to access without
 				   faulting */
 
-#define OFF 0 // off static
-#define ON  1 // on static
 #define FALSE 0 // off static
 #define TRUE  1 // on static
 

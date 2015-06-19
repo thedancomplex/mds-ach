@@ -26,3 +26,4 @@ sudo make install
 cd $TMP_DIR
 cd ..
 sudo rm -rf $TMP_DIR
+sudo ln -s /usr/local/lib/libach* /usr/lib/

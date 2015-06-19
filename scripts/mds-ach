@@ -53,7 +53,7 @@ OpenCan()
 
   # set can to baud
   sudo ip link set $MDS_CAN type can bitrate $MDS_BAUD
-  sudo ip link set $MDS_CAN type can sample-point 0.75
+  sudo ip link set $MDS_CAN type can sample-point 0.5
 
   # put can down
   sudo ifconfig $MDS_CAN down
@@ -66,6 +66,10 @@ OpenCan()
 
 }
 
+BusReset()
+{
+  OpenCan
+}
 
 KillAll()
 {
@@ -109,6 +113,7 @@ ShowUsage()
         echo 'make          : makes all the hubo channels'
 	echo 'kill          : Emergency kill the daemon process'
 	echo 'killall       : Emergency kill the daemon process and removes all ACH channels'
+        echo 'resetbus      : Resets the Bus'
 	echo 'remote        : Starts a remote connection to xxx.xxx.xxx.xxx via achd'
 	echo '		    : Options:'
 	echo '              :     (no-arg)       : Starts remote connections'
@@ -175,6 +180,11 @@ case "$1" in
 	'kill' )
 		KillHubo $2
 	;;
+
+# Reset Bus
+        'resetbus' )
+               BusReset
+         ;;
 
 	*)
 		ShowUsage

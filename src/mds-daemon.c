@@ -53,6 +53,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // for mds
 #include "mds.h"
+#include "XitomeMCBCommandParser.c"
 //#include "mds-canID.h"
 //#include "mds-daemonID.h"
 //#include "mds-daemon.h"
@@ -62,7 +63,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //#ifdef HUBO_CONFIG_ESD
 //#include "hubo/hubo-esdcan.h"
 //#else
-//#include "mds-socketcan.h"
+#include "mds-socketcan.h"
+#include "mds-socketcan.c"
 //#endif
 
 // for ach
@@ -114,6 +116,7 @@ void clearCanBuff(mds_state_t *s, struct can_frame *f);
 int verbose;
 int debug;
 
+int can_skt = 0;
 
 // ach message type
 //typedef struct hubo h[1];
@@ -166,7 +169,8 @@ void mainLoop() {
 /* Create CAN Frame */
     struct can_frame frame;
 //   Is this really how the frame should be initialized?
-    sprintf( frame.data, "1234578" );
+    memset( &frame.data,0, sizeof(frame.data));
+    //sprintf( frame.data, "1234578" );
     frame.can_dlc = strlen( frame.data );
 
 
@@ -176,7 +180,7 @@ void mainLoop() {
     while(1) {
 
         // wait until next shot
-        clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
+// dan        clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
 
         size_t fs = 0;
 
@@ -212,7 +216,24 @@ void mainLoop() {
 //        huboMessage(&H_ref, &H_ref_filter, H_param, &H_state, &H_cmd, &frame);
 
         /* Clear CAN buffer - Read any aditional data left on the buffer */
-        clearCanBuff(&H_state, &frame);
+//        clearCanBuff(&H_state, &frame);
+        
+        char buff[80];
+        memset(&buff, 0, sizeof(buff));
+
+
+       // readCan(0, &frame, -1);
+        int bytes_read = read( can_skt, &frame, sizeof(frame));
+/*
+        frame.data[7] = RESPONSE_STATE;
+        frame.data[6] =  ARGUMENT_STATE_MAX_ENCODER_FREQUENCY;
+        frame.data[6] =  ARGUMENT_STATE_TRAJECTORY_PERIOD;
+*/
+        char* data = frame.data;
+//        frame.can_id = 0x12;
+        ParseResponse(buff,data,(unsigned long)floor(tsec*1000.0));
+        sprintf(buff,"%s\t%x",buff,frame.can_id);
+        printf("%s",buff);
 
 
 
@@ -413,7 +434,8 @@ int main(int argc, char **argv) {
 //    assert( ACH_OK == r);
 
     /* Open all CAN */
-//    openAllCAN( vflag );
+//    openAllCAN(0);
+    can_skt = openCAN("can0");
 
     /* Put on ACH Channels */
     ach_put(&chan_ref, &H_ref, sizeof(H_ref));
