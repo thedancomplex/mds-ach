@@ -1,0 +1,8 @@
+<server>
+	<CAN channel="0" logging="none"/>
+	<logging filename="./server.log4cpp.properties"/>
+	<anatomy filename="./homed.head.anatomy.xml" dumpfile="homed.head.anatomy.xml"/>
+	<motors enabled="true">
+		<parameter name="repeat_move_commands_with_missing_ACKs" value="1" />
+	</motors>
+</server>

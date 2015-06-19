@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<anatomy>
+   <muscle address="0x0030" name="HeadRoll" homed="false">
+      <parameter name="rom" value="28544.000000"/>
+      <parameter name="encoderresolution" value="1024"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="MCB.P" value=""/>
+      <parameter name="MCB.I" value=""/>
+      <parameter name="MCB.D" value=""/>
+      <parameter name="MCB.M" value=""/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="9%"/>
+   </muscle>
+   <muscle address="0x0031" name="LeftEyePan" homed="false">
+      <parameter name="rom" value="8238.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0032" name="EyePitch" homed="false">
+      <parameter name="rom" value="4820.000000"/>
+      <parameter name="encoderresolution" value="512"/>
+      <parameter name="gearratio" value="53"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0033" name="JawPitch" homed="false">
+      <parameter name="rom" value="3150.000000"/>
+      <parameter name="encoderresolution" value="512"/>
+      <parameter name="gearratio" value="53"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="800"/>
+      <parameter name="HomeBuffer" value="500"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0034" name="LeftUpperEyelidPitch" homed="false">
+      <parameter name="rom" value="8416.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0035" name="LeftEyebrowPitch" homed="false">
+      <parameter name="rom" value="1200.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0036" name="RightEyelidRoll" homed="false">
+      <parameter name="rom" value="2456.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="safetymargin" value="50"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0037" name="RightEyebrowPitch" homed="false">
+      <parameter name="rom" value="1114.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0038" name="HeadPitch" homed="false">
+      <parameter name="rom" value="21906.000000"/>
+      <parameter name="encoderresolution" value="1024"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0039" name="NeckPitch" homed="false">
+      <parameter name="rom" value="21892.000000"/>
+      <parameter name="encoderresolution" value="1024"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x003A" name="HeadPan" homed="false">
+      <parameter name="rom" value="38130.000000"/>
+      <parameter name="encoderresolution" value="1024"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x003B" name="JawRoll" homed="false">
+      <parameter name="rom" value="3170.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x003C" name="RightUpperEyelidPitch" homed="false">
+      <parameter name="rom" value="8252.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x003D" name="RightLowerEyelidPitch" homed="false">
+      <parameter name="rom" value="6024.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x003E" name="RightEyebrowRoll" homed="false">
+      <parameter name="rom" value="6974.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x003F" name="RightEyePan" homed="false">
+      <parameter name="rom" value="8232.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0040" name="LeftEyebrowRoll" homed="false">
+      <parameter name="rom" value="7168.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0041" name="LeftEyelidRoll" homed="false">
+      <parameter name="rom" value="2412.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="safetymargin" value="50"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0042" name="LeftLowerEyelidPitch" homed="false">
+      <parameter name="rom" value="5564.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0043" name="JawJut" homed="false">
+      <parameter name="rom" value="6084.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="67"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x004A" name="RightMiddleFlex" homed="false">
+      <parameter name="rom" value="23992.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="302"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x004E" name="LeftMiddleFlex" homed="false">
+      <parameter name="rom" value="24144.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="302"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0050" name="RightWristFlex" homed="false">
+      <parameter name="rom" value="43828.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="490.1"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0051" name="RightIndexFlex" homed="false">
+      <parameter name="rom" value="24058.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="302"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0052" name="RightWristRoll" homed="false">
+      <parameter name="rom" value="17538.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="149.8"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0053" name="RightThumbRoll" homed="false">
+      <parameter name="rom" value="24184.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="215.6"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0054" name="LeftWristFlex" homed="false">
+      <parameter name="rom" value="43584.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="490.1"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="500"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0055" name="LeftIndexFlex" homed="false">
+      <parameter name="rom" value="24060.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="302"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0056" name="LeftWristRoll" homed="false">
+      <parameter name="rom" value="17532.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="149.8"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0057" name="LeftThumbRoll" homed="false">
+      <parameter name="rom" value="24128.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="215.6"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0059" name="RightThumbFlex" homed="false">
+      <parameter name="rom" value="24036.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="282.3"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x005A" name="RightPinkieFlex" homed="false">
+      <parameter name="rom" value="24148.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="302"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x005D" name="LeftThumbFlex" homed="false">
+      <parameter name="rom" value="24114.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="282.3"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x005E" name="LeftPinkieFlex" homed="false">
+      <parameter name="rom" value="24144.000000"/>
+      <parameter name="encoderresolution" value="128"/>
+      <parameter name="gearratio" value="302"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1500"/>
+      <parameter name="HomeError" value="400"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="120"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0048" name="RightElbowFlex" homed="false">
+      <parameter name="rom" value="21330.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x0049" name="RightUpperArmRoll" homed="false">
+      <parameter name="rom" value="21198.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x004B" name="RightShoulderAbd" homed="false">
+      <parameter name="rom" value="223764.000000"/>
+      <parameter name="encoderresolution" value="2048"/>
+      <parameter name="gearratio" value="120"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x004C" name="LeftElbowFlex" homed="false">
+      <parameter name="rom" value="21342.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="auto"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="300"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x004D" name="LeftUpperArmRoll" homed="false">
+      <parameter name="rom" value="21243.000000"/>
+      <parameter name="encoderresolution" value="256"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x004F" name="LeftShoulderAbd" homed="false">
+      <parameter name="rom" value="226645.000000"/>
+      <parameter name="encoderresolution" value="2048"/>
+      <parameter name="gearratio" value="120"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x005B" name="RightShoulderExt" homed="false">
+      <parameter name="rom" value="201051.000000"/>
+      <parameter name="encoderresolution" value="2048"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="motor"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x005C" name="TorsoPan" homed="false">
+      <parameter name="rom" value="53472.000000"/>
+      <parameter name="encoderresolution" value="2048"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+   <muscle address="0x005F" name="LeftShoulderExt" homed="false">
+      <parameter name="rom" value="201691.000000"/>
+      <parameter name="encoderresolution" value="2048"/>
+      <parameter name="gearratio" value="100"/>
+      <parameter name="coordsys" value="semantic"/>
+      <parameter name="HomeType" value="manual"/>
+      <parameter name="HomeAcceleration" value="300"/>
+      <parameter name="HomeVelocity" value="1000"/>
+      <parameter name="HomeError" value="20"/>
+      <parameter name="HomeBuffer" value="300"/>
+      <parameter name="HomeTimeout" value="75"/>
+      <parameter name="HomeTarget" value="middle"/>
+      <parameter name="safetymargin" value="5%"/>
+      <parameter name="encoderconfig.tickspercount" value="2"/>
+      <parameter name="rom.margin" value="5%"/>
+   </muscle>
+</anatomy>
