@@ -178,7 +178,7 @@ static int readn (int sockfd, void *buff, size_t n, int timeo){ // microsecond p
 
 
 
-int readCan(mds_can_t skt, struct can_frame *f, double timeoD) {
+int readCan(int skt, struct can_frame *f, double timeoD) {
 	// note timeo is the time out in seconds
 
 	int timeo = (int)(timeoD*1000000.0);

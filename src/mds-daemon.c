@@ -223,7 +223,32 @@ void mainLoop() {
 
 
        // readCan(0, &frame, -1);
-        int bytes_read = read( can_skt, &frame, sizeof(frame));
+
+       /* Request all angles */
+       /* Create CAN Frame */
+       struct can_frame txframe;
+       //   Is this really how the frame should be initialized?
+       memset( &txframe.data,0, sizeof(txframe.data));
+       //sprintf( frame.data, "1234578" );
+       txframe.can_dlc = strlen( txframe.data );
+       
+
+       txframe.data[7] = 0x17;
+       txframe.data[6] = 0x04;
+       txframe.can_id = 0x11;
+       txframe.can_dlc = 8;
+       sendCan(can_skt,&txframe);
+
+
+
+        for(int i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
+          int bytes_read = readCan( can_skt, &frame, 0);
+          if (frame.data[5] == 0x00 & frame.data[4] == 0x4c){
+            float ftmp;
+            memcpy(&ftmp, frame.data, 4);
+            printf("%f\n",ftmp);
+          }
+        }
 /*
         frame.data[7] = RESPONSE_STATE;
         frame.data[6] =  ARGUMENT_STATE_MAX_ENCODER_FREQUENCY;
@@ -233,7 +258,7 @@ void mainLoop() {
 //        frame.can_id = 0x12;
         ParseResponse(buff,data,(unsigned long)floor(tsec*1000.0));
         sprintf(buff,"%s\t%x",buff,frame.can_id);
-        printf("%s",buff);
+// this prints        printf("%s",buff);
 
 
 
