@@ -237,7 +237,7 @@ void mainLoop() {
        txframe.data[6] = 0x04;
        txframe.can_id = 0x11;
        txframe.can_dlc = 8;
-       sendCan(can_skt,&txframe);
+ //      sendCan(can_skt,&txframe);
 
 
 
