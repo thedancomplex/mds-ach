@@ -383,35 +383,46 @@ void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_fram
 }
 
 
+int getPos(mds_state_t *s, char *buff, char *delm){
+    /* Gets the position of the actuator from the "PareseResponse" buffer */
+    /* items are converted into radians and put into the state channel */
+    if(strstr(buff, "Actual Position") != NULL) { 
+        char * pch;
+        pch = strtok(buff,delm);
+        double d = 0.0;
+        int address = 0;
+        int i = 0;
+        while (pch != NULL){
+          if ( i == 1){
+           /* get address */
+           address = (int)strtol(pch, NULL, 0);
+           printf ("%s\n",pch);
+          }
+          else if ( i == 4){
+           /* get location */ 
+           sscanf(pch,"%lf",&d);
+          }
+          pch = strtok (NULL, delm); 
+          i++;
+        }
+        s->joint[address].pos = d;
+//       printf("\ndeg = %f  joint = %d\n",d, address);
+    }
+    else return -1;
+    
+    return 0;
+}
+
 int decodeFrame(mds_state_t *s, char *buff, struct can_frame *f) {
     int fs = (int)f->can_id;
     int cmd = (int)f->data[0];
     ParseResponse(buff,f->data,(unsigned long)floor(1234*1000.0));
+    sprintf(buff,"%s\t%x",buff,f->can_id);
+    //printf("%s",buff);
     char * delm = " ,\t";
-    if(strstr(buff, "Actual Position") != NULL) { 
-      if(strstr(buff, "0x004C") != NULL) { 
-        sprintf(buff,"%s\t%x",buff,f->can_id);
-        printf("%s",buff);
-        char * pch;
-        pch = strtok(buff,delm);
-        double d = 0.0;
-        int i = 0;
-        printf("\n------------\n");
+    getPos( s, buff, delm);
 
-
-        while (pch != NULL){
-          if ( i == 4){ 
-           sscanf(pch,"%lf",&d);
-          }
-          else{
-           pch = strtok (NULL, delm); 
-          }
-          i++;
-        }
-       printf("\ndeg = %f\n",d);
-      }
-    }
-
+    printf("\ndeg = %f  joint = %d\n",s->joint[0x004c].pos, 0x004c);
     return 0; 
 }
 
