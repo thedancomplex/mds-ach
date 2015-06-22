@@ -99,7 +99,7 @@ extern "C" {
 #define		LFR		28		//	Left Finger 1 roll (thumb)
 
 #define 	MDS_CAN_CHAN_NUM	4	///> Number of CAN channels avaliable
-#define         MDS_JOINT_COUNT        42              ///> The max number of joints
+#define         MDS_JOINT_COUNT        100      ///> The max number of joints
 
 #define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> hubo ach channel
 #define		MDS_CHAN_BOARD_CMD_NAME   "mds-cmd"                    ///> hubo console channel for ach
@@ -150,11 +150,6 @@ typedef enum {
 
 typedef struct mds_joint_state {
         double ref;         ///< Last reference value sent
-	uint8_t comply;		///< Are we in compliance mode?
-                        ///< 0: Rigid mode
-                        ///< 1: Compliant mode
-                        ///< 2: Transitioning back to rigid
-                        ///< 3: Turning motor control back on (should never be seen by the user) 
 	double pos;     	///< actual position (rad)
 	double cur;     	///< actual current (amps)
 	double vel;     	///< actual velocity (rad/sec)

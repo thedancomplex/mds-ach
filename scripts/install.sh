@@ -27,3 +27,7 @@ cd $TMP_DIR
 cd ..
 sudo rm -rf $TMP_DIR
 sudo ln -s /usr/local/lib/libach* /usr/lib/
+# Install ACH python bindings
+sudo apt-get install python-pip
+sudo pip install http://code.golems.org/src/ach/py_ach-latest.tar.gz
+
