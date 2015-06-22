@@ -1,0 +1,10 @@
+01 ID
+02 PGM_Echo
+03 Gain
+04 Version
+05 State
+06 ACK
+07 Error
+08 FillBuffer
+09 CheckSum
+0a Warning

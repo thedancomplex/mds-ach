@@ -118,6 +118,8 @@ extern "C" {
 #define         MDS_LOOP_PERIOD         0.050  ///> period for main loopin sec (0.050 = 20hz)
 //#define         MDS_LOOP_PERIOD         0.5  ///> period for main loopin sec (0.500 = 2hz)
 #define         MDS_STARTUP_SEND_REF_DELAY 0.8   ///> setup delay in secons
+#define         MDS_CHAR_PARAM_BUFFER_SIZE 10  // size of the buffer for the char part of the params (such as names)
+
 
 #define MAX_SAFE_STACK (1024*1024) /* The maximum stack size which is
 				   guaranteed safe to access without
@@ -140,13 +142,41 @@ typedef enum {
 	MDS_REF_MODE_REF_FILTER    = 0, ///< Reference to reference filter
 	MDS_REF_MODE_REF           = 1, ///< Direct reference control
 	MDS_REF_MODE_COMPLIANT     = 2, ///< Compliant mode, sets ref to current encoder position. 
-	MDS_REF_MODE_ENC_FILTER    = 3, ///< Reference filter
-}__attribute__((packed)) mds_mode_type_t;
+	MDS_REF_MODE_ENC_FILTER    = 3//< Reference filter
+};
 
 #define RIGHT 0
 #define LEFT 1
 
 
+
+typedef struct mds_jnt_param {
+    double rom;
+    double encoderresolution;
+    double gearratio;
+    double HomeAcceleration;
+    double HomeVelocity;
+    double HomeError;
+    double HomeBuffer;
+    double HomeTimeout;
+    double MCB_KP;
+    double MCB_KI;
+    double MCB_KD;
+    double MCB_KM;
+    double safetymargin;
+    double encoderconfig_tickspercount;
+    double rom_margin;
+    uint16_t address;
+    char coordsys[MDS_CHAR_PARAM_BUFFER_SIZE];
+    char HomeType[MDS_CHAR_PARAM_BUFFER_SIZE];
+    char HomeTarget[MDS_CHAR_PARAM_BUFFER_SIZE];
+    char name[MDS_CHAR_PARAM_BUFFER_SIZE];
+}__attribute__((packed)) mds_jnt_param_t;
+
+
+typedef struct mds_joint_param {
+    struct mds_jnt_param joint[MDS_JOINT_COUNT];
+}__attribute__((packed)) mds_joint_param_t;
 
 typedef struct mds_joint_state {
         double ref;         ///< Last reference value sent

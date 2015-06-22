@@ -54,6 +54,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // for mds
 #include "mds.h"
 #include "XitomeMCBCommandParser.c"
+#include "mds-xml-parser.c"
 //#include "mds-canID.h"
 //#include "mds-daemonID.h"
 //#include "mds-daemon.h"
