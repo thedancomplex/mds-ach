@@ -181,7 +181,7 @@ void mainLoop() {
     while(1) {
 
         // wait until next shot
-// dan        clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
+        clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
 
         size_t fs = 0;
 
@@ -243,7 +243,7 @@ void mainLoop() {
 
 
         for(int i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
-          int bytes_read = readCan( can_skt, &frame, -1);
+          int bytes_read = readCan( can_skt, &frame, 0);
           decodeFrame(&H_state, buff, &frame);
         }
 /*
@@ -265,6 +265,7 @@ void mainLoop() {
         tsec += (double)(time.tv_nsec)/1.0e9;
         H_state.time = tsec; // add time based on system time
 
+        printf("\ndeg = %f  joint = %d time = %f \n",H_state.joint[0x004c].pos, 0x004c, H_state.time);
         /* put data back in ACH channel */
         ach_put( &chan_state, &H_state, sizeof(H_state));
 
@@ -396,7 +397,7 @@ int getPos(mds_state_t *s, char *buff, char *delm){
           if ( i == 1){
            /* get address */
            address = (int)strtol(pch, NULL, 0);
-           printf ("%s\n",pch);
+           //printf ("%s\n",pch);
           }
           else if ( i == 4){
            /* get location */ 
@@ -422,7 +423,7 @@ int decodeFrame(mds_state_t *s, char *buff, struct can_frame *f) {
     char * delm = " ,\t";
     getPos( s, buff, delm);
 
-    printf("\ndeg = %f  joint = %d\n",s->joint[0x004c].pos, 0x004c);
+//    printf("\ndeg = %f  joint = %d\n",s->joint[0x004c].pos, 0x004c);
     return 0; 
 }
 
