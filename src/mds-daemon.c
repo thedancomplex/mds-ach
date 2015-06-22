@@ -104,6 +104,7 @@ void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
 void clearCanBuff(mds_state_t *s, struct can_frame *f);
+int decodeFrame(mds_state_t *s, char *buff, struct can_frame *f);
 
 
 
@@ -242,12 +243,8 @@ void mainLoop() {
 
 
         for(int i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
-          int bytes_read = readCan( can_skt, &frame, 0);
-          if (frame.data[5] == 0x00 & frame.data[4] == 0x4c){
-            float ftmp;
-            memcpy(&ftmp, frame.data, 4);
-            printf("%f\n",ftmp);
-          }
+          int bytes_read = readCan( can_skt, &frame, -1);
+          decodeFrame(&H_state, buff, &frame);
         }
 /*
         frame.data[7] = RESPONSE_STATE;
@@ -256,8 +253,8 @@ void mainLoop() {
 */
         char* data = frame.data;
 //        frame.can_id = 0x12;
-        ParseResponse(buff,data,(unsigned long)floor(tsec*1000.0));
-        sprintf(buff,"%s\t%x",buff,frame.can_id);
+//        ParseResponse(buff,data,(unsigned long)floor(tsec*1000.0));
+//        sprintf(buff,"%s\t%x",buff,frame.can_id);
 // this prints        printf("%s",buff);
 
 
@@ -386,36 +383,36 @@ void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_fram
 }
 
 
-
-
-
-int decodeFrame(mds_state_t *s, struct can_frame *f) {
+int decodeFrame(mds_state_t *s, char *buff, struct can_frame *f) {
     int fs = (int)f->can_id;
     int cmd = (int)f->data[0];
-    printf("can\r\n");
+    ParseResponse(buff,f->data,(unsigned long)floor(1234*1000.0));
+    char * delm = " ,\t";
+    if(strstr(buff, "Actual Position") != NULL) { 
+      if(strstr(buff, "0x004C") != NULL) { 
+        sprintf(buff,"%s\t%x",buff,f->can_id);
+        printf("%s",buff);
+        char * pch;
+        pch = strtok(buff,delm);
+        double d = 0.0;
+        int i = 0;
+        printf("\n------------\n");
+
+
+        while (pch != NULL){
+          if ( i == 4){ 
+           sscanf(pch,"%lf",&d);
+          }
+          else{
+           pch = strtok (NULL, delm); 
+          }
+          i++;
+        }
+       printf("\ndeg = %f\n",d);
+      }
+    }
+
     return 0; 
-
-
-
-/*
-    if (fs == H_ENC_BASE_RXDF + 0xE)
-    {
-        // Voltage, Current Return Message
-        double voltage = doubleFromBytePair(f->data[1],f->data[0])/100.0;
-        double current = doubleFromBytePair(f->data[3],f->data[2])/100.0;
-        double power   = doubleFromBytePair(f->data[5],f->data[4])/10.0;
-        s->power.voltage = voltage;
-        s->power.current = current;
-        s->power.power = power;	
-    }
-*/
-    /* Force-Torque Readings */
-/*
-    else if( (fs >= H_SENSOR_FT_BASE_RXDF) && (fs <= H_SENSOR_FT_MAX_RXDF) )
-    {
-    }
-    return 0;
-*/
 }
 
 int main(int argc, char **argv) {

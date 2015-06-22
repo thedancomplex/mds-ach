@@ -1,6 +1,5 @@
 default: all
 
-
 CFLAGS := -I./include -g -std=gnu99 
 CC := gcc
 
@@ -11,7 +10,7 @@ all : $(BINARIES)
 LIBS := -lach -lrt -lm
 
 mds-daemon: src/mds-daemon.o
-	gcc -o $@ $< $(LIBS)
+	$(CC) -o $@ $< $(LIBS)
 
 #mds-can-daemon: src/mds-can-daemon.o
 #	gcc -o $@ $< $(LIBS)
