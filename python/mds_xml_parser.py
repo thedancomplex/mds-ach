@@ -25,37 +25,84 @@
 #*/
 
 import xml.etree.ElementTree as et
+import mds_ach as mds
+import ach
+import ctypes
 
-tree = et.parse('i.xml')
-root = tree.getroot()
+def p2f(x):
+    return float(x.strip('%'))/100
 
-for joint in root:
+def str2ubytes(str_bytes_ini):
+     str_bytes = str_bytes_ini +' '*(mds.MDS_CHAR_PARAM_BUFFER_SIZE - len(str_bytes_ini))
+     return (ctypes.c_ubyte * mds.MDS_CHAR_PARAM_BUFFER_SIZE)(*bytearray(str_bytes))
+
+def ubytes2str(ubarray):
+     return (''.join(map(chr,ubarray))).rstrip()
+
+def doParseXML(doc):
+  tree = et.parse(doc)
+  root = tree.getroot()
+  p = mds.MDS_JOINT_PARAM()
+  for joint in root.findall('muscle'):
      address = joint.attrib['address']
      jnt = int(address,0)
      j = p.joint[jnt]
-     j.name = joint.attrib['name']
+     str_bytes_ini = joint.attrib['name']
+     print 'name1 = ', str_bytes_ini, '\t\t len = ', len(str_bytes_ini)
+     j.name = str2ubytes(str_bytes_ini)
      for param in joint.findall('parameter'):
-       s = param.attrib('name')
-       v = param.attrib('value')
+      s = param.attrib['name']
+      v = param.attrib['value']
+      if( v != ""):
        if( s == 'rom'):
          j.rom = float(v)
        if( s == 'encoderresolution'):
          j.encoderresolution = float(v)
        if( s == 'gearratio'):
+         j.gearratio = float(v)
        if( s == 'HomeAcceleration'):
+         j.HomeAcceleration = float(v)
        if( s == 'HomeVelocity'):
+         j.HomeVelocity = float(v)
        if( s == 'HomeError'):
+         j.HomeError = float(v)
        if( s == 'HomeBuffer'):
+         j.HomeBuffer = float(v)
        if( s == 'HomeTimeout'):
+         j.HomeTimeout = float(v)
        if( s == 'MCB.P'):
+         j.MCB_KP = float(v)
        if( s == 'MCB.I'):
+         j.MCB_KI = float(v)
        if( s == 'MCB.D'):
+         j.MCB_KD = float(v)
        if( s == 'MCB.M'):
+         j.MCB_KM = float(v)
        if( s == 'safetymargin'):
+         j.safetymargin = p2f(v)
        if( s == 'encoderconfig.tickspercount'):
+         j.encoderconfig_tickspercount = float(v)
        if( s == 'rom.margin'):
+         j.rom_margin = p2f(v)
        if( s == 'coordsys'):
+         j.coordsys = str2ubytes(v)
        if( s == 'HomeType'):
+         j.HomeType = str2ubytes(v)
        if( s == 'HomeTarget'):
-       if( s == 'name'):
+         j.HomeTarget = str2ubytes(v)
+       
+     #put it back on the struct
+     p.joint[jnt] = j  
+  return p
+
+
+if __name__ == '__main__':
+    param = doParseXML('i.xml')
+    p = ach.Channel(mds.MDS_CHAN_PARAM_NAME)
+
+    p.put(param)
+
+
+
+
 

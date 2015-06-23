@@ -101,11 +101,12 @@ extern "C" {
 #define 	MDS_CAN_CHAN_NUM	4	///> Number of CAN channels avaliable
 #define         MDS_JOINT_COUNT        100      ///> The max number of joints
 
-#define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> hubo ach channel
-#define		MDS_CHAN_BOARD_CMD_NAME   "mds-cmd"                    ///> hubo console channel for ach
+#define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> mds ach channel
+#define		MDS_CHAN_BOARD_CMD_NAME   "mds-cmd"                    ///> mds console channel for ach
+#define         MDS_CHAN_PARAM_NAME       "mds-param"                  ///> mds param channel
 #define		MDS_CHAN_CAN_DAEMON_NAME  "mds-can-daemon"             ///> daemon for reading CAN
-#define		MDS_CHAN_STATE_NAME       "mds-state"                  ///> hubo state ach channel
-#define 	MDS_CHAN_REF_FILTER_NAME  "mds-ref-filter"             ///> hubo reference with filter ach channel
+#define		MDS_CHAN_STATE_NAME       "mds-state"                  ///> mds state ach channel
+#define 	MDS_CHAN_REF_FILTER_NAME  "mds-ref-filter"             ///> mds reference with filter ach channel
 #define 	MDS_CHAN_VIRTUAL_TO_SIM_NAME "mds-virtual-to-sim"      ///> virtual channel trigger to simulator
 #define 	MDS_CHAN_VIRTUAL_FROM_SIM_NAME "mds-virtual-from-sim"  ///> virtual channel trigger from simulator
 //#define		MDS_CAN_TIMEOUT_DEFAULT 0.0005		///> Default time for CAN to time out
@@ -118,7 +119,7 @@ extern "C" {
 #define         MDS_LOOP_PERIOD         0.050  ///> period for main loopin sec (0.050 = 20hz)
 //#define         MDS_LOOP_PERIOD         0.5  ///> period for main loopin sec (0.500 = 2hz)
 #define         MDS_STARTUP_SEND_REF_DELAY 0.8   ///> setup delay in secons
-#define         MDS_CHAR_PARAM_BUFFER_SIZE 10  // size of the buffer for the char part of the params (such as names)
+#define         MDS_CHAR_PARAM_BUFFER_SIZE 30  // size of the buffer for the char part of the params (such as names)
 
 
 #define MAX_SAFE_STACK (1024*1024) /* The maximum stack size which is

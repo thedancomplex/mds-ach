@@ -38,8 +38,10 @@ from ctypes import Structure,c_uint16,c_double,c_ubyte,c_uint32,c_int16
 MDS_JOINT_COUNT                  = 100
 MDS_CHAN_REF_NAME                = 'mds-ref'
 MDS_CHAN_BOARD_CMD_NAME          = 'mds-board-cmd'
+MDS_CHAN_PARAM_NAME              = "mds-param"
 MDS_CHAN_STATE_NAME              = 'mds-state'
 MDS_LOOP_PERIOD                  = 0.005
+MDS_CHAR_PARAM_BUFFER_SIZE       = 30
 
 H = 0 # Neck roll
 NYH = 1 # neck yaw
@@ -81,6 +83,36 @@ RIGTH = 0
 LEFT = 1
 TRUE = 1
 FALSE = 0
+
+
+
+
+class MDS_JNT_PARAM(Structure):
+    _pack_ = 1
+    _fields_ = [("rom"                          , c_double),
+                ("encoderresolution"            , c_double),
+                ("gearratio"                    , c_double),
+                ("HomeAcceleration"             , c_double),
+                ("HomeVelocity"                 , c_double),
+                ("HomeError"                    , c_double),
+                ("HomeBuffer"                   , c_double),
+                ("HomeTimeout"                  , c_double),
+                ("MCB_KP"                       , c_double),
+                ("MCB_KI"                       , c_double),
+                ("MCB_KD"                       , c_double),
+                ("MCB_KM"                       , c_double),
+                ("safetymargin"                 , c_double),
+                ("encoderconfig_tickspercount"  , c_double),
+                ("rom_margin"                   , c_double),
+                ("address"                      , c_int16),
+                ("coordsys"                     , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
+                ("HomeType"                     , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
+                ("HomeTarget"                   , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
+                ("name"                         , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
+
+class MDS_JOINT_PARAM(Structure):
+    _pack_ = 1
+    _fields_ = [("joint",    MDS_JNT_PARAM*MDS_JOINT_COUNT)]
 
 class MDS_JOINT_STATE(Structure):
     _pack_ = 1

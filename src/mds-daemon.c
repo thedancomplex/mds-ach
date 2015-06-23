@@ -54,7 +54,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // for mds
 #include "mds.h"
 #include "XitomeMCBCommandParser.c"
-#include "mds-xml-parser.c"
 //#include "mds-canID.h"
 //#include "mds-daemonID.h"
 //#include "mds-daemon.h"
@@ -407,7 +406,7 @@ int getPos(mds_state_t *s, char *buff, char *delm){
           pch = strtok (NULL, delm); 
           i++;
         }
-        s->joint[address].pos = d;
+        s->joint[address].pos = d / ( 256.0 * 2.0 * 100.0)*360.0;
 //       printf("\ndeg = %f  joint = %d\n",d, address);
     }
     else return -1;

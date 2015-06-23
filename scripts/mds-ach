@@ -14,6 +14,7 @@ MDS_BAUD=1000000
 
 MDS_NAMESPACE='mds'
 MDS_REF_CHAN='mds-ref'
+MDS_PARAM_CHAN='mds-param'
 MDS_STATE_CHAN='mds-state'
 MDS_CMD_CHAN='mds-cmd'
 
@@ -35,6 +36,7 @@ trim()
 MakeAch()
 {
 	ach -1 mk $MDS_REF_CHAN -m 10 -n 3000
+	ach -1 mk $MDS_PARAM_CHAN -m 10 -n 3000
         ach -1 mk $MDS_STATE_CHAN -m 10 -n 3000
         ach -1 mk $MDS_CMD_CHAN -m 10 -n 3000
         sudo chmod 777 /dev/shm/achshm-$MDS_NAMESPACE*
@@ -92,6 +94,7 @@ case "$1" in
 	MakeAch
 	achd -r push $1 $MDS_REF_CHAN &
 	achd -r pull $1 $MDS_STATE_CHAN &
+	achd -r pull $1 $MDS_PARAM_CHAN &
 	achd -r push $1 $MDS_CMD_CHAN &
 
 ;;
