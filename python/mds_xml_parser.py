@@ -48,7 +48,7 @@ def doParseXML(doc):
      jnt = int(address,0)
      j = p.joint[jnt]
      str_bytes_ini = joint.attrib['name']
-     print 'name1 = ', str_bytes_ini, '\t\t len = ', len(str_bytes_ini)
+  #   print 'name1 = ', str_bytes_ini, '\t\t len = ', len(str_bytes_ini)
      j.name = str2ubytes(str_bytes_ini)
      for param in joint.findall('parameter'):
       s = param.attrib['name']
@@ -99,7 +99,6 @@ def doParseXML(doc):
 if __name__ == '__main__':
     param = doParseXML('i.xml')
     p = ach.Channel(mds.MDS_CHAN_PARAM_NAME)
-
     p.put(param)
 
 
