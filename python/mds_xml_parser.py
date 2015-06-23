@@ -97,7 +97,7 @@ def doParseXML(doc):
 
 
 if __name__ == '__main__':
-    param = doParseXML('i.xml')
+    param = doParseXML('configs/anatomy.xml')
     p = ach.Channel(mds.MDS_CHAN_PARAM_NAME)
     p.put(param)
 

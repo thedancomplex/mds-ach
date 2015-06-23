@@ -7,6 +7,7 @@ import signal
 import sys
 import os
 from optparse import OptionParser
+import math
 
 #c.flush()
 
@@ -16,16 +17,18 @@ rMax = 0x004f
 timey = 1
 timex = 2
 heady = 2
-addressx = 2
+namex = 2
+addressx =  28
 posy = heady
-posrefx = 10
-posstatex = 30
+posrefx = 35
+posstatex = 50
 
 def mainLoop():
   # Start curses
   stdscr = curses.initscr()
   s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
   state = mds.MDS_STATE()
+  curses.resizeterm(101, 100)
   while(1):
     [status, framesize] = s.get(state, wait=False, last=True)
 
@@ -35,20 +38,31 @@ def mainLoop():
     stdscr.addstr(heady,posstatex, "Actual Pos", curses.A_BOLD)
     i = 0
     stdscr.addstr(timey,timex, str(state.time))
-    for j in range(rMin,rMax):
+#    for j in range(rMin,rMax):
+    for j in range(39,mds.MDS_JOINT_COUNT):
+     jnt = state.joint[j]
+     jntName = (mds.ubytes2str(jnt.name)).replace('\0', '')
+#     if (False == math.isnan(jnt.pos)):
+     if ('' != jntName.strip()):
       y = i+heady+1
+      # Name
+#      print jnt.name
+      stdscr.addstr(y,namex, jntName)
+
       # Addresses
-      stdscr.addstr(y,addressx, str(j))
+      outAdd =  ''.join(format(j,'02x'))
+      outAdd = '0x'+outAdd
+      stdscr.addstr(y,addressx, outAdd)
 
       # cmd pos
-      stdscr.addstr(y,posrefx, str(state.joint[j].ref))
+      stdscr.addstr(y,posrefx, str(jnt.ref))
 
       # actuial pos
-      stdscr.addstr(y,posstatex, str(state.joint[j].pos))
+      stdscr.addstr(y,posstatex, str(jnt.pos))
 
       i += 1
     stdscr.refresh()
-    time.sleep(0.1)
+    time.sleep(0.05)
 
 #    if status == ach.ACH_OK or status == ach.ACH_MISSED_FRAME:
 #        print b.ref[0]

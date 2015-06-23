@@ -53,12 +53,15 @@ OpenCan()
   # List details
   ip -details -statistics link show $MDS_CAN
 
+  # put can down
+  sudo ifconfig $MDS_CAN down
+
   # set can to baud
   sudo ip link set $MDS_CAN type can bitrate $MDS_BAUD
   sudo ip link set $MDS_CAN type can sample-point 0.5
+  # this might fix the bus-off problem
+  sudo ip link set $MDS_CAN type can restart-ms 100 
 
-  # put can down
-  sudo ifconfig $MDS_CAN down
 
   # put can up
   sudo ifconfig $MDS_CAN up
@@ -128,6 +131,9 @@ ShowUsage()
 Start()
 {
   OpenCan
+  MakeAch
+  python python/mds_xml_parser.py
+  ./mds-daemon
 }
 
 SetFlags()

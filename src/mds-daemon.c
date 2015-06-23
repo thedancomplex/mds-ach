@@ -104,7 +104,8 @@ void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
 void clearCanBuff(mds_state_t *s, struct can_frame *f);
-int decodeFrame(mds_state_t *s, char *buff, struct can_frame *f);
+int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f); 
+int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm);
 
 
 
@@ -124,6 +125,7 @@ int can_skt = 0;
 
 // ach channels
 ach_channel_t chan_ref;       // mds-ref
+ach_channel_t chan_param;     // mds-param
 ach_channel_t chan_board_cmd; // mds-ach-console
 ach_channel_t chan_state;     // mds-ach-state
 ach_channel_t chan_to_sim;    // mds-ach-to-sim
@@ -141,6 +143,17 @@ static inline void tsnorm(struct timespec *ts){
 	}
 }
 
+
+void setNameToState(mds_state_t *s, mds_joint_param_t *p){
+    for( int i = 0; i < MDS_JOINT_COUNT; i++) {
+//        memset(&s->joint[i].name, p->joint[i].name, sizeof(s->joint[i].name));
+        memcpy(s->joint[i].name, p->joint[i].name, strlen(p->joint[i].name));        
+
+//s->joint[i].name = p->joint[i].name;
+    }
+
+}
+
 void mainLoop() {
     double T = (double)MDS_LOOP_PERIOD;
     int interval = (int)((double)NSEC_PER_SEC*T);
@@ -156,9 +169,23 @@ void mainLoop() {
     mds_ref_t H_ref;
     mds_ref_t H_ref_filter;
     mds_state_t H_state;
+    mds_joint_param_t H_param;
     memset( &H_ref,   0, sizeof(H_ref));
     memset( &H_state, 0, sizeof(H_state));
     memset( &H_ref_filter,   0, sizeof(H_ref_filter));
+    memset( &H_param,   0, sizeof(H_param));
+
+    /* Get latest ACH message */
+    size_t fs = 0;
+    int rr = ach_get( &chan_param, &H_param, sizeof(H_param), &fs, NULL, ACH_O_LAST );
+    if(ACH_OK != rr) {
+        if(debug) {
+                fprintf(stderr, "param r = %s\n",ach_result_to_string(rr));}
+        }
+    else{    assert( sizeof(H_param) == fs); 
+    }
+
+    setNameToState(&H_state, &H_param);
 
 
     // get current time
@@ -177,13 +204,16 @@ void mainLoop() {
 
     int startFlag = 1;
 
+
+
+
     printf("Start MDS Loop\n");
     while(1) {
 
         // wait until next shot
         clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
 
-        size_t fs = 0;
+        fs = 0;
 
         /* Get latest ACH message */
         int r = ach_get( &chan_ref, &H_ref, sizeof(H_ref), &fs, NULL, ACH_O_LAST );
@@ -238,13 +268,13 @@ void mainLoop() {
        txframe.data[6] = 0x04;
        txframe.can_id = 0x11;
        txframe.can_dlc = 8;
- //      sendCan(can_skt,&txframe);
+       sendCan(can_skt,&txframe);
 
 
 
         for(int i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
           int bytes_read = readCan( can_skt, &frame, 0);
-          decodeFrame(&H_state, buff, &frame);
+          decodeFrame(&H_state, &H_param, buff, &frame);
         }
 /*
         frame.data[7] = RESPONSE_STATE;
@@ -384,7 +414,7 @@ void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_fram
 }
 
 
-int getPos(mds_state_t *s, char *buff, char *delm){
+int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm){
     /* Gets the position of the actuator from the "PareseResponse" buffer */
     /* items are converted into radians and put into the state channel */
     if(strstr(buff, "Actual Position") != NULL) { 
@@ -406,7 +436,10 @@ int getPos(mds_state_t *s, char *buff, char *delm){
           pch = strtok (NULL, delm); 
           i++;
         }
-        s->joint[address].pos = d / ( 256.0 * 2.0 * 100.0)*360.0;
+        double rat = 2.0 * M_PI / (p->joint[address].encoderresolution * 
+                                   p->joint[address].gearratio *
+                                   p->joint[address].encoderconfig_tickspercount);
+        s->joint[address].pos = d * rat;
 //       printf("\ndeg = %f  joint = %d\n",d, address);
     }
     else return -1;
@@ -414,14 +447,14 @@ int getPos(mds_state_t *s, char *buff, char *delm){
     return 0;
 }
 
-int decodeFrame(mds_state_t *s, char *buff, struct can_frame *f) {
+int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f) {
     int fs = (int)f->can_id;
     int cmd = (int)f->data[0];
     ParseResponse(buff,f->data,(unsigned long)floor(1234*1000.0));
     sprintf(buff,"%s\t%x",buff,f->can_id);
     //printf("%s",buff);
     char * delm = " ,\t";
-    getPos( s, buff, delm);
+    getPos( s, p, buff, delm);
 
 //    printf("\ndeg = %f  joint = %d\n",s->joint[0x004c].pos, 0x004c);
     return 0; 
@@ -461,6 +494,10 @@ int main(int argc, char **argv) {
 
     // open state
     r = ach_open(&chan_state, MDS_CHAN_STATE_NAME, NULL);
+    assert( ACH_OK == r);
+
+    // open param channel
+    r = ach_open(&chan_param, MDS_CHAN_PARAM_NAME, NULL);
     assert( ACH_OK == r);
 
     // initilize control channel

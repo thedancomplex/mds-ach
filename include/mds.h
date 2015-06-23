@@ -186,6 +186,7 @@ typedef struct mds_joint_state {
 	double vel;     	///< actual velocity (rad/sec)
 	uint8_t active; 	///< checks if the joint is active or not
 	uint8_t homed;		///< checks to see if the motor is zeroed
+        char name[MDS_CHAR_PARAM_BUFFER_SIZE];
 }__attribute__((packed)) mds_joint_state_t;
 
 typedef struct mds_power {

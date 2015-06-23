@@ -121,7 +121,8 @@ class MDS_JOINT_STATE(Structure):
                 ("cur"   , c_double),
                 ("vel"   , c_double),
                 ("active", c_ubyte),
-                ("homed", c_ubyte)]
+                ("homed" , c_ubyte),
+                ("name"  , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
 
 class MDS_POWER(Structure):
 	_pack_ = 1
@@ -146,4 +147,15 @@ class MDS_JOINT_REF(Structure):
 class MDS_REF(Structure):
     _pack_ = 1
     _fields_ = [("ref",    MDS_JOINT_REF*MDS_JOINT_COUNT)]
+
+
+def p2f(x):
+    return float(x.strip('%'))/100
+
+def str2ubytes(str_bytes_ini):
+     str_bytes = str_bytes_ini +' '*(mds.MDS_CHAR_PARAM_BUFFER_SIZE - len(str_bytes_ini))
+     return (ctypes.c_ubyte * mds.MDS_CHAR_PARAM_BUFFER_SIZE)(*bytearray(str_bytes))
+
+def ubytes2str(ubarray):
+     return (''.join(map(chr,ubarray))).rstrip()
 
