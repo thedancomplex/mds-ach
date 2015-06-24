@@ -31,3 +31,6 @@ sudo ln -s /usr/local/lib/libach* /usr/lib/
 sudo apt-get install python-pip
 sudo pip install http://code.golems.org/src/ach/py_ach-latest.tar.gz
 
+
+# For utilities
+sudo apt-get install python-pygame
