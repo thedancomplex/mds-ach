@@ -16,14 +16,18 @@ import sys
 import os
 import math
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MultipleLocator, FormatStrFormatter
+
+
+Fs = 0.05
+
+
 plt.axis([0, 1000, 0, 1])
 plt.ion()
 plt.show()
 plt.xlabel("time (sec)")
 plt.ylabel("angle (rad)")
 plt.title("Joint Angle")
-plt.grid(b=True, which='major', color='b', linestyle='-')
-plt.grid(b=True, which='minor', color='r', linestyle='--')
 
 ymult = float(1.0)
 yzero = float(0.0)
@@ -41,32 +45,47 @@ xincr = float(1)
 ##pylab.show()
 
 # buffer size
-bs = 100
-y = []
-t = []
+bs = 154
+st = []
+t  = []
+re = []
 for i in range(bs):
-   y.append(i) 
+   st.append(i) 
    t.append(i)
+   re.append(i)
 
 jnt = 0x004c
 
 
 def mainLoop():
   s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
+  r = ach.Channel(mds.MDS_CHAN_REF_NAME)
   state = mds.MDS_STATE()
+  ref = mds.MDS_REF()
   j = 0
   [status, framesize] = s.get(state, wait=False, last=True)
   for i in range(bs):
-    y[i] = 0.0
+    st[i] = 0.0
     t[i] = state.time
+    re[i] = 0.0
+    
+  t[bs-1] = t[0] + Fs
   while(1):
     [status, framesize] = s.get(state, wait=False, last=True)
-    y[j] = state.joint[jnt].pos
+    [status, framesize] = r.get(ref, wait=False, last=True)
+    st[j] = state.joint[jnt].pos
+    re[j] = ref.joint[jnt].ref
     t[j] = state.time
+    plt.clf()
     plt.axis([np.amin(t), np.amax(t), -3, 3])
 #    plt.scatter(t, y)
 #    plt.plot(t, y,'.r-')
-    plt.plot(t, y,'.g-')
+#    plt.plot(t, re,'.b-')
+#    plt.plot(t, st,'.g-')
+    plt.plot(t, re,'.b')
+    plt.plot(t, st,'.g')
+    plt.grid(b=True, which='major', color='b', linestyle='-')
+#    plt.grid(b=True, which='minor', color='r', linestyle='--')
     plt.draw()
 
 #    pylab.plot(t,y)
@@ -79,6 +98,6 @@ def mainLoop():
       j = 0
     
 
-    time.sleep(0.1)
+    time.sleep(Fs)
 
 mainLoop()

@@ -147,7 +147,7 @@ class MDS_JOINT_REF(Structure):
 
 class MDS_REF(Structure):
     _pack_ = 1
-    _fields_ = [("ref",    MDS_JOINT_REF*MDS_JOINT_COUNT)]
+    _fields_ = [("joint",    MDS_JOINT_REF*MDS_JOINT_COUNT)]
 
 
 def p2f(x):
