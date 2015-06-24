@@ -107,9 +107,15 @@ void clearCanBuff(int skt, mds_state_t *s, mds_joint_param_t *p, char *buff, str
 int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f);
 int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm);
 void requestState(int skt);
-
-
-
+float deg2enc(double deg, int address, mds_joint_param_t *p);
+float rad2enc(double radss, int address, mds_joint_param_t *p);
+double rad2deg(double rad);
+void f_setAcc(double radss, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
+void f_setRef(double ref, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
+void f_setRefTrajectoryModeDefault(int address, mds_joint_param_t *p, int skt, struct can_frame *f);
+void f_setRefTrajectoryMode(int mode, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
+void f_setRefTrajectoryPeriodDefault(int address, mds_joint_param_t *p, int skt, struct can_frame *f);
+void f_setRefTrajectoryPeriod(int period, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
 
 
 // Timing info
@@ -164,7 +170,7 @@ void mainLoop() {
     // time info
     struct timespec t, time;
     double tsec;
-
+   
 
     // Initialize Hubo Structs
     mds_ref_t H_ref;
@@ -254,6 +260,48 @@ void mainLoop() {
         /* Clear CAN buffer - Read any aditional data left on the buffer */
 //        clearCanBuff(&H_state, &frame);
         
+/*
+        float ftmp = 1234.0;
+        int address = 0x004c;
+        double rat = 360.0 / (H_param.joint[address].encoderresolution * 
+                              H_param.joint[address].gearratio *
+                              H_param.joint[address].encoderconfig_tickspercount);
+*/
+/* 5 deg/sec^2 in enc ticks */
+/*
+        frame.data[0] = 0x1d;
+        frame.data[1] = 0xc7;
+        frame.data[2] = 0x31;
+        frame.data[3] = 0x44;
+   */
+
+/* 1 deg/sec^2 in enc ticks */
+/*
+        frame.data[0] = 0xe4;
+        frame.data[1] = 0x38;
+        frame.data[2] = 0x0e;
+        frame.data[3] = 0x43;
+*/
+
+/* 10 deg/sec^2 in enc ticks */
+/*
+        frame.data[0] = 0x1d;
+        frame.data[1] = 0xc7;
+        frame.data[2] = 0xb1;
+        frame.data[3] = 0x44;
+        memcpy(&ftmp, &frame.data, 4);
+        printf("data = %f\n", deg2enc(rad2deg(0.0872664626), 0x004c, &H_param));
+*/
+
+
+        int address = 0x004c;
+        double radss = 0.0872664626; // 5 deg/s^2
+        double rad = -0.523598776; // 30 deg
+        f_setAcc(radss, address, &H_param, can_skt, &frame);
+        f_setRef(rad, address, &H_param, can_skt, &frame);
+        f_setRefTrajectoryModeDefault(address, &H_param, can_skt, &frame);
+        f_setRefTrajectoryPeriodDefault(address, &H_param, can_skt, &frame);
+        //f_setRefTrajectoryMode(TRAJECTORY_MODE_MOVETO, address, &H_param, can_skt, &frame);
 
         /* Request State (Enc pos) */
         requestState( can_skt );
@@ -286,7 +334,7 @@ void requestState(int skt){
        txframe.data[6] = 0x04;
        txframe.can_id = 0x11;
        txframe.can_dlc = 8;
-       sendCan(skt,&txframe);
+
 }
 
 void clearCanBuff(int skt, mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f) {
@@ -424,6 +472,87 @@ int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm){
     
     return 0;
 }
+
+double rad2deg(double rad){
+    return rad * 180.0 / M_PI;
+}
+
+
+float rad2enc(double radss, int address, mds_joint_param_t *p){
+     return  deg2enc(rad2deg(radss), address, p);
+}
+
+
+float deg2enc(double deg, int address, mds_joint_param_t *p){
+        double rat = 360.0 / (p->joint[address].encoderresolution * 
+                                   p->joint[address].gearratio *
+                                   p->joint[address].encoderconfig_tickspercount);
+        return (float)(deg / rat);
+}
+
+
+void f_setAcc(double radss, int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+    /* sets the acceleration in rad/s^2 */
+    float ftmp = rad2enc(radss, address, p);
+    //float ftmp = deg2enc(rad2deg(radss), address, p);
+    memcpy(&f->data, &ftmp, 4);
+    f->can_id = address;
+    f->can_dlc = 8;
+    f->data[7] = COMMAND_SET;
+    f->data[6] = ARGUMENT_STATE_TRAJECTORY_ACCELERATION;
+    f->data[5] = 0;
+    f->data[4] = 0;
+    sendCan(skt,f);
+}
+
+void f_setRef(double ref, int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+    float ftmp = rad2enc(ref, address, p);
+    memcpy(&f->data, &ftmp, 4);
+    f->can_id = address;
+    f->can_dlc = 8;
+    f->data[7] = COMMAND_SET;
+    f->data[6] = ARGUMENT_STATE_MOVETO_TARGET;
+    f->data[5] = 0;
+    f->data[4] = 0;
+    sendCan(skt,f);
+}
+
+void f_setRefTrajectoryModeDefault(int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+    f_setRefTrajectoryMode(TRAJECTORY_MODE_MOVETO, address, p, skt, f);
+}
+void f_setRefTrajectoryMode(int mode, int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+    f->can_id = address;
+    f->can_dlc = 8;
+    f->data[7] = COMMAND_SET;
+    f->data[6] = ARGUMENT_STATE_TRAJECTORY_MODE;
+    f->data[5] = 0;
+    f->data[4] = 0;
+    f->data[3] = 0;
+    f->data[2] = 0;
+    f->data[1] = 0;
+    f->data[0] = mode;
+    sendCan(skt,f);
+}
+
+void f_setRefTrajectoryPeriodDefault(int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+
+    f_setRefTrajectoryPeriod(TRAJECTORY_PERIOD_19PT53125MS, address, p, skt, f);
+}
+
+void f_setRefTrajectoryPeriod(int period, int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+    int16_t itmp = (int16_t)period;
+    memcpy(&f->data, &itmp, 2);
+    f->can_id = address;
+    f->can_dlc = 8;
+    f->data[7] = COMMAND_SET;
+    f->data[6] = ARGUMENT_STATE_TRAJECTORY_PERIOD;
+    f->data[5] = 0;
+    f->data[4] = 0;
+    f->data[3] = 0;
+    f->data[2] = 0;
+    sendCan(skt,f);
+}
+
 
 int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f) {
     int fs = (int)f->can_id;
