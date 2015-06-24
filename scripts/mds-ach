@@ -17,6 +17,8 @@ MDS_REF_CHAN='mds-ref'
 MDS_PARAM_CHAN='mds-param'
 MDS_STATE_CHAN='mds-state'
 MDS_CMD_CHAN='mds-cmd'
+MDS_PYTHON_DIR='python'
+
 
 DAEMON_LOG_DIR='/var/log/mds'
 LOCK_DIR='/var/lock/mds'
@@ -128,11 +130,17 @@ ShowUsage()
 }
 
 
+Read()
+{
+  python $MDS_PYTHON_DIR/mds_read.py read
+}
+
+
 Start()
 {
   OpenCan
   MakeAch
-  python python/mds_xml_parser.py
+  python $MDS_PYTHON_DIR/mds_xml_parser.py
   ./mds-daemon
 }
 
@@ -174,6 +182,11 @@ case "$1" in
 	'remote' )
 		Remote $2
 	;;
+
+# Starts MDS read
+        'read' )
+                Read
+        ;;
 
 # Close all channels and processes
 	'stop' )

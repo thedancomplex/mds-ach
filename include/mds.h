@@ -139,7 +139,7 @@ static const char *jointNames[MDS_JOINT_COUNT] =
 	 "RF1", "RF2", "RF3", "RF4", "RF5", // 32 33 34 35 36
 	 "LF1", "LF2", "LF3", "LF4", "LF5"}; // 37 38 39 40 41
 
-typedef enum {
+enum {
 	MDS_REF_MODE_REF_FILTER    = 0, ///< Reference to reference filter
 	MDS_REF_MODE_REF           = 1, ///< Direct reference control
 	MDS_REF_MODE_COMPLIANT     = 2, ///< Compliant mode, sets ref to current encoder position. 

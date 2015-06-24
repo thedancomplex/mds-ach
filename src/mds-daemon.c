@@ -103,9 +103,10 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
 void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
-void clearCanBuff(mds_state_t *s, struct can_frame *f);
-int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f); 
+void clearCanBuff(int skt, mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f);
+int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f);
 int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm);
+void requestState(int skt);
 
 
 
@@ -201,6 +202,10 @@ void mainLoop() {
     //sprintf( frame.data, "1234578" );
     frame.can_dlc = strlen( frame.data );
 
+    /* buffer for return arg of decode */
+    char buff[80];
+    memset(&buff, 0, sizeof(buff));
+
 
     int startFlag = 1;
 
@@ -249,33 +254,13 @@ void mainLoop() {
         /* Clear CAN buffer - Read any aditional data left on the buffer */
 //        clearCanBuff(&H_state, &frame);
         
-        char buff[80];
-        memset(&buff, 0, sizeof(buff));
+
+        /* Request State (Enc pos) */
+        requestState( can_skt );
+        /* Read all data on CAN */
+        clearCanBuff(can_skt, &H_state, &H_param, buff,  &frame);
 
 
-       // readCan(0, &frame, -1);
-
-       /* Request all angles */
-       /* Create CAN Frame */
-       struct can_frame txframe;
-       //   Is this really how the frame should be initialized?
-       memset( &txframe.data,0, sizeof(txframe.data));
-       //sprintf( frame.data, "1234578" );
-       txframe.can_dlc = strlen( txframe.data );
-       
-
-       txframe.data[7] = 0x17;
-       txframe.data[6] = 0x04;
-       txframe.can_id = 0x11;
-       txframe.can_dlc = 8;
-       sendCan(can_skt,&txframe);
-
-
-
-        for(int i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
-          int bytes_read = readCan( can_skt, &frame, 0);
-          decodeFrame(&H_state, &H_param, buff, &frame);
-        }
 /*
         frame.data[7] = RESPONSE_STATE;
         frame.data[6] =  ARGUMENT_STATE_MAX_ENCODER_FREQUENCY;
@@ -295,7 +280,7 @@ void mainLoop() {
         tsec += (double)(time.tv_nsec)/1.0e9;
         H_state.time = tsec; // add time based on system time
 
-        printf("\ndeg = %f  joint = %d time = %f \n",H_state.joint[0x004c].pos, 0x004c, H_state.time);
+       // printf("\ndeg = %f  joint = %d time = %f \n",H_state.joint[0x004c].pos, 0x004c, H_state.time);
         /* put data back in ACH channel */
         ach_put( &chan_state, &H_state, sizeof(H_state));
 
@@ -307,15 +292,21 @@ void mainLoop() {
 
 }
 
-void clearCanBuff(mds_state_t *s, struct can_frame *f) {
-/*    int i = 0;
-    for(i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
-        readCan(0, f, 0);
-        decodeFrame(s, f);
-        readCan(1, f, 0);
-        decodeFrame(s, f);
-    }
-*/
+void requestState(int skt){
+       struct can_frame txframe;
+       memset( &txframe.data,0, sizeof(txframe.data));
+       txframe.data[7] = 0x17;
+       txframe.data[6] = 0x04;
+       txframe.can_id = 0x11;
+       txframe.can_dlc = 8;
+       sendCan(skt,&txframe);
+}
+
+void clearCanBuff(int skt, mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f) {
+        for(int i = 0; i < MDS_CAN_BUFFER_CLEAR_I; i++) {
+          int bytes_read = readCan( skt, f, 0);
+          decodeFrame(s, p , buff, f);
+        }
 }
 
 
@@ -450,12 +441,11 @@ int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm){
 int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f) {
     int fs = (int)f->can_id;
     int cmd = (int)f->data[0];
+    memset(buff, 0, sizeof(*buff));
     ParseResponse(buff,f->data,(unsigned long)floor(1234*1000.0));
     sprintf(buff,"%s\t%x",buff,f->can_id);
-    //printf("%s",buff);
     char * delm = " ,\t";
     getPos( s, p, buff, delm);
-
 //    printf("\ndeg = %f  joint = %d\n",s->joint[0x004c].pos, 0x004c);
     return 0; 
 }

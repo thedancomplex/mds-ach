@@ -44,6 +44,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 mds_can_t mds_socket[4];
 
+int mds_skt = 0;
+
+
 int hubo_ver_can = 0;
 
 static int openCAN(char* name) {
@@ -64,6 +67,7 @@ static int openCAN(char* name) {
 	addr.can_family = AF_CAN;
 	addr.can_ifindex = ifr.ifr_ifindex;
 	bind( skt, (struct sockaddr*)&addr, sizeof(addr) );
+        mds_skt = skt;
 	return skt;
 }
 
@@ -76,6 +80,7 @@ void openAllCAN(int c) {
 	else if (c == 3)  skt = openCAN("can3");
 	else skt = openCAN("can0");
 	mds_socket[0]  =	skt;
+        mds_skt = skt;
 
 }
 
