@@ -155,10 +155,14 @@ void setNameToState(mds_state_t *s, mds_joint_param_t *p){
     for( int i = 0; i < MDS_JOINT_COUNT; i++) {
 //        memset(&s->joint[i].name, p->joint[i].name, sizeof(s->joint[i].name));
         memcpy(s->joint[i].name, p->joint[i].name, strlen(p->joint[i].name));        
-
 //s->joint[i].name = p->joint[i].name;
     }
+}
 
+void setAddressToState(mds_state_t *s, mds_joint_param_t *p){
+    for( int i = 0; i < MDS_JOINT_COUNT; i++) {
+        s->joint[i].address = p->joint[i].address;
+    }
 }
 
 void mainLoop() {
@@ -193,6 +197,7 @@ void mainLoop() {
     }
 
     setNameToState(&H_state, &H_param);
+    setAddressToState(&H_state, &H_param);
 
 
     // get current time
@@ -294,9 +299,10 @@ void mainLoop() {
 */
 
 
-        int address = 0x004c;
+        //int address = 0x004c; // LEB
+        int address = 0x005F; // LSP
         double radss = 0.0872664626; // 5 deg/s^2
-        double rad = -0.523598776; // 30 deg
+        double rad = 0.523598776; // 30 deg
         f_setAcc(radss, address, &H_param, can_skt, &frame);
         f_setRef(rad, address, &H_param, can_skt, &frame);
         f_setRefTrajectoryModeDefault(address, &H_param, can_skt, &frame);
@@ -376,7 +382,6 @@ void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L) {
 
         s->joint[i].ref = f->joint[i].ref; 
     } 
- 
 } 
 
 

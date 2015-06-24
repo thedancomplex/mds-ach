@@ -116,13 +116,14 @@ class MDS_JOINT_PARAM(Structure):
 
 class MDS_JOINT_STATE(Structure):
     _pack_ = 1
-    _fields_ = [("ref"   , c_double),
-                ("pos"   , c_double),
-                ("cur"   , c_double),
-                ("vel"   , c_double),
-                ("active", c_ubyte),
-                ("homed" , c_ubyte),
-                ("name"  , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
+    _fields_ = [("ref"     , c_double),
+                ("pos"     , c_double),
+                ("cur"     , c_double),
+                ("vel"     , c_double),
+                ("address" , c_int16),
+                ("active"  , c_ubyte),
+                ("homed"   , c_ubyte),
+                ("name"    , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
 
 class MDS_POWER(Structure):
 	_pack_ = 1

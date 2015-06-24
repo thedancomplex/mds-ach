@@ -50,6 +50,7 @@ def doParseXML(doc):
      str_bytes_ini = joint.attrib['name']
   #   print 'name1 = ', str_bytes_ini, '\t\t len = ', len(str_bytes_ini)
      j.name = str2ubytes(str_bytes_ini)
+     j.address = jnt
      for param in joint.findall('parameter'):
       s = param.attrib['name']
       v = param.attrib['value']

@@ -185,6 +185,7 @@ typedef struct mds_joint_state {
 	double pos;     	///< actual position (rad)
 	double cur;     	///< actual current (amps)
 	double vel;     	///< actual velocity (rad/sec)
+        int16_t address;        ///< address of joint (should be same as index)
 	uint8_t active; 	///< checks if the joint is active or not
 	uint8_t homed;		///< checks to see if the motor is zeroed
         char name[MDS_CHAR_PARAM_BUFFER_SIZE];

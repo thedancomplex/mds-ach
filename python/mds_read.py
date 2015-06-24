@@ -20,7 +20,7 @@ heady = 2
 namex = 2
 addressx =  28
 posy = heady
-posrefx = 35
+posrefx = 37
 posstatex = 50
 
 def mainLoop():
@@ -33,7 +33,8 @@ def mainLoop():
     [status, framesize] = s.get(state, wait=False, last=True)
 
 #    print "joint = ", state.joint[0x004c].pos, "  time = ",state.time
-    stdscr.addstr(heady,addressx, "Joint", curses.A_BOLD)
+    stdscr.addstr(heady,namex, "Joint", curses.A_BOLD)
+    stdscr.addstr(heady,addressx, "address", curses.A_BOLD)
     stdscr.addstr(heady,posrefx, "Commanded Pos", curses.A_BOLD)
     stdscr.addstr(heady,posstatex, "Actual Pos", curses.A_BOLD)
     i = 0
@@ -50,7 +51,7 @@ def mainLoop():
       stdscr.addstr(y,namex, jntName)
 
       # Addresses
-      outAdd =  ''.join(format(j,'02x'))
+      outAdd =  ''.join(format(jnt.address,'04x'))
       outAdd = '0x'+outAdd
       stdscr.addstr(y,addressx, outAdd)
 
