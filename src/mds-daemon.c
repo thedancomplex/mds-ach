@@ -261,19 +261,6 @@ void mainLoop() {
         clearCanBuff(can_skt, &H_state, &H_param, buff,  &frame);
 
 
-/*
-        frame.data[7] = RESPONSE_STATE;
-        frame.data[6] =  ARGUMENT_STATE_MAX_ENCODER_FREQUENCY;
-        frame.data[6] =  ARGUMENT_STATE_TRAJECTORY_PERIOD;
-*/
-        char* data = frame.data;
-//        frame.can_id = 0x12;
-//        ParseResponse(buff,data,(unsigned long)floor(tsec*1000.0));
-//        sprintf(buff,"%s\t%x",buff,frame.can_id);
-// this prints        printf("%s",buff);
-
-
-
         // Get current timestamp to send out with the state struct
         clock_gettime( CLOCK_MONOTONIC, &time );
         tsec = (double)time.tv_sec;
