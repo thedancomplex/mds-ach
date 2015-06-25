@@ -116,7 +116,9 @@ class MDS_JOINT_PARAM(Structure):
 
 class MDS_JOINT_STATE(Structure):
     _pack_ = 1
-    _fields_ = [("ref"     , c_double),
+    _fields_ = [("ref_r"     , c_double),
+                ("ref"     , c_double),
+                ("ref_c"   , c_double),
                 ("pos"     , c_double),
                 ("cur"     , c_double),
                 ("vel"     , c_double),

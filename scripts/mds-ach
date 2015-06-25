@@ -64,6 +64,8 @@ OpenCan()
   # this might fix the bus-off problem
   sudo ip link set $MDS_CAN type can restart-ms 100 
 
+  # increase buffer size
+  sudo ip link set $MDS_CAN txqueuelen 100000 
 
   # put can up
   sudo ifconfig $MDS_CAN up

@@ -99,7 +99,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //static inline void tsnorm(struct timespec *ts);
 void mainLoop();
 void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L);
-void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f);
 void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
@@ -116,7 +115,8 @@ void f_setRefTrajectoryModeDefault(int address, mds_joint_param_t *p, int skt, s
 void f_setRefTrajectoryMode(int mode, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
 void f_setRefTrajectoryPeriodDefault(int address, mds_joint_param_t *p, int skt, struct can_frame *f);
 void f_setRefTrajectoryPeriod(int period, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
-
+void setRef(double rad, double radss, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
+void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p, int L, int skt, struct can_frame *f);
 
 // Timing info
 #define NSEC_PER_SEC    1000000000
@@ -303,11 +303,15 @@ void mainLoop() {
         int address = 0x005F; // LSP
         double radss = 0.0872664626; // 5 deg/s^2
         double rad = 0.523598776; // 30 deg
+/*
         f_setAcc(radss, address, &H_param, can_skt, &frame);
         f_setRef(rad, address, &H_param, can_skt, &frame);
         f_setRefTrajectoryModeDefault(address, &H_param, can_skt, &frame);
         f_setRefTrajectoryPeriodDefault(address, &H_param, can_skt, &frame);
+*/
+//        setRef(rad, radss, address, &H_param, can_skt, &frame);
         //f_setRefTrajectoryMode(TRAJECTORY_MODE_MOVETO, address, &H_param, can_skt, &frame);
+        setRefAll(&H_ref, &H_state, &H_ref_filter, &H_param, MDS_REF_FILTER_LENGTH, can_skt, &frame);
 
         /* Request State (Enc pos) */
         requestState( can_skt );
@@ -333,6 +337,36 @@ void mainLoop() {
 
 }
 
+
+void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p, int L, int skt, struct can_frame *f){
+        
+       refFilterMode(r, s, fi, L); 
+       int j = 0;
+      // for(int i = 0; i < MDS_JOINT_COUNT; i++) {
+       for(int i = MDS_JOINT_COUNT-1; i >= 0; i--) {
+          double rad = s->joint[i].ref;
+          double radss = 0.0872664626; // 5 deg/s^2
+          int address = p->joint[i].address;
+          if (address > 0){
+            setRef(rad, radss, address, p, skt, f);
+         //   printf("address = 0x%04x\n",address);
+            j = j+1;
+          }
+       }
+       //printf("%d\n",j);
+}
+
+
+void setRef(double rad, double radss, int address, mds_joint_param_t *p, int skt, struct can_frame *f){
+//        int address = 0x005F; // LSP
+//        double radss = 0.0872664626; // 5 deg/s^2
+//        double rad = 0.523598776; // 30 deg
+        f_setAcc(radss, address, p, skt, f);
+        f_setRef(rad, address, p, skt, f);
+        f_setRefTrajectoryModeDefault(address, p, skt, f);
+        f_setRefTrajectoryPeriodDefault(address, p, skt, f);
+}
+
 void requestState(int skt){
        struct can_frame txframe;
        memset( &txframe.data,0, sizeof(txframe.data));
@@ -340,7 +374,8 @@ void requestState(int skt){
        txframe.data[6] = 0x04;
        txframe.can_id = 0x11;
        txframe.can_dlc = 8;
-
+       sendCan(skt,&txframe);
+       
 }
 
 void clearCanBuff(int skt, mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f) {
@@ -379,16 +414,14 @@ void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L) {
                 break;
         }
 
-
-        s->joint[i].ref = f->joint[i].ref; 
+        s->joint[i].ref_r = r->joint[i].ref;
+        s->joint[i].ref   = f->joint[i].ref; 
     } 
 } 
 
 
 
 
-void setRefAll(mds_ref_t *r, mds_state_t *s, struct can_frame *f) {
-}
 
 void getEncAllSlow(mds_state_t *s, struct can_frame *f){
 }
