@@ -82,6 +82,7 @@ BusReset()
 
 KillAll()
 {
+  Kill
   KillAch
 }
 Kill()

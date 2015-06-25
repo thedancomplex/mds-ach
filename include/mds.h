@@ -116,8 +116,8 @@ extern "C" {
 #define         MDS_CAN_BUFFER_CLEAR_I 100
 //#define         MDS_LOOP_PERIOD         0.005  ///> period for main loopin sec (0.005 = 200hz)
 //#define         MDS_LOOP_PERIOD         0.010  ///> period for main loopin sec (0.010 = 100hz)
-#define         MDS_LOOP_PERIOD         0.050  ///> period for main loopin sec (0.050 = 20hz)
-//#define         MDS_LOOP_PERIOD         0.1  ///> period for main loopin sec (0.100 = 10hz)
+//#define         MDS_LOOP_PERIOD         0.050  ///> period for main loopin sec (0.050 = 20hz)
+#define         MDS_LOOP_PERIOD         0.1  ///> period for main loopin sec (0.100 = 10hz)
 //#define         MDS_LOOP_PERIOD         0.5  ///> period for main loopin sec (0.500 = 2hz)
 #define         MDS_STARTUP_SEND_REF_DELAY 0.8   ///> setup delay in secons
 #define         MDS_CHAR_PARAM_BUFFER_SIZE 30  // size of the buffer for the char part of the params (such as names)

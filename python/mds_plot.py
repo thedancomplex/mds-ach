@@ -47,10 +47,14 @@ xincr = float(1)
 # buffer size
 bs = 154
 st = []
+st_r = []
+st_c = []
 t  = []
 re = []
 for i in range(bs):
    st.append(i) 
+   st_r.append(i) 
+   st_c.append(i) 
    t.append(i)
    re.append(i)
 
@@ -74,6 +78,8 @@ def mainLoop():
     [status, framesize] = s.get(state, wait=False, last=True)
     [status, framesize] = r.get(ref, wait=False, last=True)
     st[j] = state.joint[jnt].pos
+    st_r[j] = state.joint[jnt].ref_r
+    st_c[j] = state.joint[jnt].ref_c
     re[j] = ref.joint[jnt].ref
     t[j] = state.time
     plt.clf()
@@ -82,8 +88,11 @@ def mainLoop():
 #    plt.plot(t, y,'.r-')
 #    plt.plot(t, re,'.b-')
 #    plt.plot(t, st,'.g-')
-    plt.plot(t, re,'.b')
-    plt.plot(t, st,'.g')
+    pa = plt.plot(t, re   ,'.b' , label='reference')
+    pb = plt.plot(t, st_r ,'.k' , label='cammanded via CAN')
+    pc = plt.plot(t, st_c ,'.r' , label='commanded by MCB')
+    pd = plt.plot(t, st   ,'.g' , label='actual pos')
+    plt.legend(['reference','cammanded via CAN','commanded by MCB','actual pos'])
     plt.grid(b=True, which='major', color='b', linestyle='-')
 #    plt.grid(b=True, which='minor', color='r', linestyle='--')
     plt.draw()
