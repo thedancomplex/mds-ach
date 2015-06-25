@@ -105,6 +105,7 @@ void getCurrentAllSlowMod(mds_state_t *s, struct can_frame *f, int mod);
 void clearCanBuff(int skt, mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f);
 int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_frame *f);
 int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm);
+int getCmdPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm);
 void requestState(int skt);
 float deg2enc(double deg, int address, mds_joint_param_t *p);
 float rad2enc(double radss, int address, mds_joint_param_t *p);
@@ -345,7 +346,10 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
       // for(int i = 0; i < MDS_JOINT_COUNT; i++) {
        for(int i = MDS_JOINT_COUNT-1; i >= 0; i--) {
           double rad = s->joint[i].ref;
-          double radss = 0.0872664626; // 5 deg/s^2
+          //double radss = 0.0872664626; // 5 deg/s^2
+          //double radss = 0.0872664626 * 2.0; // 10 deg/s^2
+          //double radss = 0.0872664626 * 2.0 * 4.0; // 40 deg/s^2
+          double radss = 0.0872664626 * 2.0 * 8.0; // 80 deg/s^2
           int address = p->joint[i].address;
           if (address > 0){
             setRef(rad, radss, address, p, skt, f);
@@ -392,7 +396,8 @@ void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L) {
     double e = 0.0;
     for(i = 0; i < MDS_JOINT_COUNT; i++) {
         int c = (int)r->joint[i].mode;
-      switch (c) {
+//dan      switch (c) {
+      switch (MDS_REF_MODE_REF) {
         case MDS_REF_MODE_REF: // sets reference directly
           f->joint[i].ref = r->joint[i].ref;
           break;
@@ -475,6 +480,39 @@ void mdsMessage(mds_ref_t *r, mds_ref_t *r_filt, mds_state_t *s, struct can_fram
             }
         */
         }
+}
+
+int getCmdPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm){
+    /* Gets the position of the actuator from the "PareseResponse" buffer */
+    /* items are converted into radians and put into the state channel */
+    if(strstr(buff, "Desired Position") != NULL) { 
+        char * pch;
+        pch = strtok(buff,delm);
+        double d = 0.0;
+        int address = 0;
+        int i = 0;
+        while (pch != NULL){
+          if ( i == 1){
+           /* get address */
+           address = (int)strtol(pch, NULL, 0);
+           //printf ("%s\n",pch);
+          }
+          else if ( i == 4){
+           /* get location */ 
+           sscanf(pch,"%lf",&d);
+          }
+          pch = strtok (NULL, delm); 
+          i++;
+        }
+        double rat = 2.0 * M_PI / (p->joint[address].encoderresolution * 
+                                   p->joint[address].gearratio *
+                                   p->joint[address].encoderconfig_tickspercount);
+        s->joint[address].ref_c = d * rat;
+//       printf("\ndeg = %f  joint = %d\n",d, address);
+    }
+    else return -1;
+    
+    return 0;
 }
 
 
@@ -599,7 +637,10 @@ int decodeFrame(mds_state_t *s, mds_joint_param_t *p, char *buff, struct can_fra
     ParseResponse(buff,f->data,(unsigned long)floor(1234*1000.0));
     sprintf(buff,"%s\t%x",buff,f->can_id);
     char * delm = " ,\t";
+
+    /* will check for the correct feedback inside of the funciton */
     getPos( s, p, buff, delm);
+    getCmdPos( s, p, buff, delm);
 //    printf("\ndeg = %f  joint = %d\n",s->joint[0x004c].pos, 0x004c);
     return 0; 
 }

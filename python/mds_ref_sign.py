@@ -16,10 +16,11 @@ import sys
 import os
 import math
 
+#jnt = 0x0048
 jnt = 0x004c
 Fs = 0.1
 f = 0.2
-A = np.pi/6
+A = 0.0 #np.pi/6
 tt0 = 5.0 # time to zero
 def mainLoop():
   s = ach.Channel(mds.MDS_CHAN_STATE_NAME)

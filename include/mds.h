@@ -113,7 +113,7 @@ extern "C" {
 //#define		MDS_CAN_TIMEOUT_DEFAULT 0.0002		///> Default time for CAN to time out
 #define		MDS_CAN_TIMEOUT_DEFAULT 0.00018		///> Default time for CAN to time out
 #define         MDS_REF_FILTER_LENGTH   40
-#define         MDS_CAN_BUFFER_CLEAR_I 100
+#define         MDS_CAN_BUFFER_CLEAR_I 1000
 //#define         MDS_LOOP_PERIOD         0.005  ///> period for main loopin sec (0.005 = 200hz)
 //#define         MDS_LOOP_PERIOD         0.010  ///> period for main loopin sec (0.010 = 100hz)
 //#define         MDS_LOOP_PERIOD         0.050  ///> period for main loopin sec (0.050 = 20hz)
