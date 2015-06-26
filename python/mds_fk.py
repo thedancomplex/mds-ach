@@ -39,6 +39,8 @@ import numpy as np
 from numpy.linalg import inv
 from ctypes import *
 import mds_ik_include as ike
+import copy
+
 
 #threshold = .025
 threshold = .0025
@@ -142,9 +144,73 @@ def getFkArm(a, arm):
 
   return A
 
-#print A
 
-a = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+def getJacobian(d0,arm):
+  # gets numerical jacobian of 'arm'
+  # d0 is the current position of the arm
+
+  d = 0.001
+
+  # Jacobian for xyz and 6 dof
+  xyz = 3
+  dof = 6
+  J = np.zeros((xyz,dof))
+  # J[ row, col ] 
+  d0 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  for i in range(xyz):
+     for j in range(dof):
+        d0 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        d1 = copy.deepcopy(d0)
+        d1[j] = d0[j] + d
+        A0 = getFkArm(d0,arm)
+        A1 = getFkArm(d1,arm)
+        J[i,j] = (A1[i,3] - A0[i,3])/d
+  return J   
+
+
+
+#print A
+def doSolve():
+ a = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+ A = getFkArm(a,'left')
+ de0 = np.array([ A[0,3], A[1,3], A[2,3]])
+# ef  = np.array([0.2, 0.2, -0.1])
+ ef  = np.array([-0.14583 , 0.74283, 0.13834])
+
+ de = 0.0000001 # change in goal in meters
+ err = 0.01
+ dd = 1.0
+ v = ef - de0 # vector to end point
+ dd = np.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2])
+ while (dd > err):
+  # linear interpolation to find next point
+  de1 = de0 + v/dd * de
+
+  J = getJacobian(de1,'left')
+  Ji = np.linalg.pinv(J)   # psudo inverse
+  
+  dt = np.dot(Ji,de1)
+
+  a = a + dt
+  A = getFkArm(a,'left')
+  
+  de0 = np.array([ A[0,3], A[1,3], A[2,3]])
+
+  v = ef - de0 # vector to end point
+  dd = np.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2])
+  print 'dd = ', dd
+  print 'e0 = ', de0
+  print 'ef = ', ef
+  if dd < err:
+     print 'dd = ', dd
+     print 'pos = ', de1
+     print 'ang = ', a
+
+
+#J = getJacobian('left')
+#print J
+a = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+print 'ang = ', a
 A = getFkArm(a,'left')
 print ' x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[2,3],5)
 A = getFkArm(a,'right')
@@ -152,6 +218,6 @@ print ' x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[
 ###jnt = getIK( 0.20, -0.10, -l2*0.9)
 ###print jnt
 
-
+doSolve()
 
 
