@@ -84,6 +84,7 @@ KillAll()
 {
   Kill
   KillAch
+  KillRemote
 }
 Kill()
 {
