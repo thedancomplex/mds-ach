@@ -53,6 +53,12 @@ dT1 = .001
 dT2 = .001
 dT3 = .001
 
+# Open Hubo-Ach feed-forward and feed-back (reference and state) channels
+## s = ach.Channel(ha.HUBO_CHAN_STATE_NAME)
+r = ach.Channel(ha.MDS_CHAN_REF_NAME)
+## s.flush()
+## r.flush()
+
 #open ach channel for coodinates being sent from file
 ### k = ach.Channel(ike.CONTROLLER_REF_NAME)
 coordinates = ike.CONTROLLER_REF()
@@ -61,7 +67,7 @@ coordinates.y = -0.20
 coordinates.z =  0.20
 
 # feed-forward will now be refered to as "state"
-state = ha.MDS_REF()
+### state = ha.HUBO_STATE()
 
 # feed-back will now be refered to as "ref"
 ref = ha.MDS_REF()
@@ -108,11 +114,11 @@ def Jacobian(t1, t2, t3, x, y, z):
 
 	return J
 
+while True:
+	#get next set of coordinates. Readcoords.py will fill the ach channel with 3 iterations worth of targets and end. 3 second wait added at and of while loop
+###	[statuss, framesizes] = k.get(coordinates, wait=False, last=False)
 
-def getIK(x,y,z):
-    	coordinates.x = z
-	coordinates.y = y
-	coordinates.z = x
+	#initialize/reset error so while loop starts
 	e_R = 1	
 	e_L = 1
 	while (e_R > threshold) or (e_L > threshold):
@@ -136,13 +142,13 @@ def getIK(x,y,z):
 ###		LSP = state.joint[ha.LSP].pos
 ###		LSR = state.joint[ha.LSR].pos
 ###		LEB = state.joint[ha.LEB].pos
-                state = ref
-		RSP = state.joint[ha.RSP].ref	#t1
-		RSR = state.joint[ha.RSR].ref	#t2
-		REB = state.joint[ha.REB].ref 	#t3
-		LSP = state.joint[ha.LSP].ref
-		LSR = state.joint[ha.LSR].ref
-		LEB = state.joint[ha.LEB].ref
+
+		RSP = ref.joint[ha.RSP].ref	#t1
+		RSR = ref.joint[ha.RSR].ref	#t2
+		REB = ref.joint[ha.REB].ref 	#t3
+		LSP = ref.joint[ha.LSP].ref
+		LSR = ref.joint[ha.LSR].ref
+		LEB = ref.joint[ha.LEB].ref
 
 		#remove when rest of code updated to new refs
 		t1 = RSP
@@ -191,33 +197,26 @@ def getIK(x,y,z):
 ###		ref.ref[ha.LSP] = state.joint[ha.LSP].pos - dThetaL[0,0]*alpha*stopL
 ###		ref.ref[ha.LSR] = state.joint[ha.LSR].pos - dThetaL[1,0]*alpha*stopL
 ###		ref.ref[ha.LEB] = state.joint[ha.LEB].pos - dThetaL[2,0]*alpha*stopL
-		ref.joint[ha.RSP].ref = state.joint[ha.RSP].ref - dThetaR[0,0]*alpha*stopR
-		ref.joint[ha.RSR].ref = state.joint[ha.RSR].ref - dThetaR[1,0]*alpha*stopR
-		ref.joint[ha.REB].ref = state.joint[ha.REB].ref - dThetaR[2,0]*alpha*stopR
-		ref.joint[ha.LSP].ref = state.joint[ha.LSP].ref - dThetaL[0,0]*alpha*stopL
-		ref.joint[ha.LSR].ref = state.joint[ha.LSR].ref - dThetaL[1,0]*alpha*stopL
-		ref.joint[ha.LEB].ref = state.joint[ha.LEB].ref - dThetaL[2,0]*alpha*stopL
+		ref.joint[ha.RSP].ref = ref.joint[ha.RSP].ref - dThetaR[0,0]*alpha*stopR
+		ref.joint[ha.RSR].ref = ref.joint[ha.RSR].ref - dThetaR[1,0]*alpha*stopR
+		ref.joint[ha.REB].ref = ref.joint[ha.REB].ref - dThetaR[2,0]*alpha*stopR
+		ref.joint[ha.LSP].ref = ref.joint[ha.LSP].ref - dThetaL[0,0]*alpha*stopL
+		ref.joint[ha.LSR].ref = ref.joint[ha.LSR].ref - dThetaL[1,0]*alpha*stopL
+		ref.joint[ha.LEB].ref = ref.joint[ha.LEB].ref - dThetaL[2,0]*alpha*stopL
 ###		r.put(ref)
 		time.sleep(.01)
 
 	#wait 3 seconds once arrived at position
 	print 'Arrived at target position'
 ###	[statuss, framesizes] = s.get(state, wait=False, last =True)
-        return [LSP, LSR, LEB]
 	x_R,y_R,z_R = FKE_arm(RSP,RSR,REB)
 	x_L,y_L,z_L = FKE_arm(LSP,LSR,LEB)
 	print 'Right arm current position (local frame)' , x_R , y_R , z_R
 	print 'Left arm current position (local frame)' , x_L , y_L , z_L
 	time.sleep(3)
 
-while True:
-	#get next set of coordinates. Readcoords.py will fill the ach channel with 3 iterations worth of targets and end. 3 second wait added at and of while loop
-###	[statuss, framesizes] = k.get(coordinates, wait=False, last=False)
-
-
-    jnt = getIK( 0.20, -0.10, -l2*0.9)
-    print jnt
-
-
-
+# Close the connection to the channels
+r.close()
+s.close()
+ike.close()
 
