@@ -104,34 +104,50 @@ def getA(a):
     T = getTransMatrix(a[1],a[2],a[3])
     A  = getTfMatrix(R,T)
     return A
-p = np.pi/2.0
-#       theta        , Tx       , Ty        , Tz  , def_xyz
-LSP = [ 0.0          , 0.0      , 0.2455100 , 0.0        , def_y ] 
-LSR = [ 0.0          , 0.0      , 0.0       , 0.0        , def_x ]
-LSY = [ 0.0          , 0.0      , 0.0       , -0.2825750 , def_z ] 
-LEB = [ 0.0          , 0.0      , 0.0       , 0.0        , def_y ]
-LWY = [ 0.0          , 0.0      , 0.0       , -0.3127375 , def_z ] 
-LWR = [ p            , 0.0      , 0.0       , 0.0        , def_x ]
-LEN = [ 0.0          , 0.0      , 0.0       , -0.0635    , def_x ] 
-# note rolls seem to be oppisit (-)
 
-A1 = getA(LSP)
-A2 = getA(LSR)
-A3 = getA(LSY)
-A4 = getA(LEB)
-A5 = getA(LWY)
-A6 = getA(LWR)
-A7 = getA(LEN)
+def getFkArm(a, arm):
+  m = 1.0 
+  if arm == 'right':
+    m = -1.0
+  elif arm == 'left':
+    m = 1.0
+  else:
+    return -1
 
-A = np.dot(A1,A2)
-A = np.dot(A, A2)
-A = np.dot(A, A3)
-A = np.dot(A, A4)
-A = np.dot(A, A5)
-A = np.dot(A, A6)
-A = np.dot(A, A7)
+  #       theta        , Tx       , Ty          , Tz         , def_xyz
+  LSP = [ a[0]         , 0.0      , m*0.2455100 , 0.0        , def_y ] 
+  LSR = [ a[1]         , 0.0      , 0.0         , 0.0        , def_x ]
+  LSY = [ a[2]         , 0.0      , 0.0         , -0.2825750 , def_z ] 
+  LEB = [ a[3]         , 0.0      , 0.0         , 0.0        , def_y ]
+  LWY = [ a[4]         , 0.0      , 0.0         , -0.3127375 , def_z ] 
+  LWR = [ a[5]         , 0.0      , 0.0         , 0.0        , def_x ]
+  LEN = [ 0.0          , 0.0      , 0.0         , -0.0635    , def_x ] 
+  # note rolls seem to be oppisit (-)
+
+  A1 = getA(LSP)
+  A2 = getA(LSR)
+  A3 = getA(LSY)
+  A4 = getA(LEB)
+  A5 = getA(LWY)
+  A6 = getA(LWR)
+  A7 = getA(LEN)
+
+  A = np.dot(A1,A2)
+  A = np.dot(A, A2)
+  A = np.dot(A, A3)
+  A = np.dot(A, A4)
+  A = np.dot(A, A5)
+  A = np.dot(A, A6)
+  A = np.dot(A, A7)
+
+  return A
 
 #print A
+
+a = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+A = getFkArm(a,'left')
+print ' x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[2,3],5)
+A = getFkArm(a,'right')
 print ' x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[2,3],5)
 ###jnt = getIK( 0.20, -0.10, -l2*0.9)
 ###print jnt
