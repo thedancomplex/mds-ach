@@ -223,6 +223,50 @@ def getDist2End(eff_current, eff_end):
   return eff_dist_to_end
 
 #print A
+
+def getIK6dof(eff_joint_space_current, eff_end, arm):
+ # eff_joint_space_current = [theta_SP, SR, RY, EP, WY, RR]
+ # eff_end = desired end effector positon = [x,y,z,theta_x,theta_y,theta_z]
+ # arm = 'left' or 'right' arm to solve for
+ A = getFkArm(eff_joint_space_current,arm)
+## eff_current = np.array([ A[0,3], A[1,3], A[2,3]])
+ eff_current = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
+# ef  = np.array([0.2, 0.2, -0.1])
+## eff_end  = np.array([-0.14583 , 0.74283, 0.13834])
+
+ eff_delta_theta = 0.01 # change in goal in meters
+ eff_delta_xyz = 0.01 # change in goal in meters
+ eff_err_max = 0.01
+
+ # distance to end point
+ eff_dist_to_end = getDist2End(eff_current, eff_end)
+
+ while (eff_err_max < eff_dist_to_end):
+  # jacobian of the eff_next_point
+  J = getJacobian6x6(eff_joint_space_current, eff_delta_theta, arm)
+  
+  # compute inverse of jacobian
+  Ji = np.linalg.inv(J)   # inverse
+
+  # linear interpolation to find next point
+  eff_vector = eff_end - eff_current # vector to end point
+  eff_dist_to_end = getDist2End(eff_current, eff_end)
+  d_eff = eff_vector/eff_dist_to_end * eff_delta_xyz
+ # print d_eff 
+  # compute change in DOFs d_theta = Ji * d_eff
+  d_theta = np.dot(Ji,d_eff)
+
+  # apply changes to dofs
+  eff_joint_space_current = eff_joint_space_current + d_theta
+  
+  # distance to end point
+  A = getFkArm(eff_joint_space_current,arm)
+  eff_current = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
+  eff_dist_to_end = getDist2End(eff_current, eff_end)
+
+  print eff_dist_to_end
+ return eff_joint_space_current
+
 def doSolve():
  eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
  A = getFkArm(eff_joint_space_current,'left')
@@ -281,6 +325,14 @@ print ' x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[
 ###jnt = getIK( 0.20, -0.10, -l2*0.9)
 ###print jnt
 
-doSolve()
+#doSolve()
 
 
+eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 2.9557, -1.14178, 0.13834])
+eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+arm = 'left'
+eff_joint_space_current = getIK6dof(eff_joint_space_current, eff_end, arm)
+A = getFkArm(eff_joint_space_current,'left')
+eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
+print 'des:\tx = ', round(eff_end[0],5) , '\ty = ' , round(eff_end[1],5) , '\tz = ', round(eff_end[2],5)
+print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
