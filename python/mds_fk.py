@@ -213,6 +213,15 @@ def getRot(a,ax):
   else:
     return -1  
 
+
+def getDist2End(eff_current, eff_end):
+  eff_vector = eff_end - eff_current # vector to end point
+ 
+  eff_dist_to_end = np.sqrt(eff_vector[0]*eff_vector[0] + 
+                            eff_vector[1]*eff_vector[1] + 
+                            eff_vector[2]*eff_vector[2])
+  return eff_dist_to_end
+
 #print A
 def doSolve():
  eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
@@ -223,48 +232,42 @@ def doSolve():
 ## eff_end  = np.array([-0.14583 , 0.74283, 0.13834])
  eff_end  = np.array([-0.14583 , 0.74283, 0.13834, 2.9557, -1.14178, 0.13834])
 
- eff_delta_theta = 0.000001 # change in goal in meters
- eff_delta_xyz = 0.00001 # change in goal in meters
+ eff_delta_theta = 0.01 # change in goal in meters
+ eff_delta_xyz = 0.01 # change in goal in meters
  eff_err_max = 0.01
 
  # distance to end point
  eff_dist_to_end = getDist2End(eff_current, eff_end)
 
- while (True): #eff_dist_to_end > eff_err_max):
-  # linear interpolation to find next point
-  eff_vector = eff_end - eff_current # vector to end point
-  eff_next_point = eff_current + eff_vector/eff_dist_to_end * eff_delta_xyz
+ while (eff_err_max < eff_dist_to_end):
   # jacobian of the eff_next_point
   J = getJacobian6x6(eff_joint_space_current, eff_delta_theta, 'left')
+  
+  # compute inverse of jacobian
   Ji = np.linalg.inv(J)   # inverse
 
-##  J = getJacobian(eff_joint_space_current, eff_delta_theta,'left')
-##  Ji = np.linalg.pinv(J, rcond=1e-15)   # psudo inverse
-  
-  #dt = np.dot(Ji,eff_next_point)
-  dt = np.dot(Ji,eff_current)
-  #dt = np.dot(Ji,eff_joint_space_current)
-  #print eff_current
-  eff_joint_space_current = eff_joint_space_current - dt
-  
-  A = getFkArm(eff_joint_space_current,'left')
-  
-##  eff_current = np.array([ A[0,3], A[1,3], A[2,3]])
-  eff_current = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
-
-
-  eff_dist_to_end = getDist2End(eff_current, eff_end)
-  print 'dist to end = ', eff_dist_to_end
-#  print ' x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[2,3],5)
-#  print ' x = ', round(eff_end[0],5) , '  y = ' , round(eff_end[1],5) , '  z = ', round(eff_end[2],5)
-
-def getDist2End(eff_current, eff_end):
+  # linear interpolation to find next point
   eff_vector = eff_end - eff_current # vector to end point
- 
-  eff_dist_to_end = np.sqrt(eff_vector[0]*eff_vector[0] + 
-                            eff_vector[1]*eff_vector[1] + 
-                            eff_vector[2]*eff_vector[2])
-  return eff_dist_to_end
+  eff_dist_to_end = getDist2End(eff_current, eff_end)
+  d_eff = eff_vector/eff_dist_to_end * eff_delta_xyz
+ # print d_eff 
+  # compute change in DOFs d_theta = Ji * d_eff
+  d_theta = np.dot(Ji,d_eff)
+
+  # apply changes to dofs
+  eff_joint_space_current = eff_joint_space_current + d_theta
+  
+  # distance to end point
+  A = getFkArm(eff_joint_space_current,'left')
+  eff_current = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
+  eff_dist_to_end = getDist2End(eff_current, eff_end)
+
+  print eff_dist_to_end
+
+
+ print 'des: x = ', round(eff_end[0],5) , '  y = ' , round(eff_end[1],5) , '  z = ', round(eff_end[2],5)
+ print 'act: x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[2,3],5)
+
 
 #J = getJacobian('left')
 #print J
