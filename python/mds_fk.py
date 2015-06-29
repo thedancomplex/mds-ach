@@ -265,6 +265,16 @@ def getDist2End(eff_current, eff_end):
                             eff_vector[2]*eff_vector[2])
   return eff_dist_to_end
 
+def getDist2End2(eff_current, eff_end):
+  eff_vector = eff_end - eff_current # vector to end point
+  
+  vsum = 0.0
+  for i in range(len(eff_vector)):
+    vsum = eff_vector[i]*eff_vector[i] + vsum
+ 
+  eff_dist_to_end = np.sqrt(vsum)
+  return eff_dist_to_end
+
 #print A
 
 def getIK3dof(eff_joint_space_current, eff_end, arm):
@@ -349,7 +359,7 @@ def getIK(eff_joint_space_current, eff_end, order, arm):
  eff_err_max = 0.01
 
  # distance to end point
- eff_dist_to_end = getDist2End(eff_current, eff_end)
+ eff_dist_to_end = getDist2End2(eff_current, eff_end)
 
  while (eff_err_max < eff_dist_to_end):
   # jacobian of the eff_next_point
@@ -361,7 +371,7 @@ def getIK(eff_joint_space_current, eff_end, order, arm):
 
   # linear interpolation to find next point
   eff_vector = eff_end - eff_current # vector to end point
-  eff_dist_to_end = getDist2End(eff_current, eff_end)
+  eff_dist_to_end = getDist2End2(eff_current, eff_end)
   d_eff = eff_vector/eff_dist_to_end * eff_delta_xyz
  # print d_eff 
   # compute change in DOFs d_theta = Ji * d_eff
@@ -373,7 +383,7 @@ def getIK(eff_joint_space_current, eff_end, order, arm):
   # distance to end point
   A = getFkArm(eff_joint_space_current,arm)
   eff_current = getPosCurrentFromOrder(A,order)
-  eff_dist_to_end = getDist2End(eff_current, eff_end)
+  eff_dist_to_end = getDist2End2(eff_current, eff_end)
 
 ##  print eff_dist_to_end
  return eff_joint_space_current
@@ -484,7 +494,7 @@ eff_end_dif = eff_end - eff_end_ret
 print '6 DOF IK Solution'
 print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
 print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'ret:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
 
 
 
@@ -503,7 +513,7 @@ eff_end_dif = eff_end - eff_end_ret
 print '3 DOF IK Solution'
 print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
 print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'ret:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
 
 
 
@@ -524,7 +534,7 @@ eff_end_dif = eff_end - eff_end_ret
 print 'N-6 DOF IK Solution'
 print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
 print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'ret:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
 
 
 
@@ -545,7 +555,9 @@ eff_end_dif = eff_end - eff_end_ret
 print 'N-5 DOF IK Solution'
 print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
 print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'ret:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+
+
 
 
 
@@ -567,8 +579,32 @@ eff_end_dif = eff_end - eff_end_ret
 print 'N-4 DOF IK Solution'
 print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
 print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'ret:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
 
+
+
+
+
+
+
+# Define IK
+eff_end     = np.array([0.74283])
+eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+order = ['p_y']
+arm = 'left'
+
+# Get IK
+eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm)
+
+# Print result
+A = getFkArm(eff_joint_space_current,'left')
+eff_end_ret = getPosCurrentFromOrder(A,order)
+eff_end_dif = eff_end - eff_end_ret
+eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3]])
+print 'N-1 DOF IK Solution'
+print 'des:\t\t\ty = ', round(eff_end[0],5)     
+print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+print 'dif:\t\t\ty = ', round(eff_end_dif[0],5) 
 
 
 
