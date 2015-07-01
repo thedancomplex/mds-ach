@@ -1,0 +1,283 @@
+<anatomy>
+	<!--  head DOFS -->
+	<muscle  name="HeadRoll">
+		<parameter name="mdsachname" value="NKR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="-1" />
+		<parameter name="enabled" value="0" />
+		
+	</muscle>
+	<muscle  name="LeftEyePan">
+		<parameter name="mdsachname" value="LYP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="EyePitch">
+		<parameter name="mdsachname" value="LYP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+		
+	</muscle>
+	<muscle  name="JawPitch">
+		<parameter name="mdsachname" value="JAP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftUpperEyelidPitch">
+		<parameter name="mdsachname" value="LUYP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftEyebrowPitch">
+		<parameter name="mdsachname" value="LYBP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+
+	</muscle>
+	<muscle  name="RightEyelidRoll">
+		<parameter name="mdsachname" value="RYLR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+
+	</muscle>
+	<muscle  name="RightEyebrowPitch">
+		<parameter name="mdsachname" value="RYBP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+
+	</muscle>
+	<muscle  name="HeadPitch">
+		<parameter name="mdsachname" value="NKP1" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="NeckPitch">
+		<parameter name="mdsachname" value="NKP2" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="HeadPan">
+		<parameter name="mdsachname" value="NKY" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	<muscle  name="JawRoll">
+		<parameter name="mdsachname" value="JAR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightUpperEyelidPitch">
+		<parameter name="mdsachname" value="RUYLP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+        </muscle>
+	<muscle  name="RightLowerEyelidPitch">
+		<parameter name="mdsachname" value="RLYLP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightEyebrowRoll">
+		<parameter name="mdsachname" value="RYBR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightEyePan">
+		<parameter name="mdsachname" value="RYP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftEyebrowRoll">
+		<parameter name="mdsachname" value="LYBR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftEyelidRoll">
+		<parameter name="mdsachname" value="LYLR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+
+	</muscle>
+	<muscle  name="LeftLowerEyelidPitch">
+		<parameter name="mdsachname" value="LLYLP" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="JawJut">
+		<parameter name="mdsachname" value="JAJ" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+
+	<!-- Hand DOFS -->
+	<muscle  name="RightMiddleFlex">
+		<parameter name="mdsachname" value="RF3" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftMiddleFlex">
+		<parameter name="mdsachname" value="LF3" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightWristFlex">
+		<parameter name="mdsachname" value="RWR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightIndexFlex">
+		<parameter name="mdsachname" value="RF2" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightWristRoll">
+		<parameter name="mdsachname" value="RWY" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightThumbRoll">
+		<parameter name="mdsachname" value="RF0" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftWristFlex">
+		<parameter name="mdsachname" value="LWR" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftIndexFlex">
+		<parameter name="mdsachname" value="LF2" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftWristRoll">
+		<parameter name="mdsachname" value="LWY" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="-1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftThumbRoll">
+		<parameter name="mdsachname" value="LF0" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightThumbFlex">
+		<parameter name="mdsachname" value="RF1" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="RightPinkieFlex">
+		<parameter name="mdsachname" value="RF4" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftThumbFlex">
+		<parameter name="mdsachname" value="LF1" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+	<muscle  name="LeftPinkieFlex">
+		<parameter name="mdsachname" value="LF4" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="0" />
+	</muscle>
+
+
+	<!--  body DOFS -->
+
+
+	<muscle  name="RightElbowFlex">
+		<parameter name="mdsachname" value="REP" />
+		<parameter name="offset" value="1.25" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+	<muscle  name="RightUpperArmRoll">
+		<parameter name="mdsachname" value="RSY" />
+		<parameter name="offset" value="-1.18" />
+		<parameter name="direction" value="-1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+
+
+	<muscle  name="RightShoulderAbd">
+		<parameter name="mdsachname" value="RSR" />
+		<parameter name="offset" value="-0.15" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+	<muscle  name="LeftElbowFlex">
+		<parameter name="mdsachname" value="LEP" />
+		<parameter name="offset" value="-1.25" />
+		<parameter name="direction" value="-1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+	<muscle  name="LeftUpperArmRoll">
+		<parameter name="mdsachname" value="LSY" />
+		<parameter name="offset" value="0.25" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+	<muscle  name="LeftShoulderAbd">
+		<parameter name="mdsachname" value="LSR" />
+		<parameter name="offset" value="1.2" />
+		<parameter name="direction" value="-1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+	<muscle  name="RightShoulderExt">
+		<parameter name="mdsachname" value="RSP" />
+		<parameter name="offset" value="0.445" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+	<muscle  name="TorsoPan">
+		<parameter name="mdsachname" value="WST" />
+		<parameter name="offset" value="0.0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+
+	<muscle  name="LeftShoulderExt">
+		<parameter name="mdsachname" value="LSP" />
+		<parameter name="offset" value="-0.45" />
+		<parameter name="direction" value="-1" />
+		<parameter name="enabled" value="1" />
+	</muscle>
+
+</anatomy>
