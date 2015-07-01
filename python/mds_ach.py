@@ -104,11 +104,15 @@ class MDS_JNT_PARAM(Structure):
                 ("safetymargin"                 , c_double),
                 ("encoderconfig_tickspercount"  , c_double),
                 ("rom_margin"                   , c_double),
+                ("offset"                       , c_double),
+                ("direction"                    , c_double),
+                ("enabled"                      , c_int16),
                 ("address"                      , c_int16),
                 ("coordsys"                     , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
                 ("HomeType"                     , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
                 ("HomeTarget"                   , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
-                ("name"                         , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
+                ("name"                         , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
+                ("nameshort"                    , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
 
 class MDS_JOINT_PARAM(Structure):
     _pack_ = 1
@@ -117,15 +121,19 @@ class MDS_JOINT_PARAM(Structure):
 class MDS_JOINT_STATE(Structure):
     _pack_ = 1
     _fields_ = [("ref_r"     , c_double),
-                ("ref"     , c_double),
-                ("ref_c"   , c_double),
-                ("pos"     , c_double),
-                ("cur"     , c_double),
-                ("vel"     , c_double),
-                ("address" , c_int16),
-                ("active"  , c_ubyte),
-                ("homed"   , c_ubyte),
-                ("name"    , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
+                ("ref"       , c_double),
+                ("ref_c"     , c_double),
+                ("pos"       , c_double),
+                ("cur"       , c_double),
+                ("vel"       , c_double),
+                ("offset"    , c_double),
+                ("direction" , c_double),
+                ("enabled"   , c_int16),
+                ("address"   , c_int16),
+                ("active"    , c_ubyte),
+                ("homed"     , c_ubyte),
+                ("name"      , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE),
+                ("nameshort" , c_ubyte*MDS_CHAR_PARAM_BUFFER_SIZE)]
 
 class MDS_POWER(Structure):
 	_pack_ = 1

@@ -168,11 +168,16 @@ typedef struct mds_jnt_param {
     double safetymargin;
     double encoderconfig_tickspercount;
     double rom_margin;
+
+    double offset;
+    double direction;
+    int16_t enabled;
     uint16_t address;
     char coordsys[MDS_CHAR_PARAM_BUFFER_SIZE];
     char HomeType[MDS_CHAR_PARAM_BUFFER_SIZE];
     char HomeTarget[MDS_CHAR_PARAM_BUFFER_SIZE];
     char name[MDS_CHAR_PARAM_BUFFER_SIZE];
+    char nameshort[MDS_CHAR_PARAM_BUFFER_SIZE];
 }__attribute__((packed)) mds_jnt_param_t;
 
 
@@ -187,10 +192,14 @@ typedef struct mds_joint_state {
 	double pos;     	///< actual position (rad)
 	double cur;     	///< actual current (amps)
 	double vel;     	///< actual velocity (rad/sec)
+        double offset;
+        double direction;
+        int16_t enabled;
         int16_t address;        ///< address of joint (should be same as index)
 	uint8_t active; 	///< checks if the joint is active or not
 	uint8_t homed;		///< checks to see if the motor is zeroed
         char name[MDS_CHAR_PARAM_BUFFER_SIZE];
+        char nameshort[MDS_CHAR_PARAM_BUFFER_SIZE];
 }__attribute__((packed)) mds_joint_state_t;
 
 typedef struct mds_power {

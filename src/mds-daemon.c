@@ -118,6 +118,8 @@ void f_setRefTrajectoryPeriodDefault(int address, mds_joint_param_t *p, int skt,
 void f_setRefTrajectoryPeriod(int period, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
 void setRef(double rad, double radss, int address, mds_joint_param_t *p, int skt, struct can_frame *f);
 void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p, int L, int skt, struct can_frame *f);
+void setMdsParamState(mds_state_t *s, mds_joint_param_t *p);
+
 
 // Timing info
 #define NSEC_PER_SEC    1000000000
@@ -155,7 +157,8 @@ static inline void tsnorm(struct timespec *ts){
 void setNameToState(mds_state_t *s, mds_joint_param_t *p){
     for( int i = 0; i < MDS_JOINT_COUNT; i++) {
 //        memset(&s->joint[i].name, p->joint[i].name, sizeof(s->joint[i].name));
-        memcpy(s->joint[i].name, p->joint[i].name, strlen(p->joint[i].name));        
+        memcpy(s->joint[i].name,      p->joint[i].name,      strlen(p->joint[i].name));        
+        memcpy(s->joint[i].nameshort, p->joint[i].nameshort, strlen(p->joint[i].nameshort));        
 //s->joint[i].name = p->joint[i].name;
     }
 }
@@ -163,6 +166,14 @@ void setNameToState(mds_state_t *s, mds_joint_param_t *p){
 void setAddressToState(mds_state_t *s, mds_joint_param_t *p){
     for( int i = 0; i < MDS_JOINT_COUNT; i++) {
         s->joint[i].address = p->joint[i].address;
+    }
+}
+
+void setMdsParamState(mds_state_t *s, mds_joint_param_t *p){
+    for( int i = 0; i < MDS_JOINT_COUNT; i++) {
+        s->joint[i].offset    = p->joint[i].offset;
+        s->joint[i].direction = p->joint[i].direction;
+        s->joint[i].enabled   = p->joint[i].enabled;
     }
 }
 
@@ -199,7 +210,7 @@ void mainLoop() {
 
     setNameToState(&H_state, &H_param);
     setAddressToState(&H_state, &H_param);
-
+    setMdsParamState(&H_state, &H_param);
 
     // get current time
     //clock_gettime( CLOCK_MONOTONIC,&t);

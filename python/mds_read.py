@@ -5,6 +5,7 @@ import curses
 import time
 import signal
 import sys
+import re
 import os
 from optparse import OptionParser
 import math
@@ -17,13 +18,30 @@ rMax = 0x004f
 timey = 1
 timex = 2
 heady = 2
-namex = 2
-addressx =  28
-posy = heady
-posrefx = 37
-posstatex = 53
+posy = heady 
 
-def mainLoop():
+x  = 2
+xd = 8
+shortnamex = x
+x = x + xd
+namex = x
+xd = 26
+x = x + xd
+
+enabledx = x
+xd = 9
+x = x + xd
+addressx = x
+xd = 11
+x = x + xd
+posrefx = x
+xd = 16
+x = x + xd
+posstatex = x
+xd = 8
+x = x + xd
+
+def mainLoop(enabled):
   # Start curses
   stdscr = curses.initscr()
   s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
@@ -35,6 +53,7 @@ def mainLoop():
 #    print "joint = ", state.joint[0x004c].pos, "  time = ",state.time
     stdscr.addstr(heady,namex, "Joint", curses.A_BOLD)
     stdscr.addstr(heady,addressx, "address", curses.A_BOLD)
+    stdscr.addstr(heady,enabledx, "Enabled", curses.A_BOLD)
     stdscr.addstr(heady,posrefx, "Commanded Pos", curses.A_BOLD)
     stdscr.addstr(heady,posstatex, "Actual Pos", curses.A_BOLD)
     i = 0
@@ -42,28 +61,34 @@ def mainLoop():
 #    for j in range(rMin,rMax):
     for j in range(39,mds.MDS_JOINT_COUNT):
      jnt = state.joint[j]
-     jntName = (mds.ubytes2str(jnt.name)).replace('\0', '')
-#     if (False == math.isnan(jnt.pos)):
-     if ('' != jntName.strip()):
-      y = i+heady+1
-      # Name
-#      print jnt.name
-      stdscr.addstr(y,namex, jntName)
+     if ((jnt.enabled == 1) | (enabled == 0) ):
+       jntName = (mds.ubytes2str(jnt.name)).replace('\0', '')
+       jntNameShort = (mds.ubytes2str(jnt.nameshort)).replace('\0', '')
+  #     if (False == math.isnan(jnt.pos)):
+       if ('' != jntName.strip()):
+        y = i+heady+1
+        # Name
+  #      print jnt.name
+        stdscr.addstr(y,shortnamex, jntNameShort)
+        stdscr.addstr(y,namex, jntName)
+ 
+        # Enabled
+        stdscr.addstr(y,enabledx,str(jnt.enabled))
 
-      # Addresses
-      outAdd =  ''.join(format(jnt.address,'04x'))
-      outAdd = '0x'+outAdd
-      stdscr.addstr(y,addressx, outAdd)
+        # Addresses
+        outAdd =  ''.join(format(jnt.address,'04x'))
+        outAdd = '0x'+outAdd
+        stdscr.addstr(y,addressx, outAdd)
 
-      # cmd pos
-      stdscr.addstr(y,posrefx, str(format(jnt.ref,'.5f')))
-      #stdscr.addstr(y,posrefx, str(jnt.ref))
+        # cmd pos
+        stdscr.addstr(y,posrefx, str(format(jnt.ref,'.5f')))
+        #stdscr.addstr(y,posrefx, str(jnt.ref))
 
-      # actuial pos
-      stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
-      #stdscr.addstr(y,posstatex, str(jnt.pos))
+        # actuial pos
+        stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
+        #stdscr.addstr(y,posstatex, str(jnt.pos))
 
-      i += 1
+        i += 1
     stdscr.refresh()
     time.sleep(0.05)
 
@@ -140,8 +165,14 @@ def printHelp():
 
 if __name__ == '__main__':
     jnt = -1
+    enabled = 0
+
+
     parser = OptionParser()
     (options, args) = parser.parse_args()
+    for arg in args:
+      if  args == 'enabled':
+         enabled = 1
     for arg in args:
       if arg == 'param':
          jnt = -2
@@ -151,7 +182,7 @@ if __name__ == '__main__':
       elif arg == 'read':
          original_sigint = signal.getsignal(signal.SIGINT)
          signal.signal(signal.SIGINT, exit_gracefully)
-         mainLoop()
+         mainLoop(enabled)
       elif ((arg == 'help') | (arg == '-h') | (arg == 'h')):
          printHelp()
 

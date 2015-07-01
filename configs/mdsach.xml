@@ -70,6 +70,7 @@
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="1" />
 		<parameter name="enabled" value="0" />
+        </muscle>
 	<muscle  name="JawRoll">
 		<parameter name="mdsachname" value="JAR" />
 		<parameter name="offset" value="0.0" />

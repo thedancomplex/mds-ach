@@ -39,10 +39,38 @@ def str2ubytes(str_bytes_ini):
 def ubytes2str(ubarray):
      return (''.join(map(chr,ubarray))).rstrip()
 
-def doParseXML(doc):
+def doParseXmlMds(doc,p):
   tree = et.parse(doc)
   root = tree.getroot()
-  p = mds.MDS_JOINT_PARAM()
+  for joint in root.findall('muscle'):
+     str_bytes_ini = joint.attrib['name']
+     name0i = str2ubytes(str_bytes_ini)
+     name0 = (mds.ubytes2str(name0i)).replace('\0', '')
+     for i in range(mds.MDS_JOINT_COUNT):
+      j = p.joint[i]
+      name = (mds.ubytes2str(j.name)).replace('\0', '')
+
+      if (name == name0):
+        for param in joint.findall('parameter'):
+          s = param.attrib['name']
+          v = param.attrib['value']
+          if( v != ""):
+            if( s == 'offset'):
+              j.offset = float(v)
+            if( s == 'direction'):
+              j.direction = float(v)
+            if( s == 'enabled'):
+              j.enabled = int(v)
+            if( s == 'mdsachname'):
+              j.nameshort = str2ubytes(v)
+        #put it back on the struct
+        p.joint[i] = j  
+  return p
+
+
+def doParseXML(doc,p):
+  tree = et.parse(doc)
+  root = tree.getroot()
   for joint in root.findall('muscle'):
      address = joint.attrib['address']
      jnt = int(address,0)
@@ -98,8 +126,9 @@ def doParseXML(doc):
 
 
 if __name__ == '__main__':
-    param = doParseXML('configs/anatomy.xml')
-    mdsach = doParseXML('configs/mdsach.xml')
+    param = mds.MDS_JOINT_PARAM()
+    param = doParseXML('configs/anatomy.xml',param)
+    param = doParseXmlMds('configs/mdsach.xml',param)
     p = ach.Channel(mds.MDS_CHAN_PARAM_NAME)
     p.put(param)
 
