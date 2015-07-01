@@ -25,6 +25,7 @@ LOCK_DIR='/var/lock/mds'
 
 FLAG_REMOTE=0
 FLAG_NOCONSOLE=0
+FLAG_NOCAN=0
 
 MDS_REMOTE_ADDRESS='0.0.0.0'
 
@@ -72,6 +73,11 @@ OpenCan()
 
   # List details
   ip -details -statistics link show $MDS_CAN
+
+  if [[ $FLAG_NOCAN -eq 1 ]]
+  then
+	sudo ip link add dev vcan42 type vcan
+  fi
 
 }
 
@@ -127,6 +133,7 @@ ShowUsage()
 	echo 'killall       : Emergency kill the daemon process and removes all ACH channels'
         echo 'resetbus      : Resets the Bus'
 	echo 'remote        : Starts a remote connection to xxx.xxx.xxx.xxx via achd'
+	echo 'nocan         : Runs system in NO CAN mode.  i.e. creates a virtural can bus'
 	echo '		    : Options:'
 	echo '              :     (no-arg)       : Starts remote connections'
 	echo '              :     kill    : Kills remote connection'
@@ -145,7 +152,13 @@ Start()
   OpenCan
   MakeAch
   python $MDS_PYTHON_DIR/mds_xml_parser.py
-  ./mds-daemon
+
+  DAEMON_ARGS=''
+  if [[ $FLAG_DRC_MODE -eq 1 ]]
+  then
+	DAEMON_ARGS+=" -drc"
+  fi
+  sudo ./mds-daemon $DAEMON_ARGS 
 }
 
 SetFlags()
@@ -161,6 +174,10 @@ do
 	  FLAG_REMOTE=1
           MDS_REMOTE_ADDRESS=${HUBO_TEMP[$(($MDS_I+1))]}
 	  echo "Remote address set: "$MDS_REMOTE_ADDRESS
+      ;;
+      'nocan' )
+	  FLAG_nocan=1
+	  echo "No CAN mode set"
       ;;
     esac
     MDS_I=$(($MDS_I+1))

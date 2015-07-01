@@ -226,7 +226,6 @@ void mainLoop() {
 
     printf("Start MDS Loop\n");
     while(1) {
-
         // wait until next shot
         clock_nanosleep(0,TIMER_ABSTIME,&t, NULL);
 
@@ -649,7 +648,7 @@ int main(int argc, char **argv) {
 
     // Parse user input
     debug = 0;
-
+    int vcan = 0;
 
 
     int i = 1;
@@ -659,7 +658,8 @@ int main(int argc, char **argv) {
             debug = 1;
         }
         if(strcmp(argv[i], "-v") == 0){
-           /* put args here */
+           /* virtural mode (no can) */
+           vcan = 1;
         }
         i++;
     }
@@ -691,7 +691,8 @@ int main(int argc, char **argv) {
 
     /* Open all CAN */
 //    openAllCAN(0);
-    can_skt = openCAN("can0");
+    if (vcan == 1) can_skt = openCAN("vcan42");
+    else can_skt = openCAN("can0");
 
     /* Put on ACH Channels */
     ach_put(&chan_ref, &H_ref, sizeof(H_ref));
