@@ -21,7 +21,7 @@ namex = 2
 addressx =  28
 posy = heady
 posrefx = 37
-posstatex = 50
+posstatex = 53
 
 def mainLoop():
   # Start curses
@@ -56,10 +56,12 @@ def mainLoop():
       stdscr.addstr(y,addressx, outAdd)
 
       # cmd pos
-      stdscr.addstr(y,posrefx, str(jnt.ref))
+      stdscr.addstr(y,posrefx, str(format(jnt.ref,'.5f')))
+      #stdscr.addstr(y,posrefx, str(jnt.ref))
 
       # actuial pos
-      stdscr.addstr(y,posstatex, str(jnt.pos))
+      stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
+      #stdscr.addstr(y,posstatex, str(jnt.pos))
 
       i += 1
     stdscr.refresh()

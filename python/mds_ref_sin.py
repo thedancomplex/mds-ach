@@ -20,7 +20,7 @@ import math
 jnt = 0x004c
 Fs = 0.1
 f = 0.2
-A = np.pi/6
+A = np.pi/6.0
 #A = 0.0 #np.pi/6
 tt0 = 5.0 # time to zero
 def mainLoop():

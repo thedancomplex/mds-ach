@@ -15,6 +15,8 @@ import numpy as np
 
 mdsIntro = ">> mds-ach-console$ "
 
+radT = 0.1
+T = 0.1
 
 def mainLoop():
   # Start curses
@@ -33,13 +35,38 @@ def mainLoop():
     # get command
     cmd = c[0]
     
-    if cmd == 'goto':
+
+    if cmd == 'get':
        try:
          jnt = c[1]
-         jntn getAddress(jnt,state)
+         jntn = getAddress(jnt,state)
+         pos = state.joint[jntn].pos
+         jntName = (mds.ubytes2str(state.joint[jntn].name)).replace('\0', '')
+         print jntName, ' = ', str(format(pos,'.5f')), ' rad'
+       except:
+         print "  Invalid input... "
+    elif cmd == 'goto':
+       try:
+         jnt = c[1]
+         jntn = getAddress(jnt,state)
          pos = float(c[2])
-         ref.joint[jntn].ref = pos
-         r.put(ref)
+         pos0 = state.joint[jntn].ref
+         doLoop = True
+         while (doLoop):
+           pd = pos - pos0
+           psign = np.sign(pd)
+           if np.abs(pd) > radT:
+              pos0 = pos0 + psign*radT
+           else:
+              pos0 = pos
+              doLoop = False
+         
+           ref.joint[jntn].ref = pos0
+           r.put(ref)
+           time.sleep(T)
+           sys.stdout.write(".")
+           sys.stdout.flush()
+         print "done"
 
        except:
          print "  Invalid input... "
