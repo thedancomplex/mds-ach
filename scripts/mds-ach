@@ -76,7 +76,10 @@ OpenCan()
 
   if [[ $FLAG_NOCAN -eq 1 ]]
   then
+	sudo rmmod vcan
+        sudo modprobe vcan
 	sudo ip link add dev vcan42 type vcan
+	echo "vcan42 set"
   fi
 
 }
