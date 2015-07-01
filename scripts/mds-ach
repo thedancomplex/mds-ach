@@ -154,9 +154,9 @@ Start()
   python $MDS_PYTHON_DIR/mds_xml_parser.py
 
   DAEMON_ARGS=''
-  if [[ $FLAG_DRC_MODE -eq 1 ]]
+  if [[ $FLAG_NOCAN -eq 1 ]]
   then
-	DAEMON_ARGS+=" -drc"
+	DAEMON_ARGS+=" -v"
   fi
   sudo ./mds-daemon $DAEMON_ARGS 
 }
@@ -176,7 +176,7 @@ do
 	  echo "Remote address set: "$MDS_REMOTE_ADDRESS
       ;;
       'nocan' )
-	  FLAG_nocan=1
+	  FLAG_NOCAN=1
 	  echo "No CAN mode set"
       ;;
     esac
