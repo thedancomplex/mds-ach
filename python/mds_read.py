@@ -151,6 +151,8 @@ def printHelp():
          print '--------- dan@danlofaro.com ------------------'
          print '----------------------------------------------'
          print '-- python mds_ach.py read'
+         print '--       Return: Prints auto updated states for enabled joints'
+         print '-- python mds_ach.py all'
          print '--       Return: Prints auto updated states for all joints'
          print '-- python mds_ach.py param #'
          print '      Return: Prints paramaters for joint #'
@@ -171,15 +173,17 @@ if __name__ == '__main__':
     parser = OptionParser()
     (options, args) = parser.parse_args()
     for arg in args:
-      if  args == 'enabled':
-         enabled = 1
-    for arg in args:
       if arg == 'param':
          jnt = -2
       elif jnt == -2:
          jnt = printParams(int(arg))
          exit()      
       elif arg == 'read':
+         original_sigint = signal.getsignal(signal.SIGINT)
+         signal.signal(signal.SIGINT, exit_gracefully)
+         enabled = 1
+         mainLoop(enabled)
+      elif arg == 'all':
          original_sigint = signal.getsignal(signal.SIGINT)
          signal.signal(signal.SIGINT, exit_gracefully)
          mainLoop(enabled)

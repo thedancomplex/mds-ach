@@ -144,7 +144,7 @@
 		<parameter name="mdsachname" value="RWR" />
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
 	</muscle>
 	<muscle  name="RightIndexFlex">
 		<parameter name="mdsachname" value="RF2" />
@@ -156,7 +156,7 @@
 		<parameter name="mdsachname" value="RWY" />
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
 	</muscle>
 	<muscle  name="RightThumbRoll">
 		<parameter name="mdsachname" value="RF0" />
@@ -166,9 +166,9 @@
 	</muscle>
 	<muscle  name="LeftWristFlex">
 		<parameter name="mdsachname" value="LWR" />
-		<parameter name="offset" value="0.0" />
+		<parameter name="offset" value="0.28" />
 		<parameter name="direction" value="1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
 	</muscle>
 	<muscle  name="LeftIndexFlex">
 		<parameter name="mdsachname" value="LF2" />
@@ -180,7 +180,7 @@
 		<parameter name="mdsachname" value="LWY" />
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="-1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
 	</muscle>
 	<muscle  name="LeftThumbRoll">
 		<parameter name="mdsachname" value="LF0" />
