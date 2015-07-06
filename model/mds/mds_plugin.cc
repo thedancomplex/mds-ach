@@ -1,3 +1,32 @@
+/* -*-  indent-tabs-mode:t; tab-width: 8; c-basic-offset: 8  -*- */
+/*
+Copyright (c) 2015, Daniel M. Lofaro
+Copyright (c) 2014, Daniel M. Lofaro
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the author nor the names of its contributors may
+      be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include <boost/bind.hpp>
 #include <gazebo/gazebo.hh>
 #include <gazebo/transport/transport.hh>
@@ -11,7 +40,6 @@
 #include <gazebo/common/Time.hh>
 
 // For Ach
-/*
 #include <errno.h>
 #include <fcntl.h>
 #include <assert.h>
@@ -23,7 +51,8 @@
 #include <inttypes.h>
 #include <ach.h>
 #include <string.h>
-
+#include "../../include/mds.h"
+/*
 // ach channels
 ach_channel_t chan_diff_drive_ref;      // hubo-ach
 ach_channel_t chan_time;
@@ -33,6 +62,8 @@ double H_ref[2] = {};
 double ttime = 0.0;
 */
 
+mds_state_t H_state;
+ach_channel_t chan_state;     // mds-ach-state
 
 
 namespace gazebo
@@ -61,6 +92,13 @@ namespace gazebo
 
       // Open Ach channel
         /* open ach channel */
+        size_t fs;
+        int r = ach_open(&chan_state, MDS_CHAN_STATE_NAME, NULL);
+        memset( &H_state, 0, sizeof(H_state));
+
+        r = ach_get( &chan_state, &H_state, sizeof(H_state), &fs, NULL, ACH_O_LAST );
+        
+
 
 /*  --------
         memset( &H_ref,   0, sizeof(H_ref));
@@ -157,6 +195,13 @@ namespace gazebo
     {
       double maxTorque = 500;
       double iniAngle = 0.2;
+
+      size_t fs;
+      int r = ach_get( &chan_state, &H_state, sizeof(H_state), &fs, NULL, ACH_O_LAST );
+      
+      
+
+
       this->joint_LSP_->SetParam("friction",0, maxTorque);
       this->joint_LSR_->SetParam("friction",0, maxTorque);
       this->joint_LSY_->SetParam("friction",0, maxTorque);
@@ -174,12 +219,29 @@ namespace gazebo
      // this->joint_TSY_->SetParam("friction",0, maxTorque);
 
 
-
-
+      for( int i = 0; i < MDS_JOINT_COUNT; i++){
+         double pos = H_state.joint[i].ref;
+         std::string strName1= std::string(H_state.joint[i].nameshort);
+         std::string strName = strName1.c_str();
+//         printf("state = %s\n",strName.c_str());
+         if( strName.compare(0,3,"LSP") == 0) this->joint_LSP_->SetPosition(0, pos);
+         if( strName.compare(0,3,"LSR") == 0) this->joint_LSR_->SetPosition(0, pos);
+         if( strName.compare(0,3,"LSY") == 0) this->joint_LSY_->SetPosition(0, pos);
+         if( strName.compare(0,3,"LEP") == 0) this->joint_LEP_->SetPosition(0, pos);
+         if( strName.compare(0,3,"LWR") == 0) this->joint_LWR_->SetPosition(0, pos);
+         if( strName.compare(0,3,"LWY") == 0) this->joint_LWY_->SetPosition(0, pos);
+         if( strName.compare(0,3,"RSP") == 0) this->joint_RSP_->SetPosition(0, pos);
+         if( strName.compare(0,3,"RSR") == 0) this->joint_RSR_->SetPosition(0, pos);
+         if( strName.compare(0,3,"RSY") == 0) this->joint_RSY_->SetPosition(0, pos);
+         if( strName.compare(0,3,"REP") == 0) this->joint_REP_->SetPosition(0, pos);
+         if( strName.compare(0,3,"RWR") == 0) this->joint_RWR_->SetPosition(0, pos);
+         if( strName.compare(0,3,"RWY") == 0) this->joint_RWY_->SetPosition(0, pos);
+      }
+/*
       this->joint_LSP_->SetPosition(0, iniAngle);
       this->joint_LSR_->SetPosition(0, iniAngle);
       this->joint_LSY_->SetPosition(0, iniAngle);
-      this->joint_LEP_->SetPosition(0, iniAngle);
+      this->joint_LEP_->SetPosition(0, H_state.joint[0x004c].ref);
       this->joint_LWR_->SetPosition(0, iniAngle);
       this->joint_LWY_->SetPosition(0, iniAngle);
       
@@ -192,7 +254,7 @@ namespace gazebo
       
    //   this->joint_TSY_->SetPosition(0, iniAngle);
 
-
+*/
 
 
 /*  ---- Ach Control ---

@@ -54,7 +54,7 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 
 # compile plugin
 add_library(mds_plugin SHARED mds_plugin.cc)
-target_link_libraries(mds_plugin ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} pthread )
+target_link_libraries(mds_plugin ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} pthread ach )
 
 #add_library(d_simple_arm_plugin SHARED DSimpleArmPlugin.cc)
 #target_link_libraries(d_simple_arm_plugin ${GAZEBO_libraries} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} pthread ach)
