@@ -15,6 +15,63 @@
 
 
   <!-- Rectangular base -->
+  <link name='base'>
+    <pose>0 0 -1.2065 0 0 0</pose>
+     <collision name='collision'>
+      <geometry>
+        <box>
+         <size> 0.4 0.4 0.05</size>
+        </box>
+      </geometry>
+     </collision>
+
+     <visual name='visual'>
+      <geometry>
+        <box>
+         <size> 0.4 0.4 0.05</size>
+        </box>
+      </geometry>
+    </visual>
+ </link>
+
+
+
+
+
+
+  <link name='poll'>
+    <pose>0 0 -0.60325 0 0 0</pose>
+     <collision name='collision'>
+      <geometry>
+       <cylinder>
+        <radius>0.02222</radius>
+        <length>1.2065</length>
+       </cylinder>
+      </geometry>
+     </collision>
+
+     <visual name='visual'>
+      <geometry>
+       <cylinder>
+        <radius>0.02222</radius>
+        <length>1.2065</length>
+       </cylinder>
+
+      </geometry>
+    </visual>
+</link>
+
+
+<joint type="revolute" name="WST">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>poll</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+  <!-- Rectangular base -->
   <link name='torso'>
     <pose>0 0 0 0 0 0</pose>
      <collision name='collision'>
@@ -33,6 +90,15 @@
       </geometry>
     </visual>
  </link>
+
+<joint type="revolute" name="TSY">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>torso</child>
+        <parent>poll</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
 
 
 <link name="RSP_body">
