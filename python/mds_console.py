@@ -21,12 +21,14 @@ T = 0.1
 
 def mainLoop():
   # Start curses
-  s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
-  r = ach.Channel(mds.MDS_CHAN_REF_NAME)
-  state = mds.MDS_STATE()
-  ref = mds.MDS_REF()
-  while(1):
+ s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
+ r = ach.Channel(mds.MDS_CHAN_REF_NAME)
+ state = mds.MDS_STATE()
+ ref = mds.MDS_REF()
+ doloop = True
+ while(doloop):
     # Block until input is received
+  
     var = raw_input(mdsIntro)
     c = var.split(" ")
     # Get latest states
@@ -35,8 +37,6 @@ def mainLoop():
 
     # get command
     cmd = c[0]
-    
-
     if cmd == 'get':
        try:
          if c[1] == 'fk':
@@ -71,24 +71,27 @@ def mainLoop():
               j5 = state.joint[jntn].ref
               eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
            A = ik.getFkArm(eff_joint_space_current,arm)
-           print A
-           order = ['p_x','p_y','p_z']
+           order = ['p_x','p_y','p_z','t_x','t_y','t_z']
            eff_end_ret = ik.getPosCurrentFromOrder(A,order)
-           print '3DOF FK - for ', arm, ' arm'
-           print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+           print '6DOF FK - for ', arm, ' arm'
+           print 'pos:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+           print 'rot:\tx = ', round(eff_end_ret[3],5) , '\ty = ' , round(eff_end_ret[4],5) , '\tz = ', round(eff_end_ret[5],5)
          
          else:
            jnt = c[1]
            jntn = getAddress(jnt,state)
            pos = state.joint[jntn].pos
-           pos = state.joint[jntn].ref
+           pos_r = state.joint[jntn].ref
            jntName = (mds.ubytes2str(state.joint[jntn].name)).replace('\0', '')
            print jntName, ' State = ', str(format(pos,'.5f')), ' rad'
            print jntName, ' Ref   = ', str(format(pos_r,'.5f')), ' rad'
        except:
          print "  Invalid input... "
     elif cmd == 'exit':
+         s.close()
+         r.close()
          quit()
+         doloop = False
     elif cmd == 'goto':
        try:
          jnt = c[1]
@@ -120,8 +123,33 @@ def mainLoop():
        r.put(ref)  
 
     elif cmd == 'ik':
+      try:
+        arm = c[1]
+        dof = 3
+        jointSet = c[len(c)-1]
+        eff_end     = np.array([float(c[2]) , float(c[3]), float(c[4])])
+        ref = doIK(state, ref, eff_end, dof, jointSet, arm)
+        if jointSet == 'set':
+          r.put(ref)
+      except:
+         print "  Invalid input... "
+    elif cmd == 'ik5':
+      try:
+        arm = c[1]
+        dof = 5
+        jointSet = c[len(c)-1]
+        eff_end     = np.array([float(c[2]) , float(c[3]), float(c[4]), float(c[5]), float(c[5])])
+        ref = doIK(state, ref, eff_end, dof, jointSet, arm)
+        if jointSet == 'set':
+          r.put(ref)
+      except:
+         print "  Invalid input... "
+    
+ #s.close()
+
+
+def doIK(state, ref, eff_end,  dof, jointSet, arm):
        try:
-           arm = c[1]
            # Define IK
            eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
            if arm == 'left':
@@ -152,9 +180,15 @@ def mainLoop():
               jntn = getAddress('RWR',state)
               j5 = state.joint[jntn].ref
               eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
-
-           eff_end     = np.array([float(c[2]) , float(c[3]), float(c[4])])
-           order = ['p_x','p_y','p_z']
+           order = []
+           if dof == 3:
+             order = ['p_x','p_y','p_z']
+           elif dof == 6:
+             order = ['p_x','p_y','p_z','t_x','t_y','t_z']
+           elif dof == 5:
+             order = ['p_x','p_y','p_z','t_x','t_y']
+           err = np.array([0.001,0.001, 0.001])
+           # Get IK
            err = np.array([0.001,0.001, 0.001])
            # Get IK
            eff_joint_space_current = ik.getIK(eff_joint_space_current, eff_end, order, arm, err)
@@ -169,7 +203,7 @@ def mainLoop():
            print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
            print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
 
-           if c[5] == 'set':
+           if jointSet == 'set':
               if arm == 'left':
                 jntn = getAddress('LSP',state)
                 ref.joint[jntn].ref = eff_joint_space_current[0]
@@ -183,7 +217,6 @@ def mainLoop():
                 ref.joint[jntn].ref = eff_joint_space_current[4]
                 jntn = getAddress('LWR',state)
                 ref.joint[jntn].ref = eff_joint_space_current[5]
-                r.put(ref)
               elif arm == 'right':
                 jntn = getAddress('RSP',state)
                 ref.joint[jntn].ref = eff_joint_space_current[0]
@@ -197,8 +230,7 @@ def mainLoop():
                 ref.joint[jntn].ref = eff_joint_space_current[4]
                 jntn = getAddress('RWR',state)
                 ref.joint[jntn].ref = eff_joint_space_current[5]
-                r.put(ref)
-               
+           return ref   
        except:
          print "  Invalid input... "
 
@@ -209,10 +241,6 @@ def mainLoop():
 
   
 
-
-
-
-  s .close()
 
 
 def getAddress(name, state):

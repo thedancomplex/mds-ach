@@ -2,7 +2,7 @@
 <sdf version='1.4'>
   <model name="my_robot">
   
-    <pose>0 0 1.2065 0 0 0</pose>
+    <pose>0 0 1.24 0 0 0</pose>
  <static>false</static> 
  <static>true</static> 
   
@@ -35,7 +35,7 @@
       </geometry>
     </visual>
 
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>100.1</mass> </inertial>
      
 
  </link>
@@ -65,7 +65,7 @@
 
       </geometry>
     </visual>
--     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+-     <inertial> <mass>0.1</mass> </inertial>
      
 
 </link>
@@ -98,7 +98,7 @@
        </box>
       </geometry>
     </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
  </link>
@@ -140,7 +140,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -198,7 +198,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -231,7 +231,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -247,7 +247,7 @@
 
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -296,7 +296,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -326,7 +326,7 @@
      </cylinder>
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -398,7 +398,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -428,7 +428,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -453,7 +453,7 @@
      </cylinder>
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -496,7 +496,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -581,7 +581,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -604,7 +604,7 @@
      </cylinder>
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -642,7 +642,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -675,7 +675,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -691,7 +691,7 @@
 
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -740,7 +740,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -771,7 +771,7 @@
      </cylinder>
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -844,7 +844,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -874,7 +874,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -899,7 +899,7 @@
      </cylinder>
    </geometry>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>
@@ -942,7 +942,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     <inertial> <mass>0.1</mass> </inertial>
        
      
 </link>

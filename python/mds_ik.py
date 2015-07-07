@@ -440,7 +440,7 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
   A = getFkArm(eff_joint_space_current,arm)
   eff_current = getPosCurrentFromOrder(A,order)
   eff_dist_to_end = getDist2End2(eff_current, eff_end)
-
+  print eff_dist_to_end
 ##  print eff_dist_to_end
  return eff_joint_space_current
 
