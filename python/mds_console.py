@@ -71,7 +71,88 @@ def mainLoop():
        except:
          print "  Invalid input... "
             
+    elif cmd == 'ik':
+       try:
+           arm = c[1]
+           # Define IK
+           eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+           if arm == 'left':
+              jntn = getAddress('LSP',state)
+              j0 = state.joint[jntn].ref
+              jntn = getAddress('LSR',state)
+              j1 = state.joint[jntn].ref
+              jntn = getAddress('LSY',state)
+              j2 = state.joint[jntn].ref
+              jntn = getAddress('LEP',state)
+              j3 = state.joint[jntn].ref
+              jntn = getAddress('LWY',state)
+              j4 = state.joint[jntn].ref
+              jntn = getAddress('LWR',state)
+              j5 = state.joint[jntn].ref
+              eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
+           elif arm == 'right':
+              jntn = getAddress('RSP',state)
+              j0 = state.joint[jntn].ref
+              jntn = getAddress('RSR',state)
+              j1 = state.joint[jntn].ref
+              jntn = getAddress('RSY',state)
+              j2 = state.joint[jntn].ref
+              jntn = getAddress('REP',state)
+              j3 = state.joint[jntn].ref
+              jntn = getAddress('RWY',state)
+              j4 = state.joint[jntn].ref
+              jntn = getAddress('RWR',state)
+              j5 = state.joint[jntn].ref
+              eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
 
+           eff_end     = np.array([float(c[2]) , float(c[3]), float(c[4])])
+           order = ['p_x','p_y','p_z']
+           err = np.array([0.001,0.001, 0.001])
+           import mds_fk as ik
+           # Get IK
+           eff_joint_space_current = ik.getIK(eff_joint_space_current, eff_end, order, arm, err)
+
+           # Print result
+           A = ik.getFkArm(eff_joint_space_current,'left')
+           eff_end_ret = ik.getPosCurrentFromOrder(A,order)
+           eff_end_dif = eff_end - eff_end_ret
+           print 'N-3 DOF IK Solution - change resolution 0.1'
+           print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
+           print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+           print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+
+           if c[5] == 'set':
+              if arm == 'left':
+                jntn = getAddress('LSP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[0]
+                jntn = getAddress('LSR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[1]
+                jntn = getAddress('LSY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[2]
+                jntn = getAddress('LEP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[3]
+                jntn = getAddress('LWY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[4]
+                jntn = getAddress('LWR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[5]
+                r.put(ref)
+              elif arm == 'right':
+                jntn = getAddress('RSP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[0]
+                jntn = getAddress('RSR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[1]
+                jntn = getAddress('RSY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[2]
+                jntn = getAddress('REP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[3]
+                jntn = getAddress('RWY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[4]
+                jntn = getAddress('RWR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[5]
+                r.put(ref)
+               
+       except:
+         print "  Invalid input... "
 
 
 
