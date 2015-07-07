@@ -10,6 +10,7 @@ from optparse import OptionParser
 import math
 import readline
 import numpy as np
+import mds_ik as ik
 #c.flush()
 
 
@@ -70,7 +71,11 @@ def mainLoop():
 
        except:
          print "  Invalid input... "
-            
+    elif cmd == 'zeroall':      
+       for i in range(mds.MDS_JOINT_COUNT):
+           ref.joint[i].ref = 0.0
+       r.put(ref)  
+
     elif cmd == 'ik':
        try:
            arm = c[1]
@@ -108,15 +113,15 @@ def mainLoop():
            eff_end     = np.array([float(c[2]) , float(c[3]), float(c[4])])
            order = ['p_x','p_y','p_z']
            err = np.array([0.001,0.001, 0.001])
-           import mds_fk as ik
            # Get IK
            eff_joint_space_current = ik.getIK(eff_joint_space_current, eff_end, order, arm, err)
+           #eff_joint_space_current = ik.getIK3dof(eff_joint_space_current, eff_end, arm)
 
            # Print result
-           A = ik.getFkArm(eff_joint_space_current,'left')
+           A = ik.getFkArm(eff_joint_space_current,arm)
            eff_end_ret = ik.getPosCurrentFromOrder(A,order)
            eff_end_dif = eff_end - eff_end_ret
-           print 'N-3 DOF IK Solution - change resolution 0.1'
+           print 'N-3 DOF IK Solution - for ', arm, ' arm'
            print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
            print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
            print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
