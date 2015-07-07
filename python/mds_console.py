@@ -187,9 +187,7 @@ def doIK(state, ref, eff_end,  dof, jointSet, arm):
              order = ['p_x','p_y','p_z','t_x','t_y','t_z']
            elif dof == 5:
              order = ['p_x','p_y','p_z','t_x','t_y']
-           err = np.array([0.001,0.001, 0.001])
-           # Get IK
-           err = np.array([0.001,0.001, 0.001])
+           err = np.array([0.01,0.01, 0.01])
            # Get IK
            eff_joint_space_current = ik.getIK(eff_joint_space_current, eff_end, order, arm, err)
            #eff_joint_space_current = ik.getIK3dof(eff_joint_space_current, eff_end, arm)
