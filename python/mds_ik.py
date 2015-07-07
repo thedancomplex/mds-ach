@@ -50,6 +50,7 @@ threshold = .0025
 l1 = 0.2455100   # center of body to shoulder
 l2 = 0.2825750   # shoulder to eblow
 l3 = 0.3127375   # elbow to wrist roll
+l4 = 0.0635      # distance to middle of hand
 alpha = .5
 dT1 = .001		
 dT2 = .001
@@ -117,13 +118,13 @@ def getFkArm(a, arm):
     return -1
 
   #       theta        , Tx       , Ty          , Tz         , def_xyz
-  LSP = [ a[0]         , 0.0      , m*0.2455100 , 0.0        , def_y ] 
+  LSP = [ a[0]         , 0.0      , m*l1        , 0.0        , def_y ] 
   LSR = [ a[1]         , 0.0      , 0.0         , 0.0        , def_x ]
-  LSY = [ a[2]         , 0.0      , 0.0         , -0.2825750 , def_z ] 
+  LSY = [ a[2]         , 0.0      , 0.0         , -l2        , def_z ] 
   LEB = [ a[3]         , 0.0      , 0.0         , 0.0        , def_y ]
-  LWY = [ a[4]         , 0.0      , 0.0         , -0.3127375 , def_z ] 
+  LWY = [ a[4]         , 0.0      , 0.0         , -l3        , def_z ] 
   LWR = [ a[5]         , 0.0      , 0.0         , 0.0        , def_x ]
-  LEN = [ 0.0          , 0.0      , 0.0         , -0.0635    , def_x ] 
+  LEN = [ 0.0          , 0.0      , 0.0         , -l4        , def_x ] 
   # note rolls seem to be oppisit (-)
 
   A1 = getA(LSP)
@@ -135,12 +136,20 @@ def getFkArm(a, arm):
   A7 = getA(LEN)
 
   A = np.dot(A1,A2)
-  A = np.dot(A, A2)
+  #A = np.dot(A, A2)
   A = np.dot(A, A3)
   A = np.dot(A, A4)
   A = np.dot(A, A5)
   A = np.dot(A, A6)
   A = np.dot(A, A7)
+
+#dan
+#  A = np.dot(A7,A6)
+#  A = np.dot(A5, A)
+#  A = np.dot(A4, A)
+#  A = np.dot(A3, A)
+#  A = np.dot(A2, A)
+#  A = np.dot(A1, A)
 
   return A
 
@@ -388,7 +397,45 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
 
   # apply changes to dofs
   eff_joint_space_current = eff_joint_space_current + d_theta
-  
+
+  # Check for over joint range
+  m = 1.0
+  if arm == 'left':
+     m = 1.0
+  elif arm == 'right':
+     m = -1.0
+
+  if eff_joint_space_current[0] > np.pi:     #xSP max
+     eff_joint_space_current[0] = np.pi
+  if eff_joint_space_current[0] < -np.pi:    #xSP min
+     eff_joint_space_current[0] = -np.pi
+  if arm == 'left':
+    if eff_joint_space_current[1] < 0.0:     #xSR towards body
+       eff_joint_space_current[1] = 0.0   
+    if eff_joint_space_current[1] > np.pi:
+       eff_joint_space_current[1] = np.pi   
+  if arm == 'right':
+    if eff_joint_space_current[1] > 0.0001:     #xSR towards body
+       eff_joint_space_current[1] = 0.0001      
+    if eff_joint_space_current[1] < -np.pi:
+       eff_joint_space_current[1] = -np.pi   
+  if eff_joint_space_current[2] > np.pi:     #xSY max
+     eff_joint_space_current[2] = np.pi
+  if eff_joint_space_current[2] < -np.pi:    #xSY min
+     eff_joint_space_current[2] = -np.pi
+  if eff_joint_space_current[3] > 0.0:     #xeP max
+     eff_joint_space_current[3] = 0.0
+  if eff_joint_space_current[3] < -2.4:    #xeP min
+     eff_joint_space_current[3] = -2.4
+  if eff_joint_space_current[4] > np.pi:     #xWY max
+     eff_joint_space_current[4] = np.pi
+  if eff_joint_space_current[4] < -np.pi:    #xWY min
+     eff_joint_space_current[4] = -np.pi
+  if eff_joint_space_current[5] > np.pi/2.0:     #xSR max
+     eff_joint_space_current[5] = np.pi/2.0
+  if eff_joint_space_current[5] < -np.pi/2.0:    #xSR min
+     eff_joint_space_current[5] = -np.pi/2.0
+ 
   # distance to end point
   A = getFkArm(eff_joint_space_current,arm)
   eff_current = getPosCurrentFromOrder(A,order)

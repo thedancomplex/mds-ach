@@ -39,13 +39,56 @@ def mainLoop():
 
     if cmd == 'get':
        try:
-         jnt = c[1]
-         jntn = getAddress(jnt,state)
-         pos = state.joint[jntn].pos
-         jntName = (mds.ubytes2str(state.joint[jntn].name)).replace('\0', '')
-         print jntName, ' = ', str(format(pos,'.5f')), ' rad'
+         if c[1] == 'fk':
+           arm = c[2]
+           eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+           if arm == 'left':
+              jntn = getAddress('LSP',state)
+              j0 = state.joint[jntn].ref
+              jntn = getAddress('LSR',state)
+              j1 = state.joint[jntn].ref
+              jntn = getAddress('LSY',state)
+              j2 = state.joint[jntn].ref
+              jntn = getAddress('LEP',state)
+              j3 = state.joint[jntn].ref
+              jntn = getAddress('LWY',state)
+              j4 = state.joint[jntn].ref
+              jntn = getAddress('LWR',state)
+              j5 = state.joint[jntn].ref
+              eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
+           elif arm == 'right':
+              jntn = getAddress('RSP',state)
+              j0 = state.joint[jntn].ref
+              jntn = getAddress('RSR',state)
+              j1 = state.joint[jntn].ref
+              jntn = getAddress('RSY',state)
+              j2 = state.joint[jntn].ref
+              jntn = getAddress('REP',state)
+              j3 = state.joint[jntn].ref
+              jntn = getAddress('RWY',state)
+              j4 = state.joint[jntn].ref
+              jntn = getAddress('RWR',state)
+              j5 = state.joint[jntn].ref
+              eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
+           A = ik.getFkArm(eff_joint_space_current,arm)
+           print A
+           order = ['p_x','p_y','p_z']
+           eff_end_ret = ik.getPosCurrentFromOrder(A,order)
+           print '3DOF FK - for ', arm, ' arm'
+           print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+         
+         else:
+           jnt = c[1]
+           jntn = getAddress(jnt,state)
+           pos = state.joint[jntn].pos
+           pos = state.joint[jntn].ref
+           jntName = (mds.ubytes2str(state.joint[jntn].name)).replace('\0', '')
+           print jntName, ' State = ', str(format(pos,'.5f')), ' rad'
+           print jntName, ' Ref   = ', str(format(pos_r,'.5f')), ' rad'
        except:
          print "  Invalid input... "
+    elif cmd == 'exit':
+         quit()
     elif cmd == 'goto':
        try:
          jnt = c[1]
