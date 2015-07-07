@@ -2,6 +2,7 @@
 <sdf version='1.4'>
   <model name="my_robot">
   
+    <pose>0 0 1.2065 0 0 0</pose>
  <static>false</static> 
  <static>true</static> 
   
@@ -13,6 +14,7 @@
 --------------------------------------------
 ---------------------------------------  --> 
 
+<allow_auto_disable>true</allow_auto_disable>
 
   <!-- Rectangular base -->
   <link name='base'>
@@ -33,14 +35,8 @@
       </geometry>
     </visual>
 
-    <inertial>
-      <origin xyz="0 0 -1.2065" rpy="0 0 0"/>
-      <mass value="100"/>
-      <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
-    </inertial>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     
 
  </link>
 
@@ -69,6 +65,9 @@
 
       </geometry>
     </visual>
+-     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+     
+
 </link>
 
 
@@ -99,6 +98,9 @@
        </box>
       </geometry>
     </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
  </link>
 
 
@@ -138,6 +140,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 <link name="RSP_body_fake">
@@ -193,6 +198,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 
@@ -223,6 +231,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 <link name="RSY_body_fake">
@@ -236,6 +247,9 @@
 
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 <joint type="revolute" name="RSY_fake">
@@ -282,6 +296,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="REP">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -309,6 +326,9 @@
      </cylinder>
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="REP_fake">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -378,6 +398,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="RWY">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -405,6 +428,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="RWR">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -427,6 +453,9 @@
      </cylinder>
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="RWR_fake">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -467,6 +496,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="RHAND">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -549,6 +581,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 <link name="LSP_body_fake">
@@ -569,6 +604,9 @@
      </cylinder>
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LSP">
         <pose>0 0.0 0 0 0  0</pose>
@@ -604,6 +642,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 
@@ -634,6 +675,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 <link name="LSY_body_fake">
@@ -647,6 +691,9 @@
 
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 
 <joint type="revolute" name="LSY_fake">
@@ -693,6 +740,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LEP">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -721,6 +771,9 @@
      </cylinder>
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LEP_fake">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -791,6 +844,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LWY">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -818,6 +874,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LWR">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -840,6 +899,9 @@
      </cylinder>
    </geometry>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LWR_fake">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -880,6 +942,9 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+     <!-- <inertial> <mass>0.0</mass> </inertial> -->
+       
+     
 </link>
 <joint type="revolute" name="LHAND">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
