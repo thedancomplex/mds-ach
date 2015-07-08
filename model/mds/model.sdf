@@ -22,7 +22,7 @@
      <collision name='collision'>
       <geometry>
         <box>
-         <size> 0.4 0.4 0.05</size>
+         <size> 0.4 0.4 0.01</size>
         </box>
       </geometry>
      </collision>
@@ -36,8 +36,54 @@
     </visual>
 
      <inertial> <mass>100.1</mass> </inertial>
-     
+ </link>
 
+
+  <link name='wheels'>
+    <pose>0 0 -1.2065 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 .254 1.57 0 0</pose>
+      <geometry>
+       <cylinder>
+        <radius>0.254</radius>
+        <length>0.6604</length>
+       </cylinder>
+      </geometry>
+     </collision>
+
+     <visual name='visual'>
+      <pose>0 0 .254 1.57 0 0</pose>
+      <geometry>
+       <cylinder>
+        <radius>0.254</radius>
+        <length>0.6604</length>
+       </cylinder>
+      </geometry>
+    </visual>
+
+     <inertial> <mass>100.1</mass> </inertial>
+ </link>
+
+
+  <link name='box1'>
+    <pose>0 0 -0.9144 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.4191 0.508 0.5842</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.4191 0.508 0.5842</size>
+        </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>100.1</mass> </inertial>
  </link>
 
 
@@ -45,40 +91,64 @@
 
 
 
-  <link name='poll'>
-    <pose>0 0 -0.60325 0 0 0</pose>
+
+  <link name='box2'>
+    <pose>0 0 -0.5524 0 0 0</pose>
      <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
       <geometry>
-       <cylinder>
-        <radius>0.02222</radius>
-        <length>1.2065</length>
-       </cylinder>
+        <box>
+         <size>0.2413 0.508 0.1398</size>
+        </box>
       </geometry>
      </collision>
-
      <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
       <geometry>
-       <cylinder>
-        <radius>0.02222</radius>
-        <length>1.2065</length>
-       </cylinder>
-
+        <box>
+         <size>0.2413 0.508 0.1398</size>
+        </box>
       </geometry>
     </visual>
--     <inertial> <mass>0.1</mass> </inertial>
-     
-
-</link>
+     <inertial> <mass>0.1</mass> </inertial>
+ </link>
 
 
-<joint type="revolute" name="WST">
-        <pose>0 0.0 0 0 0  0</pose>
-        <child>poll</child>
-        <parent>base</parent>
-        <axis>
-          <xyz>0 0 1</xyz>
-        </axis>
-</joint>
+
+
+
+
+
+
+
+
+
+
+  <link name='chest'>
+    <pose>0 0 -0.2794 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.1651 0.2286 0.4064</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.1651 0.2286 0.4064</size>
+        </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+ </link>
+
+
+
+
+
 
   <!-- Rectangular base -->
   <link name='torso'>
@@ -90,7 +160,6 @@
         </box>
       </geometry>
      </collision>
-
      <visual name='visual'>
       <geometry>
        <box>
@@ -99,22 +168,84 @@
       </geometry>
     </visual>
      <inertial> <mass>0.1</mass> </inertial>
-       
-     
  </link>
 
 
 
 
-<joint type="revolute" name="TSY">
+
+
+<joint type="revolute" name="WHEELS">
         <pose>0 0.0 0 0 0  0</pose>
-        <child>torso</child>
-        <parent>poll</parent>
+        <child>wheels</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+
+        </axis>
+</joint>
+
+
+<joint type="revolute" name="WHEELS-box1">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>box1</child>
+        <parent>wheels</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+        </axis>
+</joint>
+
+<joint type="revolute" name="WHEELS-box2">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>box2</child>
+        <parent>box1</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+        </axis>
+</joint>
+
+
+<joint type="revolute" name="TSY">
+        <pose>0 0.0 -0.216 0 0  0</pose>
+        <child>chest</child>
+        <parent>box2</parent>
         <axis>
           <xyz>0 0 1</xyz>
         </axis>
 </joint>
 
+<joint type="revolute" name="TSY2">
+        <pose>0 0.0 -0.216    0 0 0</pose>
+        <child>torso</child>
+        <parent>chest</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+           <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+            <velocity>0</velocity>
+          </limit>
+       </axis>
+</joint>
 
 <link name="RSP_body">
  <pose>0.0 -0.245510  0.0 1.57 0.0 0.0</pose>
@@ -1015,7 +1146,7 @@
        <RWR>RWR</RWR>
        <RWY>RWY</RWY>
 
-<!--       <TSY>TSY</TSY> -->
+       <TSY>TSY</TSY> 
 
     </plugin> 
   </model>

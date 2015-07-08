@@ -154,9 +154,9 @@ namespace gazebo
           this->FindJointByParam(_sdf, this->joint_RSY_,      "RSY") &&
           this->FindJointByParam(_sdf, this->joint_REP_,      "REP") &&
           this->FindJointByParam(_sdf, this->joint_RWR_,      "RWR") &&
-          this->FindJointByParam(_sdf, this->joint_RWY_,      "RWY"))// &&
+          this->FindJointByParam(_sdf, this->joint_RWY_,      "RWY") &&
 
-       //   this->FindJointByParam(_sdf, this->joint_TSY_,      "TSY"))
+          this->FindJointByParam(_sdf, this->joint_TSY_,      "TSY"))
 
         return true;
       else
@@ -216,7 +216,7 @@ namespace gazebo
       this->joint_RWR_->SetParam("friction",0, maxTorque);
       this->joint_RWY_->SetParam("friction",0, maxTorque);
 
-     // this->joint_TSY_->SetParam("friction",0, maxTorque);
+      this->joint_TSY_->SetParam("friction",0, maxTorque);
 
 
       for( int i = 0; i < MDS_JOINT_COUNT; i++){
@@ -236,6 +236,7 @@ namespace gazebo
          if( strName.compare(0,3,"REP") == 0) this->joint_REP_->SetPosition(0, pos);
          if( strName.compare(0,3,"RWR") == 0) this->joint_RWR_->SetPosition(0, pos);
          if( strName.compare(0,3,"RWY") == 0) this->joint_RWY_->SetPosition(0, pos);
+         if( strName.compare(0,3,"WST") == 0) this->joint_TSY_->SetPosition(0, pos);
       }
 /*
       this->joint_LSP_->SetPosition(0, iniAngle);
@@ -318,7 +319,7 @@ namespace gazebo
     private: physics::JointPtr joint_RWR_;
     private: physics::JointPtr joint_RWY_;
 
-  //  private: physics::JointPtr joint_TSY_;
+    private: physics::JointPtr joint_TSY_;
 
   };
 

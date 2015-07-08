@@ -400,7 +400,7 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
           //double rad = s->joint[i].ref;
           /* with offset */
           double rad = s->joint[i].direction * (s->joint[i].ref + (s->joint[i].offset*s->joint[i].direction));
-          s->joint[i].pos = rad;
+//          s->joint[i].pos = rad;
 
           //double radss = 0.0872664626; // 5 deg/s^2
           //double radss = 0.0872664626 * 2.0; // 10 deg/s^2
@@ -597,7 +597,12 @@ int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm){
         double rat = 2.0 * M_PI / (p->joint[address].encoderresolution * 
                                    p->joint[address].gearratio *
                                    p->joint[address].encoderconfig_tickspercount);
-        s->joint[address].pos = d * rat;
+        /* received state */
+        //s->joint[address].pos = d * rat;
+        
+        /* state with offset */
+        s->joint[address].pos = s->joint[i].direction * ((d * rat) - s->joint[i].offset);
+
 //       printf("\ndeg = %f  joint = %d\n",d, address);
     }
     else return -1;
