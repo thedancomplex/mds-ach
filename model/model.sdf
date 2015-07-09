@@ -1,5 +1,14 @@
-<?xml version='1.0'?>
-<sdf version='1.4'>
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+     <include>
+      <uri>model://sun</uri>
+    </include>
+
   <model name="my_robot">
   
     <pose>0 0 1.24 0 0 0</pose>
@@ -1119,5 +1128,33 @@
        <TSY>TSY</TSY> 
 
     </plugin> 
-  </model>
+
+      <link name="link">
+        <pose>2 2 0.5 0 0 0</pose>
+
+        <collision name="box_collision">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <sensor name='my_contact' type='contact'>
+          <contact>
+            <collision>box_collision</collision>
+          </contact>
+        </sensor>
+      </link>
+    </model>
+  </world>
 </sdf>
+

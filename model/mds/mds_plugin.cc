@@ -38,6 +38,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/msgs/MessageTypes.hh>
 #include <gazebo/common/Time.hh>
+#include <gazebo/plugins/ContactPlugin.hh>
+
 
 // For Ach
 #include <errno.h>
@@ -52,6 +54,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <ach.h>
 #include <string.h>
 #include "../../include/mds.h"
+
+
 /*
 // ach channels
 ach_channel_t chan_diff_drive_ref;      // hubo-ach
@@ -64,7 +68,6 @@ double ttime = 0.0;
 
 mds_state_t H_state;
 ach_channel_t chan_state;     // mds-ach-state
-
 
 namespace gazebo
 {   
@@ -138,7 +141,9 @@ namespace gazebo
 //      gazebo::transport::NodePtr node(new gazebo::transport::Node());
 //      node->Init();
 //      gazebo::transport::SubscriberPtr sub = node->Subscribe("/gazebo/default/world_stats", cb);
-    }
+   
+
+     }
 
     public: bool LoadParams(sdf::ElementPtr _sdf) 
     {
@@ -238,61 +243,37 @@ namespace gazebo
          if( strName.compare(0,3,"RWY") == 0) this->joint_RWY_->SetPosition(0, pos);
          if( strName.compare(0,3,"WST") == 0) this->joint_TSY_->SetPosition(0, pos);
       }
+
+/* Get contacts */
+
+ // Get all the contacts.
+
 /*
-      this->joint_LSP_->SetPosition(0, iniAngle);
-      this->joint_LSR_->SetPosition(0, iniAngle);
-      this->joint_LSY_->SetPosition(0, iniAngle);
-      this->joint_LEP_->SetPosition(0, H_state.joint[0x004c].ref);
-      this->joint_LWR_->SetPosition(0, iniAngle);
-      this->joint_LWY_->SetPosition(0, iniAngle);
-      
-      this->joint_RSP_->SetPosition(0, iniAngle);
-      this->joint_RSR_->SetPosition(0, iniAngle);
-      this->joint_RSY_->SetPosition(0, iniAngle);
-      this->joint_REP_->SetPosition(0, iniAngle);
-      this->joint_RWR_->SetPosition(0, iniAngle);
-      this->joint_RWY_->SetPosition(0, iniAngle);
-      
-   //   this->joint_TSY_->SetPosition(0, iniAngle);
+  msgs::Contacts contacts;
+  contacts = this->parentSensor->GetContacts();
+  for (unsigned int i = 0; i < contacts.contact_size(); ++i)
+  {
+    std::cout << "Collision between[" << contacts.contact(i).collision1()
+              << "] and [" << contacts.contact(i).collision2() << "]\n";
 
+    for (unsigned int j = 0; j < contacts.contact(i).position_size(); ++j)
+    {
+      std::cout << j << "  Position:"
+                << contacts.contact(i).position(j).x() << " "
+                << contacts.contact(i).position(j).y() << " "
+                << contacts.contact(i).position(j).z() << "\n";
+      std::cout << "   Normal:"
+                << contacts.contact(i).normal(j).x() << " "
+                << contacts.contact(i).normal(j).y() << " "
+                << contacts.contact(i).normal(j).z() << "\n";
+      std::cout << "   Depth:" << contacts.contact(i).depth(j) << "\n";
+    }
+  }
 */
+/* end get contacts */
 
 
-/*  ---- Ach Control ---
-      // Get Ach chan data
-    size_t fs;
-    int r = ach_get( &chan_diff_drive_ref, &H_ref, sizeof(H_ref), &fs, NULL, ACH_O_LAST );
 
-    if(ACH_OK != r | ACH_STALE_FRAMES != r | ACH_MISSED_FRAME != r) {
-                if(debug) {
-                  //      printf("Ref ini r = %s\n",ach_result_to_string(r));}
-                   printf("ref int r = %i \n\r",r);
-		 }
-        }
-        else{   assert( sizeof(H_ref) == fs ); }
-
-      this->left_wheel_joint_->SetParam("friction",0, 7);
-      this->right_wheel_joint_->SetParam("friction",0, 7);
-      this->right_wheel_joint_->SetVelocity(0, H_ref[0]);
-      this->left_wheel_joint_->SetVelocity(0, H_ref[1]);
-
-      ttime = this->world->GetSimTime().Double();
-      //printf("- %f\n\r", ttime);
-
-      ach_put(&chan_time, &ttime, sizeof(ttime));
-//      double tmp = this->GetSimTime().double();
-//      this->right_wheel_joint_->SetForce(0, H_ref[0]);
-//      this->left_wheel_joint_->SetForce(0, H_ref[1]);
-
-     //this->left_wheel_joint_->SetParam("friction",0, 10);
-      //this->right_wheel_joint_->SetParam("friction",0, 10);
-      //this->left_wheel_joint_->SetForce(0, -0.5);
-//      this->left_wheel_joint_->SetForce(0, 0.2);
-      //this->right_wheel_joint_->SetVelocity(0,0.5);
-//      this->right_wheel_joint_->SetForce(0, -0.2);
-
-      
---- Ach control end --*/
 
 
 
