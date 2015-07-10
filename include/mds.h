@@ -100,10 +100,12 @@ extern "C" {
 
 #define 	MDS_CAN_CHAN_NUM	4	///> Number of CAN channels avaliable
 #define         MDS_JOINT_COUNT        100      ///> The max number of joints
+#define         MDS_ARM_COUNT          2        ///> The max number of arms
 
 #define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> mds ach channel
 #define		MDS_CHAN_BOARD_CMD_NAME   "mds-cmd"                    ///> mds console channel for ach
 #define         MDS_CHAN_PARAM_NAME       "mds-param"                  ///> mds param channel
+#define         MDS_CHAN_IK_NAME          "mds-ik"                     ///> ik channel
 #define		MDS_CHAN_CAN_DAEMON_NAME  "mds-can-daemon"             ///> daemon for reading CAN
 #define		MDS_CHAN_STATE_NAME       "mds-state"                  ///> mds state ach channel
 #define 	MDS_CHAN_REF_FILTER_NAME  "mds-ref-filter"             ///> mds reference with filter ach channel
@@ -129,6 +131,15 @@ extern "C" {
 
 #define FALSE 0 // off static
 #define TRUE  1 // on static
+
+/* define IK options */
+#define IK1 = 1
+#define IK2 = 2
+#define IK3 = 3
+#define IK4 = 4
+#define IK5 = 5
+#define IK6 = 6
+
 
 // array of joint name strings (total of 42)
 static const char *jointNames[MDS_JOINT_COUNT] =
@@ -184,6 +195,26 @@ typedef struct mds_jnt_param {
 typedef struct mds_joint_param {
     struct mds_jnt_param joint[MDS_JOINT_COUNT];
 }__attribute__((packed)) mds_joint_param_t;
+
+
+typedef struct mds_ik_arm{
+
+/* Translate */
+    double t_x;
+    double t_y;
+    double t_z;
+/* roll */
+    double r_x;
+    double r_y;
+    double r_z;
+    int16_t ik_method;
+}__attribute((packed)) mds_ik_arm_t;
+
+typedef struct mds_ik{
+   struct mds_ik_arm arm[MDS_ARM_COUNT];
+   int16_t move;
+}__attribute((packed)) mds_ik_t;
+
 
 typedef struct mds_joint_state {
         double ref_r;           ///< Last reference value received

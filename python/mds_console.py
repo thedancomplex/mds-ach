@@ -24,11 +24,11 @@ def mainLoop():
  s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
  rf = ach.Channel(mds.MDS_CHAN_REF_FILTER_NAME)
  r = ach.Channel(mds.MDS_CHAN_REF_NAME)
- con = ach.Channel(mds.MDS_CHAN_CON2IK_NAME)
+ k = ach.Channel(mds.MDS_CHAN_IK_NAME)
  state = mds.MDS_STATE()
  ref = mds.MDS_REF()
  ref_filt = mds.MDS_REF()
- command = mds.MDS_CON2IK()
+ ikc = mds.MDS_IK()
  doloop = True
  while(doloop):
     # Block until input is received
@@ -39,11 +39,12 @@ def mainLoop():
     [status, framesize] = s.get(state, wait=False, last=True)
     [status, framesize] = r.get(ref, wait=False, last=True)
     [status, framesize] = rf.get(ref_filt, wait=False, last=True)
+    [status, framesize] = k.get(ikc, wait=False, last=True)
 
     # get command
     cmd = c[0]
     if cmd == 'get':
-       try:
+ #      try:
          if c[1] == 'fk':
            arm = c[2]
            eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
@@ -75,7 +76,9 @@ def mainLoop():
               jntn = getAddress('RWR',state)
               j5 = state.joint[jntn].ref
               eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
+           print '1'
            A = ik.getFkArm(eff_joint_space_current,arm)
+           print '2'
            order = ['p_x','p_y','p_z','t_x','t_y','t_z']
            eff_end_ret = ik.getPosCurrentFromOrder(A,order)
            print '6DOF FK - for ', arm, ' arm'
@@ -90,8 +93,8 @@ def mainLoop():
            jntName = (mds.ubytes2str(state.joint[jntn].name)).replace('\0', '')
            print jntName, ' State = ', str(format(pos,'.5f')), ' rad'
            print jntName, ' Ref   = ', str(format(pos_r,'.5f')), ' rad'
-       except:
-         print "  Invalid input... "
+#       except:
+#         print "  Invalid input... "
     elif cmd == 'exit':
          s.close()
          r.close()
@@ -128,23 +131,35 @@ def mainLoop():
          print "done"
        except:
          print "  Invalid input... "
-    elif cmd == 'gotopos':
-      try:
-	#command.ik_method = int(c[1])
-	#command.num_dof = int(c[2])
-	#0 is left arm 1 is right arm
-	command.arm = int(c[1])
-	command.x = float(c[2])
-	command.y = float(c[3])
-	command.z = float(c[4])
-	con.put(command)
-      except:
-	print "  Invalid input... "
     elif cmd == 'zeroall':      
        for i in range(mds.MDS_JOINT_COUNT):
            ref.joint[i].ref = 0.0
        r.put(ref)  
+    elif cmd == 'ikach':
+        arm = c[1]
+        armi = -1
+        dof = int(c[2])
+        eff = [0.0, 0.0, 0.0,    0.0, 0.0, 0.0]
+        for i in range(0,dof):
+          eff[i] = float(c[i+3])
 
+        if arm == 'left':
+             armi = mds.LEFT
+        if arm == 'right':
+             armi = mds.RIGHT
+         
+        if armi >= 0:
+           ikc.move = armi
+           ikc.arm[armi].ik_method = dof
+           ikc.arm[armi].t_x = eff[0]
+           ikc.arm[armi].t_y = eff[1]
+           ikc.arm[armi].t_z = eff[2]
+           ikc.arm[armi].r_x = eff[3]
+           ikc.arm[armi].r_y = eff[4]
+           ikc.arm[armi].r_z = eff[5]
+           k.put(ikc)
+
+        
     elif cmd == 'ik':
       try:
         arm = c[1]

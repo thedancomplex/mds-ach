@@ -6,7 +6,7 @@ import pylab
 import ach
 import time
 import signal
-import mds_ik
+import mds_ik as ik
 import sys
 import os
 import math
@@ -14,135 +14,176 @@ from ctypes import *
 import copy
 from numpy.linalg import inv
 import mds_ik_include as ike
-import mds_ach as ha
 from mds_ach import *
 
-
 #define global variables
-threshold = .0025
-l1 = 0.2455100   # center of body to shoulder
-l2 = 0.2825750   # shoulder to eblow
-l3 = 0.3127375   # elbow to wrist roll
-alpha = .5
-dT1 = .001		
-dT2 = .001
-dT3 = .001
-#open ach channel for coodinates being sent from file
-coordinates = ike.CONTROLLER_REF()
-coordinates.x = -0.25
-coordinates.y = -0.20
-coordinates.z =  0.20
 # feed-forward will now be refered to as "state"
-state = ha.MDS_REF()
+state = mds.MDS_REF()
 #initial feed-back
-initial_ref = ha.MDS_REF()
-# feed-back will now be refered to as "ref"
-ref = ha.MDS_REF()
-# Command line for console
-command = ha.MDS_CON2IK()
-#bend elbow to start to force jacobian to solve in righ direction
-#avoid singularity
-ref.joint[ha.REB].ref = -math.pi/6	
-ref.joint[ha.LEB].ref = -math.pi/6
-# rotation matrix definition (abotu x, y, or z)
-def_x = 1
-def_y = 2
-def_z = 3
-#define arm constant
-arm = 'left'
-
-#Needed for name resolution
+initial_ref = mds.MDS_REF()
+initial_state = mds.MDS_STATE()
+# feed-back will now be refered to as "state"
+ref = mds.MDS_REF()
 state = mds.MDS_STATE()
-
-
-#Current Status: 
-#3 DOF Capabilities
-
-#git checkout -b feature /smoothing
-#git push origin branch name
+# Command line for console
+ikc = mds.MDS_IK()
+#define arm constant
 
 
 def mainLoop():
-	eff_end	= np.array([0, 0, 0])
-	eff_joint_space_L = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-	eff_joint_space_R = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-	m = ach.Channel(MDS_CHAN_REF_NAME)
-	c = ach.Channel(MDS_CHAN_CON2IK_NAME)
-	r = ach.Channel(MDS_CHAN_REF_FILTER_NAME)
+	k = ach.Channel(mds.MDS_CHAN_IK_NAME)
+	r = ach.Channel(mds.MDS_CHAN_REF_FILTER_NAME)
         s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
+        k.flush()
 
 	state = mds.MDS_STATE()
-	#Get initial references	
-	m.get(initial_ref)
-	#get initial joint space for left arm
-
-        [status, framesize] = s.get(state, wait=False, last=True)
-
-	eff_joint_space_L[0] = initial_ref.joint[mds.getAddress('LSP',state)].ref
-	eff_joint_space_L[1] = initial_ref.joint[mds.getAddress('LSR',state)].ref
-	eff_joint_space_L[2] = initial_ref.joint[mds.getAddress('LSY',state)].ref
-	eff_joint_space_L[3] = initial_ref.joint[mds.getAddress('LEB',state)].ref
-	eff_joint_space_L[4] = initial_ref.joint[mds.getAddress('LWY',state)].ref
-	eff_joint_space_L[5] = initial_ref.joint[mds.getAddress('LWR',state)].ref
-	#get initial joint space for right arm
-	eff_joint_space_R[0] = initial_ref.joint[mds.getAddress('RSP',state)].ref
-	eff_joint_space_R[1] = initial_ref.joint[mds.getAddress('RSR',state)].ref
-	eff_joint_space_R[2] = initial_ref.joint[mds.getAddress('RSY',state)].ref
-	eff_joint_space_R[3] = initial_ref.joint[mds.getAddress('REB',state)].ref
-	eff_joint_space_R[4] = initial_ref.joint[mds.getAddress('RWY',state)].ref
-	eff_joint_space_R[5] = initial_ref.joint[mds.getAddress('RWR',state)].ref
-	print(mds.getAddress('LSY',state));
+        ref = mds.MDS_REF()
+        ikc = mds.MDS_IK()
 	#take user input
 	while(1):
-		# Define IK 3 coord xyz
-		#arm = 'left'
-		#arm_type = 0
-		#USE THE ONE BELOW
-		# Get IK 3DOF
-		c.get(command)
-		if(command.arm == 0):
-			arm = 'left'
-			arm_type = 0
-			eff_joint_space_current=eff_joint_space_L
-			print arm
-		elif(command.arm == 1):
-			arm = 'right'
-			arm_type = 1
-			eff_joint_space_current=eff_joint_space_R
-			print arm
-		else:
-			arm = 'left'
-			arm_type = 0
-			eff_joint_space_current=eff_joint_space_L
-			print arm
-		#print "HERE: " + str(command.x) + str(command.y) + str(command.z)
-		eff_end = np.array([command.x, command.y, command.z])
-		eff_joint_space_current = mds_ik.getIK3dof(eff_joint_space_current, eff_end, arm)
-		# Print result for reference
-		A = mds_ik.getFkArm(eff_joint_space_current,arm)
-		eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3]])
-		eff_end_dif = eff_end - eff_end_ret
-		#send the solved ik to simulation
-		if(arm_type == 0):
-			ref.joint[mds.getAddress('LSP',state)].ref = eff_joint_space_current[0]
-			ref.joint[mds.getAddress('LSR',state)].ref = eff_joint_space_current[1]
-			ref.joint[mds.getAddress('LSY',state)].ref = eff_joint_space_current[2]
-			ref.joint[mds.getAddress('LEB',state)].ref = eff_joint_space_current[3]
-			ref.joint[mds.getAddress('LWY',state)].ref = eff_joint_space_current[4]
-			ref.joint[mds.getAddress('LWR',state)].ref = eff_joint_space_current[5]
-		else:
-			ref.joint[mds.getAddress('RSP',state)].ref = eff_joint_space_current[0]
-			ref.joint[mds.getAddress('RSR',state)].ref = eff_joint_space_current[1]
-			ref.joint[mds.getAddress('RSY',state)].ref = eff_joint_space_current[2]
-			ref.joint[mds.getAddress('REB',state)].ref = eff_joint_space_current[3]
-			ref.joint[mds.getAddress('RWY',state)].ref = eff_joint_space_current[4]
-			ref.joint[mds.getAddress('RWR',state)].ref = eff_joint_space_current[5]	
-		#print("\n"+"JOINT ANGLES:   ")
-		#print(eff_joint_space_current) #+ " " +str(eff_joint_space_current[1])+ " " +str(eff_joint_space_current[2])+ " " +str(eff_joint_space_current[3])+ " " +str(eff_joint_space_current[4])+ " " +str(eff_joint_space_current[5]))
-		#print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-		#print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-		#print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-		r.put(ref)
+          [status, framesize] = k.get(ikc, wait=True, last=True)
+          [status, framesize] = s.get(state, wait=False, last=True)
+          [status, framesize] = r.get(ref, wait=False, last=True)
+          at_x = 0.0
+          at_y = 0.0
+          at_z = 0.0
+          ar_x = 0.0
+          ar_y = 0.0
+          ar_z = 0.0
+          arm = 'none'
+          dof = 0
+          jointSet = 'no'
+          eff_end = np.array([0.0, 0.0, 0.0,    0.0, 0.0, 0.0])
+          runIK = False
+          armi = -1
+          if ikc.move == mds.LEFT:
+             runIK = True
+             arm = 'left'
+          if ikc.move == mds.RIGHT:
+             runIK = True
+             arm = 'right'
+
+          if runIK:
+            armi = ikc.move
+            dof = ikc.arm[armi].ik_method
+            at_x = ikc.arm[armi].t_x
+            at_y = ikc.arm[armi].t_y
+            at_z = ikc.arm[armi].t_z
+            ar_x = ikc.arm[armi].r_x
+            ar_y = ikc.arm[armi].r_y
+            ar_z = ikc.arm[armi].r_z
+            eff_end[0] = at_x
+            eff_end[1] = at_y
+            eff_end[2] = at_z
+            eff_end[3] = ar_x
+            eff_end[4] = ar_y
+            eff_end[5] = ar_z
+            print ikc.arm[armi].t_x
+            print eff_end
+            jointSet = 'set'
+            ref = doIK(state, ref, eff_end, dof, jointSet, arm)
+            r.put(ref)
+
+
+
+def doIK(state, ref, eff_end,  dof, jointSet, arm):
+       try:
+           # Define IK
+           eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+           if arm == 'left':
+              jntn = mds.getAddress('LSP',state)
+              j0 = state.joint[jntn].ref
+              jntn = mds.getAddress('LSR',state)
+              j1 = state.joint[jntn].ref
+              jntn = mds.getAddress('LSY',state)
+              j2 = state.joint[jntn].ref
+              jntn = mds.getAddress('LEP',state)
+              j3 = state.joint[jntn].ref
+              jntn = mds.getAddress('LWY',state)
+              j4 = state.joint[jntn].ref
+              jntn = mds.getAddress('LWR',state)
+              j5 = state.joint[jntn].ref
+              eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
+           elif arm == 'right':
+              jntn = mds.getAddress('RSP',state)
+              j0 = state.joint[jntn].ref
+              jntn = mds.getAddress('RSR',state)
+              j1 = state.joint[jntn].ref
+              jntn = mds.getAddress('RSY',state)
+              j2 = state.joint[jntn].ref
+              jntn = mds.getAddress('REP',state)
+              j3 = state.joint[jntn].ref
+              jntn = mds.getAddress('RWY',state)
+              j4 = state.joint[jntn].ref
+              jntn = mds.getAddress('RWR',state)
+              j5 = state.joint[jntn].ref
+              eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
+           order = []
+           err = np.array([0.01,0.01, 0.01])
+           if dof == 3:
+             order = ['p_x','p_y','p_z']
+           elif dof == 6:
+             order = ['p_x','p_y','p_z','t_x','t_y','t_z']
+             err = err*10
+           elif dof == 5:
+             order = ['p_x','p_y','p_z','t_x','t_y']
+           # Get IK
+           eff_end = eff_end[:dof]
+           eff_joint_space_current = ik.getIK(eff_joint_space_current, eff_end, order, arm, err)
+           #eff_joint_space_current = ik.getIK3dof(eff_joint_space_current, eff_end, arm)
+
+           # Print result
+           A = ik.getFkArm(eff_joint_space_current,arm)
+           eff_end_ret = ik.getPosCurrentFromOrder(A,order)
+           eff_end_dif = eff_end - eff_end_ret
+           print 'N-3 DOF IK Solution - for ', arm, ' arm'
+           print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
+           print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+           print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+
+
+           if jointSet == 'set':
+              if arm == 'left':
+                jntn = mds.getAddress('LSP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[0]
+                jntn = mds.getAddress('LSR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[1]
+                jntn = mds.getAddress('LSY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[2]
+                jntn = mds.getAddress('LEP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[3]
+                jntn = mds.getAddress('LWY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[4]
+                jntn = mds.getAddress('LWR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[5]
+              elif arm == 'right':
+                jntn = mds.getAddress('RSP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[0]
+                jntn = mds.getAddress('RSR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[1]
+                jntn = mds.getAddress('RSY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[2]
+                jntn = mds.getAddress('REP',state)
+                ref.joint[jntn].ref = eff_joint_space_current[3]
+                jntn = mds.getAddress('RWY',state)
+                ref.joint[jntn].ref = eff_joint_space_current[4]
+                jntn = mds.getAddress('RWR',state)
+                ref.joint[jntn].ref = eff_joint_space_current[5]
+           return ref
+       except:
+         print "  Invalid input... "
+
+
+
+
+
+
+
+
+
+
+
+
 def main():
 	mainLoop()
 main()
