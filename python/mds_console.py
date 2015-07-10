@@ -21,16 +21,18 @@ T = 0.1
 def mainLoop():
   # Start curses
   s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
-  r = ach.Channel(mds.MDS_CHAN_REF_NAME)
+  #r = ach.Channel(mds.MDS_CHAN_REF_NAME)
+  con = ach.Channel(mds.MDS_CHAN_CON2IK_NAME)
   state = mds.MDS_STATE()
   ref = mds.MDS_REF()
+  command = mds.MDS_CON2IK()
   while(1):
     # Block until input is received
     var = raw_input(mdsIntro)
     c = var.split(" ")
     # Get latest states
     [status, framesize] = s.get(state, wait=False, last=True)
-    [status, framesize] = r.get(ref, wait=False, last=True)
+    #[status, framesize] = r.get(ref, wait=False, last=True)
 
     # get command
     cmd = c[0]
@@ -62,20 +64,30 @@ def mainLoop():
               doLoop = False
          
            ref.joint[jntn].ref = pos0
-           r.put(ref)
+           #r.put(ref)
            time.sleep(T)
            sys.stdout.write(".")
            sys.stdout.flush()
          print "done"
-
        except:
          print "  Invalid input... "
-            
+    elif cmd == 'gotopos':
+      try:
+	#command.ik_method = int(c[1])
+	#command.num_dof = int(c[2])
+	#0 is left arm 1 is right arm
+	command.arm = int(c[1])
+	command.x = float(c[2])
+	command.y = float(c[3])
+	command.z = float(c[4])
+	con.put(command)
+      except:
+	print "  Invalid input... "
 
 
 
 
-#    print (" you entered " + str(len(cmds)))
+    print (" you entered " + str(len(cmd)))
 
 
   
@@ -83,7 +95,7 @@ def mainLoop():
 
 
 
-  s .close()
+  s.close()
 
 
 def getAddress(name, state):

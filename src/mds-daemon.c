@@ -706,7 +706,7 @@ int main(int argc, char **argv) {
     else can_skt = openCAN("can0");
 
     /* Put on ACH Channels */
-    ach_put(&chan_ref, &H_ref, sizeof(H_ref));
+    //ach_put(&chan_ref, &H_ref, sizeof(H_ref));
 //    ach_put(&chan_board_cmd, &H_cmd, sizeof(H_cmd));
 //    ach_put(&chan_hubo_state, &H_state, sizeof(H_state));
 

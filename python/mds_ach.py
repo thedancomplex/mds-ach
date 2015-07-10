@@ -37,11 +37,14 @@ from ctypes import Structure,c_uint16,c_double,c_ubyte,c_uint32,c_int16
 
 MDS_JOINT_COUNT                  = 100
 MDS_CHAN_REF_NAME                = 'mds-ref'
+MDS_CHAN_REF_FILTER_NAME	 = 'mds-ref-filter'
+MDS_CHAN_CON2IK_NAME	 	 = 'mds-con2ik'
 MDS_CHAN_BOARD_CMD_NAME          = 'mds-board-cmd'
 MDS_CHAN_PARAM_NAME              = "mds-param"
 MDS_CHAN_STATE_NAME              = 'mds-state'
 MDS_LOOP_PERIOD                  = 0.005
 MDS_CHAR_PARAM_BUFFER_SIZE       = 30
+MAX_EFF				 = 6
 
 H = 0 # Neck roll
 NYH = 1 # neck yaw
@@ -84,6 +87,88 @@ LEFT = 1
 TRUE = 1
 FALSE = 0
 
+def getAddress(name, state):
+    a = getNameAndAddress(state)
+    a1 = getNameShort(a,state)
+    return getAddressOnly(name,a1)
+
+def getAddressOnly(name,a):
+  for j in range(0,MDS_JOINT_COUNT):
+     jnt = a[j]
+     if ((jnt[0] == name) | (jnt[2] == name)):
+        return jnt[1]
+  return -1
+
+def getNameAndAddress(state):
+#  a = np.chararray((mds.MDS_JOINT_COUNT,3),itemsize=mds.MDS_CHAR_PARAM_BUFFER_SIZE)
+  a = []
+  for j in range(0,MDS_JOINT_COUNT):
+     jnt = state.joint[j]
+     jntName = (ubytes2str(jnt.name)).replace('\0', '')
+     a.append([jntName, jnt.address])
+  return a
+
+def getNameShort(a,state):
+#  b = np.chararray((mds.MDS_JOINT_COUNT,2),itemsize=mds.MDS_CHAR_PARAM_BUFFER_SIZE)
+  b = [['HeadRoll'             , 'NKR'  ],
+       ['LeftEyePan'           , 'LYY'  ],
+       ['EyePitch'             , 'EYP'  ],
+       ['JawPitch'             , 'JAP'  ],
+       ['LeftUpperEyelidPitch' , 'LUYP' ],
+       ['LeftEyebrowPitch'     , 'LYBP' ],
+       ['RightEyelidRoll'      , 'RYLR' ],
+       ['RightEyebrowPitch'    , 'RYBP' ],
+       ['HeadPitch'            , 'NKP1' ],
+       ['NeckPitch'            , 'NKP2' ],
+       ['HeadPan'              , 'NKY'  ],
+       ['JawRoll'              , 'JAR'  ],
+       ['RightUpperEyelidPitch', 'RUYLP'],
+       ['RightLowerEyelidPitch', 'RLYLP'],
+       ['RightEyebrowRoll'     , 'RYBR' ],
+       ['RightEyePan'          , 'RYY'  ],
+       ['LeftEyebrowRoll'      , 'LYBR' ],
+       ['LeftEyelidRoll'       , 'LYLR' ],
+       ['LeftLowerEyelidPitch' , 'LLYLP'],
+       ['JawJut'               , 'JAJ'  ],
+       ['RightElbowFlex'       , 'REP'  ],
+       ['RightUpperArmRoll'    , 'RSY'  ],
+       ['RightMiddleFlex'      , 'RF3'  ],
+       ['RightShoulderAbd'     , 'RSR'  ],
+       ['LeftElbowFlex'        , 'LEP'  ],
+       ['LeftUpperArmRoll'     , 'LSY'  ],
+       ['LeftMiddleFlex'       , 'LF3'  ],
+       ['LeftShoulderAbd'      , 'LSR'  ],
+       ['RightWristFlex'       , 'RWR'  ],
+       ['RightIndexFlex'       , 'RF2'  ],
+       ['RightWristRoll'       , 'RWY'  ],
+       ['RightThumbRoll'       , 'RF0'  ],
+       ['LeftWristFlex'        , 'LWR'  ],
+       ['LeftIndexFlex'        , 'LF2'  ], 
+       ['LeftWristRoll'        , 'LWY'  ],
+       ['LeftThumbRoll'        , 'LF0'  ],
+       ['RightThumbFlex'       , 'RF1'  ],
+       ['RightPinkieFlex'      , 'RF4'  ],
+       ['RightShoulderExt'     , 'RSP'  ],
+       ['TorsoPan'             , 'WST'  ],
+       ['LeftThumbFlex'        , 'LF1'  ],
+       ['LeftPinkieFlex'       , 'LF4'  ],
+       ['LeftShoulderExt'      , 'LSP'  ]]
+ 
+  a_out = []
+  for j in range(0,MDS_JOINT_COUNT):
+    aa = a[j]
+    a0 = aa[0]
+    a1 = aa[1]
+    a2 = '-------' 
+    for i in range(0,len(b)):
+     jnt = state.joint[j]
+     jntName = (ubytes2str(jnt.name)).replace('\0', '')
+     c = b[i]
+     if jntName == c[0]:
+         a2 = c[1]
+    a_out.append([a0, a1, a2])
+
+  return a_out
 
 
 
@@ -140,6 +225,16 @@ class MDS_POWER(Structure):
 	_fields_ = [("voltage", c_double),
                     ("current", c_double),
                     ("power", c_double)]
+
+class MDS_CON2IK(Structure):
+    _pack_ = 1
+    _fields_ = [
+                ("ik_method"  , c_int16),
+		("num_dof"  , c_int16),
+		("arm"  , c_int16),
+                ("x"   , c_double),
+                ("y"   , c_double),
+                ("z"   , c_double)]
 
 class MDS_STATE(Structure):
     _pack_ = 1
