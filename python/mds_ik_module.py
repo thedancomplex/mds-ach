@@ -6,7 +6,7 @@ import pylab
 import ach
 import time
 import signal
-from mds_ik import * 
+import mds_ik
 import sys
 import os
 import math
@@ -117,9 +117,9 @@ def mainLoop():
 			print arm
 		#print "HERE: " + str(command.x) + str(command.y) + str(command.z)
 		eff_end = np.array([command.x, command.y, command.z])
-		eff_joint_space_current = getIK3dof(eff_joint_space_current, eff_end, arm)
+		eff_joint_space_current = mds_ik.getIK3dof(eff_joint_space_current, eff_end, arm)
 		# Print result for reference
-		A = getFkArm(eff_joint_space_current,arm)
+		A = mds_ik.getFkArm(eff_joint_space_current,arm)
 		eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3]])
 		eff_end_dif = eff_end - eff_end_ret
 		#send the solved ik to simulation

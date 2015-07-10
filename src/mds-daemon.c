@@ -97,7 +97,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 //static inline void tsnorm(struct timespec *ts);
-void mainLoop();
+void mainLoop(int vcan);
 void refFilterMode(mds_ref_t *r, mds_state_t *s, mds_ref_t *f, int L);
 void getEncAllSlow(mds_state_t *s, struct can_frame *f);
 void getCurrentAllSlow(mds_state_t *s, struct can_frame *f);
@@ -177,7 +177,7 @@ void setMdsParamState(mds_state_t *s, mds_joint_param_t *p){
     }
 }
 
-void mainLoop() {
+void mainLoop(int vcan) {
     double T = (double)MDS_LOOP_PERIOD;
     int interval = (int)((double)NSEC_PER_SEC*T);
     printf("T = %1.3f sec\n",T);
@@ -231,6 +231,47 @@ void mainLoop() {
 
 
     int startFlag = 1;
+
+
+
+
+
+
+
+    /* ------------------------------------------------ */
+    /* Put current location from robot on state and ref */
+    /* ------------------------------------------------ */
+    if (vcan == 0) {
+      /* get position of robot in joint space */
+      for (int i = 0; i < 3; i++) {
+        /* Request State (Enc pos) */
+        requestState( can_skt );
+        /* Read all data on CAN */
+        clearCanBuff(can_skt, &H_state, &H_param, buff,  &frame);
+        /* Read all data on CAN */
+        clearCanBuff(can_skt, &H_state, &H_param, buff,  &frame);
+      }
+      
+      /* set position of robot in joint space to ref */
+      for (int i = 0; i < MDS_JOINT_COUNT; i++){
+        H_ref.joint[i].ref = H_state.joint[i].pos;
+      }
+      /* Put on ACH Channels */
+      ach_put(&chan_ref, &H_ref, sizeof(H_ref));
+    }
+    else if (vcan == 1){
+      for (int i = 0; i < MDS_JOINT_COUNT; i++){
+        H_ref.joint[i].ref = -1.0*H_state.joint[i].offset * H_state.joint[i].direction;
+      }
+      ach_put(&chan_ref, &H_ref, sizeof(H_ref));
+    }
+
+
+
+
+
+
+
 
 
 
@@ -355,7 +396,12 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
        int j = 0;
       // for(int i = 0; i < MDS_JOINT_COUNT; i++) {
        for(int i = MDS_JOINT_COUNT-1; i >= 0; i--) {
-          double rad = s->joint[i].ref;
+          /* This worked but no offset */
+          //double rad = s->joint[i].ref;
+          /* with offset */
+          double rad = s->joint[i].direction * (s->joint[i].ref + (s->joint[i].offset*s->joint[i].direction));
+//          s->joint[i].pos = rad;
+
           //double radss = 0.0872664626; // 5 deg/s^2
           //double radss = 0.0872664626 * 2.0; // 10 deg/s^2
           //double radss = 0.0872664626 * 2.0 * 4.0; // 40 deg/s^2
@@ -551,7 +597,12 @@ int getPos(mds_state_t *s, mds_joint_param_t *p, char *buff, char *delm){
         double rat = 2.0 * M_PI / (p->joint[address].encoderresolution * 
                                    p->joint[address].gearratio *
                                    p->joint[address].encoderconfig_tickspercount);
-        s->joint[address].pos = d * rat;
+        /* received state */
+        //s->joint[address].pos = d * rat;
+        
+        /* state with offset */
+        s->joint[address].pos = s->joint[i].direction * ((d * rat) - s->joint[i].offset);
+
 //       printf("\ndeg = %f  joint = %d\n",d, address);
     }
     else return -1;
@@ -711,7 +762,7 @@ int main(int argc, char **argv) {
 //    ach_put(&chan_hubo_state, &H_state, sizeof(H_state));
 
     // run main loop
-    mainLoop();
+    mainLoop(vcan);
 
 //    hubo_daemon_close();
     

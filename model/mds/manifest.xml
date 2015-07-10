@@ -1,0 +1,6 @@
+<package>
+  <description brief="mds-simple-model">mds-simple-model</description>
+  <depend package="gazebo" />
+  <author>Daniel M. Lofaro</author>
+  <license>private</license>
+</package>

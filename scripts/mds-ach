@@ -14,6 +14,7 @@ MDS_BAUD=1000000
 
 MDS_NAMESPACE='mds'
 MDS_REF_CHAN='mds-ref'
+MDS_REF_FILTER_CHAN='mds-ref-filter'
 MDS_PARAM_CHAN='mds-param'
 MDS_STATE_CHAN='mds-state'
 MDS_CMD_CHAN='mds-cmd'
@@ -39,6 +40,7 @@ trim()
 MakeAch()
 {
 	ach -1 mk $MDS_REF_CHAN -m 10 -n 3000
+	ach -1 mk $MDS_REF_FILTER_CHAN -m 10 -n 3000
 	ach -1 mk $MDS_PARAM_CHAN -m 10 -n 3000
         ach -1 mk $MDS_STATE_CHAN -m 10 -n 3000
         ach -1 mk $MDS_CMD_CHAN -m 10 -n 3000

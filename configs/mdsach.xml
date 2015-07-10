@@ -225,8 +225,8 @@
 	</muscle>
 	<muscle  name="RightUpperArmRoll">
 		<parameter name="mdsachname" value="RSY" />
-		<parameter name="offset" value="-1.18" />
-		<parameter name="direction" value="-1" />
+		<parameter name="offset" value="-0.15" />
+		<parameter name="direction" value="1" />
 		<parameter name="enabled" value="1" />
 	</muscle>
 
@@ -234,8 +234,8 @@
 
 	<muscle  name="RightShoulderAbd">
 		<parameter name="mdsachname" value="RSR" />
-		<parameter name="offset" value="-0.15" />
-		<parameter name="direction" value="1" />
+		<parameter name="offset" value="-1.18" />
+		<parameter name="direction" value="-1" />
 		<parameter name="enabled" value="1" />
 	</muscle>
 

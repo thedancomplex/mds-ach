@@ -1,0 +1,1123 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="my_robot">
+  
+    <pose>0 0 1.24 0 0 0</pose>
+ <static>false</static> 
+ <static>true</static> 
+  
+<!------------------------------------------
+--------------------------------------------
+--------------------------------------------
+-------- [ right side ]----------------------
+--------------------------------------------
+--------------------------------------------
+---------------------------------------  --> 
+
+<allow_auto_disable>true</allow_auto_disable>
+
+  <!-- Rectangular base -->
+  <link name='base'>
+    <pose>0 0 -1.2065 0 0 0</pose>
+     <collision name='collision'>
+      <geometry>
+        <box>
+         <size> 0.4 0.4 0.01</size>
+        </box>
+      </geometry>
+     </collision>
+
+     <visual name='visual'>
+      <geometry>
+        <box>
+         <size> 0.4 0.4 0.05</size>
+        </box>
+      </geometry>
+    </visual>
+
+     <inertial> <mass>100.1</mass> </inertial>
+ </link>
+
+
+  <link name='wheels'>
+    <pose>0 0 -1.2065 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 .254 1.57 0 0</pose>
+      <geometry>
+       <cylinder>
+        <radius>0.254</radius>
+        <length>0.6604</length>
+       </cylinder>
+      </geometry>
+     </collision>
+
+     <visual name='visual'>
+      <pose>0 0 .254 1.57 0 0</pose>
+      <geometry>
+       <cylinder>
+        <radius>0.254</radius>
+        <length>0.6604</length>
+       </cylinder>
+      </geometry>
+    </visual>
+
+     <inertial> <mass>100.1</mass> </inertial>
+ </link>
+
+
+  <link name='box1'>
+    <pose>0 0 -0.9144 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.4191 0.508 0.5842</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.4191 0.508 0.5842</size>
+        </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>100.1</mass> </inertial>
+ </link>
+
+
+
+
+
+
+
+  <link name='box2'>
+    <pose>0 0 -0.5524 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.2413 0.508 0.1398</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.2413 0.508 0.1398</size>
+        </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+ </link>
+
+
+
+
+
+
+
+
+<link name='backpack'>
+    <pose>-0.17145 0 -0.13335 0 -0.163526619 0</pose>
+     <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.09525 0.43815 0.5842</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.09525 0.43815 0.5842</size>
+        </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+ </link>
+
+
+
+
+  <link name='chest'>
+    <pose>0 0 -0.2794 0 0 0</pose>
+     <collision name='collision'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.1651 0.2286 0.4064</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <pose>0 0 0   0 0 0</pose>
+      <geometry>
+        <box>
+         <size>0.1651 0.2286 0.4064</size>
+        </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+ </link>
+
+
+
+
+
+
+  <!-- Rectangular base -->
+  <link name='torso'>
+    <pose>0 0 0 0 0 0</pose>
+     <collision name='collision'>
+      <geometry>
+        <box>
+         <size> 0.1651 0.26035 0.1524</size>
+        </box>
+      </geometry>
+     </collision>
+     <visual name='visual'>
+      <geometry>
+       <box>
+         <size> 0.1651 0.26035 0.1524</size>
+       </box>
+      </geometry>
+    </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+ </link>
+
+
+
+
+
+
+<joint type="revolute" name="WHEELS">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>wheels</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+
+        </axis>
+</joint>
+
+
+<joint type="revolute" name="WHEELS-box1">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>box1</child>
+        <parent>wheels</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+        </axis>
+</joint>
+
+<joint type="revolute" name="WHEELS-box2">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>box2</child>
+        <parent>box1</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+        </axis>
+</joint>
+
+
+<joint type="revolute" name="TSY">
+        <pose>0 0.0 -0.216 0 0  0</pose>
+        <child>chest</child>
+        <parent>box2</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+
+<joint type="revolute" name="backpackjoint">
+        <pose>0 0.0 -0.216    0 0 0</pose>
+        <child>backpack</child>
+        <parent>chest</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+           <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+            <velocity>0</velocity>
+          </limit>
+       </axis>
+</joint>
+
+
+
+
+
+<joint type="revolute" name="TSY2">
+        <pose>0 0.0 -0.216    0 0 0</pose>
+        <child>torso</child>
+        <parent>chest</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+           <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+            <velocity>0</velocity>
+          </limit>
+       </axis>
+</joint>
+
+<link name="RSP_body">
+ <pose>0.0 -0.245510  0.0 1.57 0.0 0.0</pose>
+
+ <collision name="collision">
+   <geometry>
+     <sphere>
+      <radius>0.04953</radius>
+     </sphere>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.04953</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 0 1 1</ambient>
+    <diffuse>0 0 1 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+<link name="RSP_body_fake">
+ <pose>0.0 -0.122755 0.0    1.57 0.0 0.0</pose>
+
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.245510</length>
+     </cylinder>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.245510</length>
+     </cylinder>
+   </geometry>
+ </visual>
+<sensor name='dan_my_contact' type='contact'> <contact> <collision>box_collision</collision> </contact> </sensor>
+
+</link>
+<joint type="revolute" name="RSP">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>RSP_body</child>
+        <parent>torso</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+</joint>
+<joint type="revolute" name="RSP_fake">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>RSP_body_fake</child>
+        <parent>torso</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+</joint>
+
+
+<link name="RSR_body">
+ <pose>0.0 -0.2455100  0.0 0 1.57 0.0</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.04953</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 1 0 1</ambient>
+    <diffuse>0 1 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+
+<joint type="revolute" name="RSR">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RSR_body</child>
+        <parent>RSP_body</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+</joint>
+
+
+
+<link name="RSY_body">
+ <pose>0.0 -0.2455100  0.0 0 0.0 1.57</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.04953</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>1 0 0 1</ambient>
+    <diffuse>1 0 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+<link name="RSY_body_fake">
+ <pose>0.0 -0.2455100  -0.1412875   0 0.0 1.57</pose>
+
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.245510</length>
+     </cylinder>
+   </geometry>
+ </collision>
+
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.245510</length>
+     </cylinder>
+
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+<joint type="revolute" name="RSY_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RSY_body_fake</child>
+        <parent>RSR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+<joint type="revolute" name="RSY">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RSY_body</child>
+        <parent>RSR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+<link name="REP_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 -0.2455100  -0.2825750 1.57 0.0 0.0</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.041275</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 0 1 1</ambient>
+    <diffuse>0 0 1 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="REP">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>REP_body</child>
+        <parent>RSY_body</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+</joint>
+
+<link name="REP_body_fake">
+ <pose>0.0 -0.2455100  -0.43894375 0.0 0.0 0.0</pose>
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.3127375</length>
+     </cylinder>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.3127375</length>
+     </cylinder>
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="REP_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>REP_body_fake</child>
+        <parent>REP_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+
+<link name="RWY_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 -0.2455100  -0.5953125 0 0.0 1.57</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.041275</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>1 0 0 1</ambient>
+    <diffuse>1 0 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="RWY">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RWY_body</child>
+        <parent>REP_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+<link name="RWR_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 -0.2455100  -0.5953125 0.0 1.57 0.0</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.041275</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 1 0 1</ambient>
+    <diffuse>0 1 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="RWR">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RWR_body</child>
+        <parent>RWY_body</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+</joint>
+
+
+<link name="RWR_body_fake">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 -0.2455100  -0.64765625     0.0 0.0 1.57</pose>
+ 
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.1046875</length>
+     </cylinder>
+   </geometry>
+ </collision>
+
+
+
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.1046875</length>
+     </cylinder>
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="RWR_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RWR_body_fake</child>
+        <parent>RWR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+
+
+
+
+
+<link name="RHAND_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+<!-- <pose>0.0635 0.2455100  -0.70 0 0.0 0.0</pose> -->
+ <pose>0.0 -0.2455100  -0.70 0 0.0 0.0</pose>
+ <collision name="collision">
+   <geometry>
+       <sphere>
+          <radius> 0.065 </radius>
+       </sphere>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+       <sphere>
+          <radius> 0.065 </radius>
+       </sphere>
+   </geometry>
+  <material>
+    <ambient>0 0 1 1</ambient>
+    <diffuse>0 0 1 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+<sensor name='dan_my_contact_RHand' type='contact'> <contact> <collision>box_collision</collision> </contact> </sensor>
+</link>
+<joint type="revolute" name="RHAND">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>RHAND_body</child>
+        <parent>RWR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+
+<!------------------------------------------
+--------------------------------------------
+--------------------------------------------
+-------- [ left side ]----------------------
+--------------------------------------------
+--------------------------------------------
+---------------------------------------  --> 
+
+
+<link name="LSP_body">
+ <pose>0.0 0.245510  0.0 1.57 0.0 0.0</pose>
+
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.04953</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 0 1 1</ambient>
+    <diffuse>0 0 1 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+<link name="LSP_body_fake">
+ <pose>0.0 0.122755 0.0    1.57 0.0 0.0</pose>
+
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.245510</length>
+     </cylinder>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.245510</length>
+     </cylinder>
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="LSP">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>LSP_body</child>
+        <parent>torso</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+</joint>
+<joint type="revolute" name="LSP_fake">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>LSP_body_fake</child>
+        <parent>torso</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+</joint>
+
+
+<link name="LSR_body">
+ <pose>0.0 0.2455100  0.0 0 1.57 0.0</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.04953</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 1 0 1</ambient>
+    <diffuse>0 1 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+
+<joint type="revolute" name="LSR">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LSR_body</child>
+        <parent>LSP_body</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+</joint>
+
+
+
+<link name="LSY_body">
+ <pose>0.0 0.2455100  0.0 0 0.0 1.57</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.04953</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>1 0 0 1</ambient>
+    <diffuse>1 0 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+<link name="LSY_body_fake">
+ <pose>0.0 0.2455100  -0.1412875   0 0.0 1.57</pose>
+
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.245510</length>
+     </cylinder>
+   </geometry>
+ </collision>
+
+
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.245510</length>
+     </cylinder>
+
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+
+<joint type="revolute" name="LSY_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LSY_body_fake</child>
+        <parent>LSR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+<joint type="revolute" name="LSY">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LSY_body</child>
+        <parent>LSR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+<link name="LEP_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 0.2455100  -0.2825750 1.57 0.0 0.0</pose>
+ <collision name="collision">
+   <geometry>
+     <sphere>
+      <radius>0.041275</radius>
+     </sphere>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.041275</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 0 1 1</ambient>
+    <diffuse>0 0 1 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="LEP">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LEP_body</child>
+        <parent>LSY_body</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+</joint>
+
+<link name="LEP_body_fake">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 0.2455100  -0.43894375 0.0 0.0 0.0</pose>
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.3127375</length>
+     </cylinder>
+   </geometry>
+ </collision>
+ 
+
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.3127375</length>
+     </cylinder>
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="LEP_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LEP_body_fake</child>
+        <parent>LEP_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+<!--
+<link name="LEP_body_fake">
+ <pose>0.0 0.2455100 -0.43894375     0.0 0.0 1.57</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.3127375</length>
+     </cylinder>
+
+   </geometry>
+ </visual>
+</link>
+
+<joint type="revolute" name="LEP_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LEP_body_fake</child>
+        <parent>LSY_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+<link name="LWY_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 0.2455100  -0.5953125 0 0.0 1.57</pose>
+ <collision name="collision">
+   <geometry>
+     <sphere>
+      <radius>0.041275</radius>
+     </sphere>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.041275</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>1 0 0 1</ambient>
+    <diffuse>1 0 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="LWY">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LWY_body</child>
+        <parent>LEP_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+<link name="LWR_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 0.2455100  -0.5953125 0.0 1.57 0.0</pose>
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.041275</radius>
+      <length>.02</length>
+     </cylinder>
+   </geometry>
+  <material>
+    <ambient>0 1 0 1</ambient>
+    <diffuse>0 1 0 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+     
+</link>
+<joint type="revolute" name="LWR">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LWR_body</child>
+        <parent>LWY_body</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+</joint>
+
+
+<link name="LWR_body_fake">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+ <pose>0.0 0.2455100  -0.64765625     0.0 0.0 1.57</pose>
+ <collision name="collision">
+   <geometry>
+     <cylinder>
+      <radius>0.051</radius>
+      <length>0.1046875</length>
+     </cylinder>
+   </geometry>
+ </collision>
+
+
+
+ <visual name="visual">
+   <geometry>
+     <cylinder>
+      <radius>0.02222</radius>
+      <length>0.1046875</length>
+     </cylinder>
+   </geometry>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+</link>
+
+
+<joint type="revolute" name="LWR_fake">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LWR_body_fake</child>
+        <parent>LWR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+
+
+
+
+
+<link name="LHAND_body">
+ <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
+<!-- <pose>0.0635 0.2455100  -0.70 0 0.0 0.0</pose> -->
+ <pose>0.0 0.2455100  -0.70 0 0.0 0.0</pose>
+ <collision name="box_collision">
+   <geometry>
+       <!--
+       <sphere>
+          <radius> 0.065 </radius>
+       </sphere>
+       -->
+       <box> <size>0.065 0.065 0.065 </size></box>
+   </geometry>
+ </collision>
+ <visual name="visual">
+   <geometry>
+       <sphere>
+          <radius> 0.065 </radius>
+       </sphere>
+   </geometry>
+  <material>
+    <ambient>0 0 1 1</ambient>
+    <diffuse>0 0 1 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <emissive>0 0 0 0</emissive>
+  </material>
+ </visual>
+     <inertial> <mass>0.1</mass> </inertial>
+       
+        <sensor name='my_contact' type='contact'>
+          <contact>
+            <collision>box_collision</collision>
+          </contact>
+        </sensor> 
+</link>
+<joint type="revolute" name="LHAND">
+ <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
+        <child>LHAND_body</child>
+        <parent>LWR_body</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+        </axis>
+</joint>
+
+
+
+
+
+    <plugin filename="/home/lofaro/.gazebo/models/mds/build/libmds_plugin.so" name="mds_plugin" >
+       <LSP>LSP</LSP>
+       <LSR>LSR</LSR>
+       <LSY>LSY</LSY>
+       <LEP>LEP</LEP>
+       <LWR>LWR</LWR>
+       <LWY>LWY</LWY>
+
+    
+       <RSP>RSP</RSP>
+       <RSR>RSR</RSR>
+       <RSY>RSY</RSY>
+       <REP>REP</REP>
+       <RWR>RWR</RWR>
+       <RWY>RWY</RWY>
+
+       <TSY>TSY</TSY> 
+
+    </plugin> 
+  </model>
+</sdf>

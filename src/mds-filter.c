@@ -101,7 +101,8 @@ void mainLoop();
 
 //Desired Time of Arrival
 #define DTOA	1
-#define DESIRED_SPEED 6
+/*Desired speed in rad/sec*/
+#define DESIRED_SPEED 3.1415
 
 /* Flags */
 int verbose;
@@ -114,7 +115,7 @@ int can_skt = 0;
 
 // ach channels
 ach_channel_t chan_ref;       // mds-ref
-ach_channel_t chan_filter_ref;       // mds-ref
+ach_channel_t chan_ref_filter;       // mds-ref
 ach_channel_t chan_param;     // mds-param
 ach_channel_t chan_board_cmd; // mds-ach-console
 ach_channel_t chan_state;     // mds-ach-state
@@ -163,14 +164,29 @@ void mainLoop() {
     // get current time
     //clock_gettime( CLOCK_MONOTONIC,&t);
     clock_gettime( 0,&t);
+    size_t fs = 0;
+    int r = ach_get( &chan_ref, &H_ref_filter, sizeof(H_ref_filter), &fs, NULL, ACH_O_LAST);
+    assert( sizeof(H_ref_filter) == fs);
+    r = ach_get( &chan_state, &H_state, sizeof(H_state), &fs, NULL, ACH_O_LAST);
+    assert( sizeof(H_state) == fs);
+
+    for (int i = 0; i < MDS_JOINT_COUNT; i++) {
+
+        H_ref_filter.joint[i].ref = H_state.joint[i].ref;
+        H_ref.joint[i].ref = H_ref_filter.joint[i].ref;
+        lastref[i] = H_ref.joint[i].ref;
+    }
+
+    ach_put( &chan_ref, &H_ref, sizeof(H_ref));
+    ach_put( &chan_ref_filter, &H_ref_filter, sizeof(H_ref_filter));
 
     printf("Start MDS Loop\n");
     while(1) {
 	//NOTE: DTOA MUST BE GREATER THAN UPDATE RATE or an unstable system will 		  develop
-	size_t fs = 0;
+	fs = 0;
 	//Get the difference in distances if joint command changes 
         /* Get latest ACH message */
-	int r = ach_get( &chan_filter_ref, &H_ref_filter, sizeof(H_ref_filter), &fs, NULL, ACH_O_LAST);
+	r = ach_get( &chan_ref_filter, &H_ref_filter, sizeof(H_ref_filter), &fs, NULL, ACH_O_LAST);
         if(ACH_OK != r) {
             if(debug) {
                     fprintf(stderr, "State r = %s\n",ach_result_to_string(r));}
@@ -179,16 +195,6 @@ void mainLoop() {
 	    {
 		assert( sizeof(H_ref) == fs);
 	    }
-	/*r = ach_get( &chan_state, &H_state, sizeof(H_state), &fs, NULL, ACH_O_LAST);
-        if(ACH_OK != r) {
-            if(debug) {
-                    fprintf(stderr, "State r = %s\n",ach_result_to_string(r));}
-            }
-           else
-	    {
-		assert( sizeof(H_state) == fs);
-	    }
-	*/ 
 	for(int i=0;i<MDS_JOINT_COUNT;i++)
     	{
 		
@@ -236,8 +242,8 @@ void mainLoop() {
 		{
 			H_ref.joint[i].ref = (H_ref_filter.joint[i].ref);
 		}
+		//printf("\n %f",H_ref.joint[i].ref);
 	}
-	printf("\n %f",H_ref.joint[76].ref);//H_ref.joint[5].ref,H_ref.joint[6].ref,H_ref.joint[7].ref,H_ref.joint[8].ref,H_ref.joint[9].ref);
         ach_put( &chan_ref, &H_ref, sizeof(H_ref));
         t.tv_nsec+=interval;
         tsnorm(&t);
@@ -277,20 +283,18 @@ int main(int argc, char **argv) {
 
     // open reference
     int r = ach_open(&chan_ref, MDS_CHAN_REF_NAME, NULL);
-    printf("ACH RESULT: %d",r);
     assert( ACH_OK == r);
 
     // open state
-    /*r = ach_open(&chan_state, MDS_CHAN_STATE_NAME, NULL);
+    r = ach_open(&chan_state, MDS_CHAN_STATE_NAME, NULL);
     assert( ACH_OK == r);
-    */
+    
     // open param channel
     //r = ach_open(&chan_param, MDS_CHAN_PARAM_NAME, NULL);
     //assert( ACH_OK == r);
 
     //open smoothed reference
-    r = ach_open(&chan_filter_ref,MDS_CHAN_REF_FILTER_NAME, NULL);
-    printf("ACH RESULT: %d",r);
+    r = ach_open(&chan_ref_filter,MDS_CHAN_REF_FILTER_NAME, NULL);
     assert( ACH_OK == r);
     
 

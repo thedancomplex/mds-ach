@@ -50,6 +50,7 @@ threshold = .0025
 l1 = 0.2455100   # center of body to shoulder
 l2 = 0.2825750   # shoulder to eblow
 l3 = 0.3127375   # elbow to wrist roll
+l4 = 0.0635      # distance to middle of hand
 alpha = .5
 dT1 = .001		
 dT2 = .001
@@ -75,7 +76,6 @@ ref.joint[ha.LEB].ref = -math.pi/6
 	
 ### r.put(ref)
 ### time.sleep(3)
-
 
 # rotation matrix definition (abotu x, y, or z)
 def_x = 1
@@ -117,13 +117,13 @@ def getFkArm(a, arm):
     return -1
 
   #       theta        , Tx       , Ty          , Tz         , def_xyz
-  LSP = [ a[0]         , 0.0      , m*0.2455100 , 0.0        , def_y ] 
+  LSP = [ a[0]         , 0.0      , m*l1        , 0.0        , def_y ] 
   LSR = [ a[1]         , 0.0      , 0.0         , 0.0        , def_x ]
-  LSY = [ a[2]         , 0.0      , 0.0         , -0.2825750 , def_z ] 
+  LSY = [ a[2]         , 0.0      , 0.0         , -l2        , def_z ] 
   LEB = [ a[3]         , 0.0      , 0.0         , 0.0        , def_y ]
-  LWY = [ a[4]         , 0.0      , 0.0         , -0.3127375 , def_z ] 
+  LWY = [ a[4]         , 0.0      , 0.0         , -l3        , def_z ] 
   LWR = [ a[5]         , 0.0      , 0.0         , 0.0        , def_x ]
-  LEN = [ 0.0          , 0.0      , 0.0         , -0.0635    , def_x ] 
+  LEN = [ 0.0          , 0.0      , 0.0         , -l4        , def_x ] 
   # note rolls seem to be oppisit (-)
 
   A1 = getA(LSP)
@@ -135,12 +135,20 @@ def getFkArm(a, arm):
   A7 = getA(LEN)
 
   A = np.dot(A1,A2)
-  A = np.dot(A, A2)
+  #A = np.dot(A, A2)
   A = np.dot(A, A3)
   A = np.dot(A, A4)
   A = np.dot(A, A5)
   A = np.dot(A, A6)
   A = np.dot(A, A7)
+
+#dan
+#  A = np.dot(A7,A6)
+#  A = np.dot(A5, A)
+#  A = np.dot(A4, A)
+#  A = np.dot(A3, A)
+#  A = np.dot(A2, A)
+#  A = np.dot(A1, A)
 
   return A
 
@@ -388,12 +396,50 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
 
   # apply changes to dofs
   eff_joint_space_current = eff_joint_space_current + d_theta
-  
+
+  # Check for over joint range
+  m = 1.0
+  if arm == 'left':
+     m = 1.0
+  elif arm == 'right':
+     m = -1.0
+
+  if eff_joint_space_current[0] > np.pi:     #xSP max
+     eff_joint_space_current[0] = np.pi
+  if eff_joint_space_current[0] < -np.pi:    #xSP min
+     eff_joint_space_current[0] = -np.pi
+  if arm == 'left':
+    if eff_joint_space_current[1] < 0.0:     #xSR towards body
+       eff_joint_space_current[1] = 0.0   
+    if eff_joint_space_current[1] > np.pi:
+       eff_joint_space_current[1] = np.pi   
+  if arm == 'right':
+    if eff_joint_space_current[1] > 0.0001:     #xSR towards body
+       eff_joint_space_current[1] = 0.0001      
+    if eff_joint_space_current[1] < -np.pi:
+       eff_joint_space_current[1] = -np.pi   
+  if eff_joint_space_current[2] > np.pi:     #xSY max
+     eff_joint_space_current[2] = np.pi
+  if eff_joint_space_current[2] < -np.pi:    #xSY min
+     eff_joint_space_current[2] = -np.pi
+  if eff_joint_space_current[3] > 0.0:     #xeP max
+     eff_joint_space_current[3] = 0.0
+  if eff_joint_space_current[3] < -2.4:    #xeP min
+     eff_joint_space_current[3] = -2.4
+  if eff_joint_space_current[4] > np.pi:     #xWY max
+     eff_joint_space_current[4] = np.pi
+  if eff_joint_space_current[4] < -np.pi:    #xWY min
+     eff_joint_space_current[4] = -np.pi
+  if eff_joint_space_current[5] > np.pi/2.0:     #xSR max
+     eff_joint_space_current[5] = np.pi/2.0
+  if eff_joint_space_current[5] < -np.pi/2.0:    #xSR min
+     eff_joint_space_current[5] = -np.pi/2.0
+ 
   # distance to end point
   A = getFkArm(eff_joint_space_current,arm)
   eff_current = getPosCurrentFromOrder(A,order)
   eff_dist_to_end = getDist2End2(eff_current, eff_end)
-
+  print eff_dist_to_end
 ##  print eff_dist_to_end
  return eff_joint_space_current
 
@@ -440,237 +486,4 @@ def getIK6dof(eff_joint_space_current, eff_end, arm):
 
 ##  print eff_dist_to_end
  return eff_joint_space_current
-
-def doSolve():
- eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
- A = getFkArm(eff_joint_space_current,'left')
-## eff_current = np.array([ A[0,3], A[1,3], A[2,3]])
- eff_current = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
-# ef  = np.array([0.2, 0.2, -0.1])
-## eff_end  = np.array([-0.14583 , 0.74283, 0.13834])
- eff_end  = np.array([-0.14583 , 0.74283, 0.13834, 2.9557, -1.14178, 0.13834])
-
- eff_delta_theta = 0.01 # change in goal in meters
- eff_delta_xyz = 0.01 # change in goal in meters
- eff_err_max = 0.01
-
- # distance to end point
- eff_dist_to_end = getDist2End(eff_current, eff_end)
-
- while (eff_err_max < eff_dist_to_end):
-  # jacobian of the eff_next_point
-  J = getJacobian6x6(eff_joint_space_current, eff_delta_theta, 'left')
-  
-  # compute inverse of jacobian
-  Ji = np.linalg.inv(J)   # inverse
-
-  # linear interpolation to find next point
-  eff_vector = eff_end - eff_current # vector to end point
-  eff_dist_to_end = getDist2End(eff_current, eff_end)
-  d_eff = eff_vector/eff_dist_to_end * eff_delta_xyz
- # print d_eff 
-  # compute change in DOFs d_theta = Ji * d_eff
-  d_theta = np.dot(Ji,d_eff)
-
-  # apply changes to dofs
-  eff_joint_space_current = eff_joint_space_current + d_theta
-  
-  # distance to end point
-  A = getFkArm(eff_joint_space_current,'left')
-  eff_current = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
-  eff_dist_to_end = getDist2End(eff_current, eff_end)
-  
-  print eff_dist_to_end
-
- #end effector positions
- print 'des: x = ', round(eff_end[0],5) , '  y = ' , round(eff_end[1],5) , '  z = ', round(eff_end[2],5)
- print 'act: x = ', round(A[0,3],5) , '  y = ' , round(A[1,3],5) , '  z = ', round(A[2,3],5)
-
-
-'''
-# Define IK
-#worldspace initial and js initial
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 2.9557, -1.14178, 0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-arm = 'left'
-
-# Get IK
-#get current location
-eff_joint_space_current = getIK6dof(eff_joint_space_current, eff_end, arm)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3], getRot(A,'x'), getRot(A,'y'), getRot(A,'z')])
-eff_end_dif = eff_end - eff_end_ret
-print '6 DOF IK Solution'
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-# Define IK 3 coord xyz
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-arm = 'left'
-
-
-#USE THE ONE BELOW
-# Get IK 3DOF
-eff_joint_space_current = getIK3dof(eff_joint_space_current, eff_end, arm)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3]])
-eff_end_dif = eff_end - eff_end_ret
-print '3 DOF IK Solution'
-print eff_joint_space_current
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-# Define IK
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 2.9557, -1.14178, 0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-order = ['p_x','p_y','p_z','t_x','t_y','t_z']
-arm = 'left'
-
-# Get IK
-eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = getPosCurrentFromOrder(A,order)
-eff_end_dif = eff_end - eff_end_ret
-print 'N-6 DOF IK Solution'
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-
-# Define IK
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 2.9557,  0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-order = ['p_x','p_y','p_z','t_x','t_z']
-arm = 'left'
-
-# Get IK
-eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = getPosCurrentFromOrder(A,order)
-eff_end_dif = eff_end - eff_end_ret
-print 'N-5 DOF IK Solution'
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-
-
-
-
-# Define IK
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-order = ['p_x','p_y','p_z','t_z']
-arm = 'left'
-
-# Get IK
-eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm)
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = getPosCurrentFromOrder(A,order)
-eff_end_dif = eff_end - eff_end_ret
-print 'N-4 DOF IK Solution'
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-
-
-
-
-
-
-# Define IK
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-order = ['p_x','p_y','p_z','t_z']
-err = np.array([0.001,0.001, 0.001])
-arm = 'left'
-
-# Get IK
-eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm, err)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = getPosCurrentFromOrder(A,order)
-eff_end_dif = eff_end - eff_end_ret
-print 'N-4 DOF IK Solution - change resolution 0.001'
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-
-
-
-
-# Define IK
-eff_end     = np.array([-0.14583 , 0.74283, 0.13834, 0.13834])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-order = ['p_x','p_y','p_z','t_z']
-err = np.array([0.1,0.1, 0.1])
-arm = 'left'
-
-# Get IK
-eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm, err)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = getPosCurrentFromOrder(A,order)
-eff_end_dif = eff_end - eff_end_ret
-print 'N-4 DOF IK Solution - change resolution 0.1'
-print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
-
-
-
-
-
-
-
-
-
-
-# Define IK
-eff_end     = np.array([0.74283])
-eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
-order = ['p_y']
-arm = 'left'
-
-# Get IK
-eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm)
-
-# Print result
-A = getFkArm(eff_joint_space_current,'left')
-eff_end_ret = getPosCurrentFromOrder(A,order)
-eff_end_dif = eff_end - eff_end_ret
-eff_end_ret = np.array([ A[0,3], A[1,3], A[2,3]])
-print 'N-1 DOF IK Solution'
-print 'des:\t\t\ty = ', round(eff_end[0],5)     
-print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-print 'dif:\t\t\ty = ', round(eff_end_dif[0],5) 
-'''
 

@@ -675,3 +675,47 @@ print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5)
 print 'dif:\t\t\ty = ', round(eff_end_dif[0],5) 
 '''
 
+
+
+# Define IK
+eff_end     = np.array([0.4 , 0.0, 0.0])
+eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+order = ['p_x','p_y','p_z']
+err = np.array([0.001,0.001, 0.001])
+arm = 'left'
+
+# Get IK
+eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm, err)
+
+# Print result
+A = getFkArm(eff_joint_space_current,'left')
+eff_end_ret = getPosCurrentFromOrder(A,order)
+eff_end_dif = eff_end - eff_end_ret
+print 'N-3 DOF IK Solution - change resolution 0.1'
+print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
+print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print eff_joint_space_current
+
+
+# Define IK
+eff_end     = np.array([0.4 , 0.0, 0.0])
+eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
+order = ['p_x','p_y','p_z']
+err = np.array([0.001,0.001, 0.001])
+arm = 'right'
+
+# Get IK
+eff_joint_space_current = getIK(eff_joint_space_current, eff_end, order, arm, err)
+
+# Print result
+A = getFkArm(eff_joint_space_current,'right')
+eff_end_ret = getPosCurrentFromOrder(A,order)
+eff_end_dif = eff_end - eff_end_ret
+print 'N-3 DOF IK Solution - change resolution 0.1'
+print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
+print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+print eff_joint_space_current
+
+
