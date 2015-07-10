@@ -161,10 +161,14 @@ def mainLoop():
         arm = c[1]
         dof = 5
         jointSet = c[len(c)-1]
+        jointSetFilter = c[len(c)-2]
         eff_end     = np.array([float(c[2]) , float(c[3]), float(c[4]), float(c[5]), float(c[5])])
         ref = doIK(state, ref, eff_end, dof, jointSet, arm)
         if jointSet == 'set':
-          r.put(ref)
+          if jointSetFilter == 'filter':
+             rf.put(ref)
+          else:
+             r.put(ref)
       except:
          print "  Invalid input... "
     

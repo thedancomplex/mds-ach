@@ -102,7 +102,7 @@ void mainLoop();
 //Desired Time of Arrival
 #define DTOA	1
 /*Desired speed in rad/sec*/
-#define DESIRED_SPEED 3.1415
+#define DESIRED_SPEED 1.57
 
 /* Flags */
 int verbose;
