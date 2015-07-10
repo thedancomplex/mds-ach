@@ -82,15 +82,15 @@ def mainLoop():
 	eff_joint_space_L[1] = initial_ref.joint[mds.getAddress('LSR',state)].ref
 	eff_joint_space_L[2] = initial_ref.joint[mds.getAddress('LSY',state)].ref
 	eff_joint_space_L[3] = initial_ref.joint[mds.getAddress('LEB',state)].ref
-	eff_joint_space_L[4] = initial_ref.joint[mds.getAddress(LWY,state)].ref
-	eff_joint_space_L[5] = initial_ref.joint[mds.getAddress(LWR,state)].ref
+	eff_joint_space_L[4] = initial_ref.joint[mds.getAddress('LWY',state)].ref
+	eff_joint_space_L[5] = initial_ref.joint[mds.getAddress('LWR',state)].ref
 	#get initial joint space for right arm
-	eff_joint_space_R[0] = initial_ref.joint[mds.getAddress(RSP,state)].ref
-	eff_joint_space_R[1] = initial_ref.joint[mds.getAddress(RSR,state)].ref
-	eff_joint_space_R[2] = initial_ref.joint[mds.getAddress(RSY,state)].ref
-	eff_joint_space_R[3] = initial_ref.joint[mds.getAddress(REB,state)].ref
-	eff_joint_space_R[4] = initial_ref.joint[mds.getAddress(RWY,state)].ref
-	eff_joint_space_R[5] = initial_ref.joint[mds.getAddress(RWR,state)].ref
+	eff_joint_space_R[0] = initial_ref.joint[mds.getAddress('RSP',state)].ref
+	eff_joint_space_R[1] = initial_ref.joint[mds.getAddress('RSR',state)].ref
+	eff_joint_space_R[2] = initial_ref.joint[mds.getAddress('RSY',state)].ref
+	eff_joint_space_R[3] = initial_ref.joint[mds.getAddress('REB',state)].ref
+	eff_joint_space_R[4] = initial_ref.joint[mds.getAddress('RWY',state)].ref
+	eff_joint_space_R[5] = initial_ref.joint[mds.getAddress('RWR',state)].ref
 	print(mds.getAddress('LSY',state));
 	#take user input
 	while(1):
@@ -124,19 +124,19 @@ def mainLoop():
 		eff_end_dif = eff_end - eff_end_ret
 		#send the solved ik to simulation
 		if(arm_type == 0):
-			ref.joint[mds.getAddress(LSP,state)].ref = eff_joint_space_current[0]
-			ref.joint[mds.getAddress(LSR,state)].ref = eff_joint_space_current[1]
-			ref.joint[mds.getAddress(LSY,state)].ref = eff_joint_space_current[2]
-			ref.joint[mds.getAddress(LEB,state)].ref = eff_joint_space_current[3]
-			ref.joint[mds.getAddress(LWY,state)].ref = eff_joint_space_current[4]
-			ref.joint[mds.getAddress(LWR,state)].ref = eff_joint_space_current[5]
+			ref.joint[mds.getAddress('LSP',state)].ref = eff_joint_space_current[0]
+			ref.joint[mds.getAddress('LSR',state)].ref = eff_joint_space_current[1]
+			ref.joint[mds.getAddress('LSY',state)].ref = eff_joint_space_current[2]
+			ref.joint[mds.getAddress('LEB',state)].ref = eff_joint_space_current[3]
+			ref.joint[mds.getAddress('LWY',state)].ref = eff_joint_space_current[4]
+			ref.joint[mds.getAddress('LWR',state)].ref = eff_joint_space_current[5]
 		else:
-			ref.joint[mds.getAddress(RSP,state)].ref = eff_joint_space_current[0]
-			ref.joint[mds.getAddress(RSR,state)].ref = eff_joint_space_current[1]
-			ref.joint[mds.getAddress(RSY,state)].ref = eff_joint_space_current[2]
-			ref.joint[mds.getAddress(REB,state)].ref = eff_joint_space_current[3]
-			ref.joint[mds.getAddress(RWY,state)].ref = eff_joint_space_current[4]
-			ref.joint[mds.getAddress(RWR,state)].ref = eff_joint_space_current[5]	
+			ref.joint[mds.getAddress('RSP',state)].ref = eff_joint_space_current[0]
+			ref.joint[mds.getAddress('RSR',state)].ref = eff_joint_space_current[1]
+			ref.joint[mds.getAddress('RSY',state)].ref = eff_joint_space_current[2]
+			ref.joint[mds.getAddress('REB',state)].ref = eff_joint_space_current[3]
+			ref.joint[mds.getAddress('RWY',state)].ref = eff_joint_space_current[4]
+			ref.joint[mds.getAddress('RWR',state)].ref = eff_joint_space_current[5]	
 		#print("\n"+"JOINT ANGLES:   ")
 		#print(eff_joint_space_current) #+ " " +str(eff_joint_space_current[1])+ " " +str(eff_joint_space_current[2])+ " " +str(eff_joint_space_current[3])+ " " +str(eff_joint_space_current[4])+ " " +str(eff_joint_space_current[5]))
 		#print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
