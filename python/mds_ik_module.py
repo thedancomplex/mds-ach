@@ -69,10 +69,15 @@ def mainLoop():
 	m = ach.Channel(MDS_CHAN_REF_NAME)
 	c = ach.Channel(MDS_CHAN_CON2IK_NAME)
 	r = ach.Channel(MDS_CHAN_REF_FILTER_NAME)
+        s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
+
 	state = mds.MDS_STATE()
 	#Get initial references	
 	m.get(initial_ref)
 	#get initial joint space for left arm
+
+        [status, framesize] = s.get(state, wait=False, last=True)
+
 	eff_joint_space_L[0] = initial_ref.joint[mds.getAddress('LSP',state)].ref
 	eff_joint_space_L[1] = initial_ref.joint[mds.getAddress('LSR',state)].ref
 	eff_joint_space_L[2] = initial_ref.joint[mds.getAddress('LSY',state)].ref
