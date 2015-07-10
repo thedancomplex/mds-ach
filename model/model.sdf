@@ -89,7 +89,9 @@
 
 
   <link name='wheels'>
-    <pose>0 0 -1.2065 0 0 0</pose>
+    <pose>0 0 -0.9528 0 0 0</pose>
+<!--    <pose>0 0 -0.9528 1.57 0 0</pose> -->
+<!--
      <collision name='collision'>
       <pose>0 0 .254 1.57 0 0</pose>
       <geometry>
@@ -99,9 +101,9 @@
        </cylinder>
       </geometry>
      </collision>
-
+-->
      <visual name='visual'>
-      <pose>0 0 .254 1.57 0 0</pose>
+      <pose>0 0 0 1.57 0 0 </pose>
       <geometry>
        <cylinder>
         <radius>0.254</radius>
@@ -112,9 +114,19 @@
 
      <inertial> <mass>100.1</mass> </inertial>
 
-        <sensor name='base_contact' type='contact'>
+        <collision name="wheel_collision">
+      <pose>0 0 0 1.56 0 0 </pose>
+          <geometry>
+            <cylinder>
+            <radius>0.254</radius>
+            <length>0.6604</length>
+           </cylinder>
+          </geometry>
+        </collision>
+
+        <sensor name='wheel_contact' type='contact'>
           <contact>
-            <collision>base_collision</collision>
+            <collision>wheel_collision</collision>
           </contact>
         </sensor>
 
