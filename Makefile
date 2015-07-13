@@ -5,7 +5,7 @@ CC := gcc
 
 INSTALL_DIR := /usr/bin
 CONFIG_DIR := /etc/mds-ach
-
+SIM_DIR := model/mds
 BINARIES := mds-daemon mds-filter
 #BINARIES := mds-daemon mds-can-daemon
 all : $(BINARIES)
@@ -27,12 +27,21 @@ mds-filter: src/mds-filter.o
 clean:
 	rm -f $(BINARIES) src/*.o
 
+makesim:
+	rm -rf ${SIM_DIR}/build
+	mkdir -p ${SIM_DIR}/build
+	cmake -B${SIM_DIR}/build -H${SIM_DIR}
+	make -C ${SIM_DIR}/build
+
 install:
 	mkdir -p /etc/mds-ach
 	cp -r configs/ ${CONFIG_DIR}/
 	cp -r python/ ${CONFIG_DIR}/
 	cp ${BINARIES} ${INSTALL_DIR}
 	cp scripts/mds-ach ${INSTALL_DIR}
+
+installsim:
+	ln -s ${CONFIG_DIR}/${SIM_DIR} /home/$$USER/.gazebo/models/mds
 
 rm:
 	rm ${INSTALL_DIR}/mds-daemon
