@@ -9,6 +9,7 @@ sudo apt-get install ia32-libs ia32-libs-dev libc6-dev-i386
 sudo apt-get install autoconf automake libtool autoconf-archive help2man man2html
 sudo apt-get install libtool
 sudo apt-get install dkms
+sudo apt-get install screen
 mkdir tmp
 cd tmp
 TMP_DIR="$PWD"

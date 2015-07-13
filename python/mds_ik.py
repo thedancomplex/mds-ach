@@ -349,7 +349,7 @@ def getPosCurrentFromOrder(A,order):
   return J   
 
 
-def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
+def getIK(eff_joint_space_current, eff_end, order, arm, err=None, itr=None):
  # eff_joint_space_current = [theta_SP, SR, RY, EP, WY, RR]
  # eff_end = desired end effector positon = [x,y,z,theta_x,theta_y,theta_z]
  # order is the order of the desired joints [p_x, p_y, p_z, t_x, t_y, t_z]
@@ -358,8 +358,8 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
  #                                          [x, y, z, t_y, t_z]
  # arm = 'left' or 'right' arm to solve for
  # err (optional) = error for delta_theta, delta_pos (xyz) and maximum error
-
-
+ # itr (optional) = number of max iterations
+ eff_joint_space_orig = copy.deepcopy(eff_joint_space_current)
  eff_delta_theta = 0.01 # change in goal in meters
  eff_delta_xyz = 0.01 # change in goal in meters
  eff_err_max = 0.01
@@ -377,7 +377,7 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
 
  # distance to end point
  eff_dist_to_end = getDist2End2(eff_current, eff_end)
-
+ itr_i = 0
  while (eff_err_max < eff_dist_to_end):
   # jacobian of the eff_next_point
   J = getJacobian(eff_joint_space_current,order,eff_delta_theta,arm)
@@ -439,9 +439,13 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None):
   A = getFkArm(eff_joint_space_current,arm)
   eff_current = getPosCurrentFromOrder(A,order)
   eff_dist_to_end = getDist2End2(eff_current, eff_end)
-  print eff_dist_to_end
+  print itr_i, ' - ', eff_dist_to_end
+  if (itr_i >= itr):
+     return (eff_joint_space_orig, -1)
+  else:
+     itr_i = itr_i+1
 ##  print eff_dist_to_end
- return eff_joint_space_current
+ return (eff_joint_space_current, 0)
 
 
 def getIK6dof(eff_joint_space_current, eff_end, arm):

@@ -19,7 +19,9 @@ MDS_IK_CHAN='mds-ik'
 MDS_PARAM_CHAN='mds-param'
 MDS_STATE_CHAN='mds-state'
 MDS_CMD_CHAN='mds-cmd'
-MDS_PYTHON_DIR='python'
+MDS_PID_FILE='mds-pid.log'
+MDS_HOME_DIR='/etc/mds-ach'
+MDS_PYTHON_DIR=$MDS_HOME_DIR'/python'
 
 
 DAEMON_LOG_DIR='/var/log/mds'
@@ -102,7 +104,12 @@ KillAll()
 Kill()
 {
 #	sudo updatedb
+        sudo kill -9 $(cat $MDS_HOME_DIR/$MDS_PID_FILE) 
 	sudo kill -9 $(pidof mds-daemon)
+	sudo kill -9 $(pidof mds-filter)
+        #screen -S mdsik -p 0 -X quit
+
+        sudo rm -r $MDS_HOME_DIR/$MDS_PID_FILE
 }
 
 Remote()
@@ -148,6 +155,11 @@ ShowUsage()
 }
 
 
+Console()
+{
+  python $MDS_PYTHON_DIR/mds_console.py read
+}
+
 Read()
 {
   python $MDS_PYTHON_DIR/mds_read.py read
@@ -165,7 +177,13 @@ Start()
   then
 	DAEMON_ARGS+=" -v"
   fi
-  sudo ./mds-daemon $DAEMON_ARGS 
+
+  sudo touch $MDS_HOME_DIR/$MDS_PID_FILE
+  sudo chmod 777 $MDS_HOME_DIR/$MDS_PID_FILE
+  sudo mds-daemon $DAEMON_ARGS & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  sudo mds-filter & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  python $MDS_PYTHON_DIR/mds_ik_module.py >> /dev/null & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+#  screen -S mdsik -d -m mds_ik_module.py
 }
 
 SetFlags()
@@ -179,7 +197,7 @@ do
     case "$var" in
       'remote' )
 	  FLAG_REMOTE=1
-          MDS_REMOTE_ADDRESS=${HUBO_TEMP[$(($MDS_I+1))]}
+          MDS_REMOTE_ADDRESS=${MDS_TEMP[$(($MDS_I+1))]}
 	  echo "Remote address set: "$MDS_REMOTE_ADDRESS
       ;;
       'nocan' )
@@ -228,7 +246,12 @@ case "$1" in
 
 # Emergency kill
 	'kill' )
-		KillHubo $2
+		Kill $2
+	;;
+
+# Start console
+	'console' )
+		Console
 	;;
 
 # Reset Bus

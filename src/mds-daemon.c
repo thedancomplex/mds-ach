@@ -241,7 +241,8 @@ void mainLoop(int vcan) {
     /* ------------------------------------------------ */
     /* Put current location from robot on state and ref */
     /* ------------------------------------------------ */
-    if (vcan == 0) {
+//    if (vcan == 0) {
+    if (vcan == -1) {
       /* get position of robot in joint space */
       for (int i = 0; i < 3; i++) {
         /* Request State (Enc pos) */
@@ -259,7 +260,8 @@ void mainLoop(int vcan) {
       /* Put on ACH Channels */
       ach_put(&chan_ref, &H_ref, sizeof(H_ref));
     }
-    else if (vcan == 1){
+//    else if (vcan == 1){
+    else {
       for (int i = 0; i < MDS_JOINT_COUNT; i++){
         H_ref.joint[i].ref = -1.0*H_state.joint[i].offset * H_state.joint[i].direction;
       }

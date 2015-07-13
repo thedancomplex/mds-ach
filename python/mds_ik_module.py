@@ -87,6 +87,7 @@ def mainLoop():
 
 
 def doIK(state, ref, eff_end,  dof, jointSet, arm):
+       ref_cpy = copy.deepcopy(ref)
        try:
            # Define IK
            eff_joint_space_current = [0.0, 0.0, 0.0, -0.5, 0.0, 0.0]
@@ -129,8 +130,18 @@ def doIK(state, ref, eff_end,  dof, jointSet, arm):
              order = ['p_x','p_y','p_z','t_x','t_y']
            # Get IK
            eff_end = eff_end[:dof]
-           eff_joint_space_current = ik.getIK(eff_joint_space_current, eff_end, order, arm, err)
+           stepNum = 1000
+           jnt_return = ik.getIK(eff_joint_space_current, eff_end, order, arm, err, stepNum)
            #eff_joint_space_current = ik.getIK3dof(eff_joint_space_current, eff_end, arm)
+
+           # exits if no solution within 1000 itirations
+           if (jnt_return[1] == -1):
+                 ref = copy.deepcopy(ref_cpy)
+                 print 'no IK found within ', stepNum, ' steps'
+                 return ref
+           else:
+                 eff_joint_space_current = jnt_return[0]
+
 
            # Print result
            A = ik.getFkArm(eff_joint_space_current,arm)

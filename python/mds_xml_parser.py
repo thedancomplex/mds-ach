@@ -127,8 +127,8 @@ def doParseXML(doc,p):
 
 if __name__ == '__main__':
     param = mds.MDS_JOINT_PARAM()
-    param = doParseXML('configs/anatomy.xml',param)
-    param = doParseXmlMds('configs/mdsach.xml',param)
+    param = doParseXML('/etc/mds-ach/configs/anatomy.xml',param)
+    param = doParseXmlMds('/etc/mds-ach/configs/mdsach.xml',param)
     p = ach.Channel(mds.MDS_CHAN_PARAM_NAME)
     p.put(param)
 

@@ -165,10 +165,10 @@ void mainLoop() {
     //clock_gettime( CLOCK_MONOTONIC,&t);
     clock_gettime( 0,&t);
     size_t fs = 0;
-    int r = ach_get( &chan_ref, &H_ref_filter, sizeof(H_ref_filter), &fs, NULL, ACH_O_LAST);
-    assert( sizeof(H_ref_filter) == fs);
-    r = ach_get( &chan_state, &H_state, sizeof(H_state), &fs, NULL, ACH_O_LAST);
+    int r = ach_get( &chan_state, &H_state, sizeof(H_state), &fs, NULL, ACH_O_WAIT);
     assert( sizeof(H_state) == fs);
+    r = ach_get( &chan_ref, &H_ref_filter, sizeof(H_ref_filter), &fs, NULL, ACH_O_LAST);
+    assert( sizeof(H_ref_filter) == fs);
 
     for (int i = 0; i < MDS_JOINT_COUNT; i++) {
 
@@ -180,7 +180,7 @@ void mainLoop() {
     ach_put( &chan_ref, &H_ref, sizeof(H_ref));
     ach_put( &chan_ref_filter, &H_ref_filter, sizeof(H_ref_filter));
 
-    printf("Start MDS Loop\n");
+    printf("Start Filter\n");
     while(1) {
 	//NOTE: DTOA MUST BE GREATER THAN UPDATE RATE or an unstable system will 		  develop
 	fs = 0;
