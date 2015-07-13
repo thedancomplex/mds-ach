@@ -42,6 +42,7 @@ install:
 	cp scripts/mds-ach ${INSTALL_DIR}
 
 installsim:
+	rm /home/$$USER/.gazebo/models/mds
 	ln -s ${CONFIG_DIR}/${SIM_DIR} /home/$$USER/.gazebo/models/mds
 
 rm:
