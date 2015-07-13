@@ -124,7 +124,8 @@ def mainLoop():
               doLoop = False
          
            ref.joint[jntn].ref = pos0
-           r.put(ref)
+           rf.put(ref)
+#           r.put(ref)      # Changed to filter ref put 2015-07-13
            time.sleep(T)
            sys.stdout.write(".")
            sys.stdout.flush()

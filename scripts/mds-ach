@@ -22,6 +22,7 @@ MDS_CMD_CHAN='mds-cmd'
 MDS_PID_FILE='mds-pid.log'
 MDS_HOME_DIR='/etc/mds-ach'
 MDS_PYTHON_DIR=$MDS_HOME_DIR'/python'
+MDS_MODEL_DIR=$MDS_HOME_DIR'/model/mds'
 
 
 DAEMON_LOG_DIR='/var/log/mds'
@@ -100,7 +101,15 @@ KillAll()
   Kill
   KillAch
   KillRemote
+  KillSim
 }
+
+KillSim()
+{
+  sudo kill -9 $(pidof gzclient)
+  sudo kill -9 $(pidof gzserver)
+}
+
 Kill()
 {
 #	sudo updatedb
@@ -131,6 +140,19 @@ esac
 
 }
 
+Sim()
+{
+   case $1 in
+      'kill')
+            KillSim
+   ;;
+   *)
+        echo 'running sim in gazebo'
+        echo $MDS_MODEL_DIR
+        gazebo $MDS_MODEL_DIR/model.world
+   ;;
+   esac
+}
 
 KillRemote()
 {
@@ -147,10 +169,14 @@ ShowUsage()
 	echo 'killall       : Emergency kill the daemon process and removes all ACH channels'
         echo 'resetbus      : Resets the Bus'
 	echo 'remote        : Starts a remote connection to xxx.xxx.xxx.xxx via achd'
+	echo 'sim           : Starts the sim in gazebo'
+	echo '		    : Options:'
+	echo '              :     (no-arg)   : Starts the sim in gazebo'
+	echo '              :     kill       : Kills gazebo sim'
 	echo 'nocan         : Runs system in NO CAN mode.  i.e. creates a virtural can bus'
 	echo '		    : Options:'
-	echo '              :     (no-arg)       : Starts remote connections'
-	echo '              :     kill    : Kills remote connection'
+	echo '              :     (no-arg)   : Starts remote connections'
+	echo '              :     kill       : Kills remote connection'
 	echo
 }
 
@@ -252,6 +278,11 @@ case "$1" in
 # Start console
 	'console' )
 		Console
+	;;
+
+# Starts the sim
+	'sim' )
+		Sim $2
 	;;
 
 # Reset Bus

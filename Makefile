@@ -37,6 +37,7 @@ install:
 	mkdir -p /etc/mds-ach
 	cp -r configs/ ${CONFIG_DIR}/
 	cp -r python/ ${CONFIG_DIR}/
+	cp -r model/ ${CONFIG_DIR}/
 	cp ${BINARIES} ${INSTALL_DIR}
 	cp scripts/mds-ach ${INSTALL_DIR}
 
