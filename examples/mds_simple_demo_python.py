@@ -27,62 +27,62 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
-
 import mds_ach as mds
 import ach
 import time
 import sys
 import os
 import math
-
+import numpy as np
+import mds_ach as mds
 
 def mainLoop():
-  k = ach.Channel(mds.MDS_CHAN_IK_NAME)
-  ikc = mds.MDS_IK()
-  ii = 0
-  while(1):
-    c = [0.3, 0.2, 0.0]
-    if ii == 0:
-      c = [0.3, 0.2, 0.0]
-      ii = 1
-    elif ii == 1:
-      c = [0.4, 0.45, 0.25]
-      ii = ii+1
-    elif ii == 2:
-      c = [0.4, -0.05, 0.25]
-      ii = ii+1
-    elif ii == 3:
-      c = [0.4, -0.05, -0.25]
-      ii = ii+1
-    elif ii == 4:
-      c = [0.4, 0.45, -0.25]
-      ii = 1
-    if True:
-        arm = 'left'
-        armi = -1
-        dof = 3
-        eff = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        for i in range(0,dof):
-          eff[i] = c[i]
+  # Start curses
+ s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
+ rf = ach.Channel(mds.MDS_CHAN_REF_FILTER_NAME)
+ r = ach.Channel(mds.MDS_CHAN_REF_NAME)
+ state = mds.MDS_STATE()
+ ref = mds.MDS_REF()
+ ref_filt = mds.MDS_REF()
+ doloop = True
+ ii = 0
+ while(doloop):
+    # Get latest states
+    [status, framesize] = s.get(state, wait=False, last=True)
+    [status, framesize] = r.get(ref, wait=False, last=True)
+    [status, framesize] = rf.get(ref_filt, wait=False, last=True)
+    
+    # Get address of LSP
+    jntn = mds.getAddress('LSP',state)
+    print 'Address = ', jntn
 
-        if arm == 'left':
-             armi = mds.LEFT
-        if arm == 'right':
-             armi = mds.RIGHT
+    # Get reference of LSP
+    j_ref = state.joint[jntn].ref
+    print 'Reference = ', j_ref
 
-        if armi >= 0:
-           ikc.move = armi
-           ikc.arm[armi].ik_method = dof
-           ikc.arm[armi].t_x = eff[0]
-           ikc.arm[armi].t_y = eff[1]
-           ikc.arm[armi].t_z = eff[2]
-           ikc.arm[armi].r_x = eff[3]
-           ikc.arm[armi].r_y = eff[4]
-           ikc.arm[armi].r_z = eff[5]
-           print c 
-           k.put(ikc)
+    # Get state (encoder angle) of LSP
+    j_pos = state.joint[jntn].pos
+    print 'State = ', j_pos
 
-    time.sleep(5.0)
+    # Set LSP reference to -0.123 using the filter controller (smooth)
+    ref_filt.joint[jntn].ref = -0.123
+
+    # Command motors to desired references (post to ach channel)
+    rf.put(ref_filt)
+    
+    # Exit loop
+    if ii == 1:
+      doloop = False
+    ii = 1
+
+    # Wait 0.5 sec
+    time.sleep(0.5)
+
+
+ # Close channels
+ s.close()
+ r.close()
+ rf.close()
 
 if __name__ == '__main__':
-   mainLoop()
+    mainLoop()
