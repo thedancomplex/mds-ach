@@ -76,9 +76,7 @@ def mainLoop():
               jntn = getAddress('RWR',state)
               j5 = state.joint[jntn].ref
               eff_joint_space_current = [j0, j1, j2, j3, j4, j5]
-           print '1'
            A = ik.getFkArm(eff_joint_space_current,arm)
-           print '2'
            order = ['p_x','p_y','p_z','t_x','t_y','t_z']
            eff_end_ret = ik.getPosCurrentFromOrder(A,order)
            print '6DOF FK - for ', arm, ' arm'
@@ -136,7 +134,7 @@ def mainLoop():
        for i in range(mds.MDS_JOINT_COUNT):
            ref.joint[i].ref = 0.0
        r.put(ref)  
-    elif cmd == 'ikach':
+    elif cmd == 'ik':
         arm = c[1]
         armi = -1
         dof = int(c[2])
@@ -161,7 +159,7 @@ def mainLoop():
            k.put(ikc)
 
         
-    elif cmd == 'ik':
+    elif cmd == 'ik3':
       try:
         arm = c[1]
         dof = 3

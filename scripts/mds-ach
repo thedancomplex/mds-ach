@@ -206,9 +206,9 @@ Start()
 
   sudo touch $MDS_HOME_DIR/$MDS_PID_FILE
   sudo chmod 777 $MDS_HOME_DIR/$MDS_PID_FILE
-  sudo mds-daemon $DAEMON_ARGS & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
-  sudo mds-filter & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
-  python $MDS_PYTHON_DIR/mds_ik_module.py >> /dev/null & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  nohup sudo mds-daemon $DAEMON_ARGS & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  nohup sudo mds-filter & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  nohup python $MDS_PYTHON_DIR/mds_ik_module.py >> /dev/null & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
 #  screen -S mdsik -d -m mds_ik_module.py
 }
 

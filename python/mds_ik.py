@@ -430,10 +430,10 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None, itr=None):
      eff_joint_space_current[4] = np.pi
   if eff_joint_space_current[4] < -np.pi:    #xWY min
      eff_joint_space_current[4] = -np.pi
-  if eff_joint_space_current[5] > np.pi/2.0:     #xSR max
-     eff_joint_space_current[5] = np.pi/2.0
-  if eff_joint_space_current[5] < -np.pi/2.0:    #xSR min
-     eff_joint_space_current[5] = -np.pi/2.0
+  if eff_joint_space_current[5] > np.pi/2.0 * 0.3:     #xWR max
+     eff_joint_space_current[5] = np.pi/2.0 * 0.3
+  if eff_joint_space_current[5] < -np.pi/2.0 * 0.3:    #xWR min
+     eff_joint_space_current[5] = -np.pi/2.0 * 0.3
  
   # distance to end point
   A = getFkArm(eff_joint_space_current,arm)
