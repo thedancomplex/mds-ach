@@ -23,6 +23,7 @@ MDS_PID_FILE='mds-pid.log'
 MDS_HOME_DIR='/etc/mds-ach'
 MDS_PYTHON_DIR=$MDS_HOME_DIR'/python'
 MDS_MODEL_DIR=$MDS_HOME_DIR'/model/mds'
+MDS_CONFIG_DIR=$MDS_HOME_DIR'/configs'
 
 
 DAEMON_LOG_DIR='/var/log/mds'
@@ -159,6 +160,29 @@ KillRemote()
 	sudo kill -9 $(pidof achd)
 }
 
+
+ChangeRobot()
+{
+    case $1 in
+      'isaac' )
+        sudo cp $MDS_CONFIG_DIR/Isaac.anatomy.xml $MDS_CONFIG_DIR/anatomy.xml
+        echo '-- Robot Changed to Isaac --'
+      ;;
+      'lucas' )
+        sudo cp $MDS_CONFIG_DIR/Lucas.anatomy.xml $MDS_CONFIG_DIR/anatomy.xml
+        echo '-- Robot Changed to Lucas --'
+      ;;
+      'octavia' )
+        sudo cp $MDS_CONFIG_DIR/Octavia.anatomy.xml $MDS_CONFIG_DIR/anatomy.xml
+        echo '-- Robot Changed to Lucas --'
+      ;;
+      *)
+        echo '-- No Change to Robot --'
+      ;;
+      esac
+
+}
+
 ShowUsage()
 {
 	echo
@@ -177,6 +201,12 @@ ShowUsage()
 	echo '		    : Options:'
 	echo '              :     (no-arg)   : Starts remote connections'
 	echo '              :     kill       : Kills remote connection'
+        echo 'changerobot   : Changes robot configuration file'
+        echo '              : Options:'
+        echo '              :     (no-arg)   : No change'
+        echo '              :     isaac      : changes to Isaacs anatomy'
+        echo '              :     lucas      : changes to Lucas anatomy'
+        echo '              :     octavia    : change to Octavias anatomy'
 	echo
 }
 
@@ -284,6 +314,10 @@ case "$1" in
 	'sim' )
 		Sim $2
 	;;
+# Changes robot
+        'changerobot' )
+               ChangeRobot $2
+        ;;
 
 # Reset Bus
         'resetbus' )

@@ -24,6 +24,10 @@ autoreconf -i
 ./configure
 make
 sudo make install
+sudo echo "deb http://code.golems.org/debian squeeze golems.org" >> /etc/apt/sources.list
+sudo apt-get update && sudo apt-get install libach-dev ach-utils ach-dkms
+sudo dpkg-reconfigure ach-utils
+
 cd $TMP_DIR
 cd ..
 sudo rm -rf $TMP_DIR

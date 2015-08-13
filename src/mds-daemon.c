@@ -130,6 +130,10 @@ int debug;
 
 int can_skt = 0;
 
+/* histor of encoder sending for CAN jitter fix */
+double deg_hist[MDS_JOINT_COUNT];
+
+
 // ach message type
 //typedef struct hubo h[1];
 
@@ -294,77 +298,14 @@ void mainLoop(int vcan) {
         else{    assert( sizeof(H_ref) == fs); 
         }
         
-        /* Set all Ref */
-//        refFilterMode(&H_ref, &H_state, &H_ref_filter, MDS_REF_FILTER_LENGTH);
-
-        /* This sets ref on the CAN bus */
-//        setRefAll(&H_ref, &H_state, &frame);
-//        H_state.refWait = FALSE;
-
-        /* Get all Encoder data */
-//        getEncAllSlow(&H_state, &frame); 
-
-        /* Get all motor Current data */
-//        getCurrentAllSlowMod(&H_state, &frame, 20);
-
-        /* Get motor status/errors  (one each loop) */
-//        getStatusIterate( &H_state, H_param, &frame);
-
-        /* Get Power data */
-//        getPower(&H_state, H_param, &frame);
-
-        /* Read Console messags */
-//        huboMessage(&H_ref, &H_ref_filter, H_param, &H_state, &H_cmd, &frame);
-
-        /* Clear CAN buffer - Read any aditional data left on the buffer */
-//        clearCanBuff(&H_state, &frame);
-        
-/*
-        float ftmp = 1234.0;
-        int address = 0x004c;
-        double rat = 360.0 / (H_param.joint[address].encoderresolution * 
-                              H_param.joint[address].gearratio *
-                              H_param.joint[address].encoderconfig_tickspercount);
-*/
-/* 5 deg/sec^2 in enc ticks */
-/*
-        frame.data[0] = 0x1d;
-        frame.data[1] = 0xc7;
-        frame.data[2] = 0x31;
-        frame.data[3] = 0x44;
-   */
-
-/* 1 deg/sec^2 in enc ticks */
-/*
-        frame.data[0] = 0xe4;
-        frame.data[1] = 0x38;
-        frame.data[2] = 0x0e;
-        frame.data[3] = 0x43;
-*/
-
-/* 10 deg/sec^2 in enc ticks */
-/*
-        frame.data[0] = 0x1d;
-        frame.data[1] = 0xc7;
-        frame.data[2] = 0xb1;
-        frame.data[3] = 0x44;
-        memcpy(&ftmp, &frame.data, 4);
-        printf("data = %f\n", deg2enc(rad2deg(0.0872664626), 0x004c, &H_param));
-*/
 
 
         //int address = 0x004c; // LEB
         int address = 0x005F; // LSP
         double radss = 0.0872664626; // 5 deg/s^2
         double rad = 0.523598776; // 30 deg
-/*
-        f_setAcc(radss, address, &H_param, can_skt, &frame);
-        f_setRef(rad, address, &H_param, can_skt, &frame);
-        f_setRefTrajectoryModeDefault(address, &H_param, can_skt, &frame);
-        f_setRefTrajectoryPeriodDefault(address, &H_param, can_skt, &frame);
-*/
-//        setRef(rad, radss, address, &H_param, can_skt, &frame);
-        //f_setRefTrajectoryMode(TRAJECTORY_MODE_MOVETO, address, &H_param, can_skt, &frame);
+
+        /* Set all Ref */
         setRefAll(&H_ref, &H_state, &H_ref_filter, &H_param, MDS_REF_FILTER_LENGTH, can_skt, &frame);
 
         /* Request State (Enc pos) */
@@ -407,13 +348,22 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
           //double radss = 0.0872664626; // 5 deg/s^2
           //double radss = 0.0872664626 * 2.0; // 10 deg/s^2
           //double radss = 0.0872664626 * 2.0 * 4.0; // 40 deg/s^2
+
+          /* this is the acceleration */
           double radss = 0.0872664626 * 2.0 * 8.0; // 80 deg/s^2
           int address = p->joint[i].address;
-          if (address > 0){
-            setRef(rad, radss, address, p, skt, f);
-         //   printf("address = 0x%04x\n",address);
-            j = j+1;
+
+
+
+          /* Send CAN only if commanded pos is not the same as previous pos */
+          if (rad != deg_hist[i]){
+            if (address > 0){
+              setRef(rad, radss, address, p, skt, f);
+           //   printf("address = 0x%04x\n",address);
+              j = j+1;
+            }
           }
+          deg_hist[i] = rad;
        }
        //printf("%d\n",j);
 }
@@ -736,6 +686,9 @@ int main(int argc, char **argv) {
     mds_state_t H_state;
     memset( &H_ref,   0, sizeof(H_ref));
     memset( &H_state, 0, sizeof(H_state));
+    
+    /* ini deg history */
+    memset( &deg_hist, 0, sizeof(deg_hist));
 
     // open reference
     int r = ach_open(&chan_ref, MDS_CHAN_REF_NAME, NULL);
