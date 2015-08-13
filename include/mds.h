@@ -68,35 +68,33 @@ extern "C" {
 //888888888888888888888888888888888888888888
 
 /* Joint Numbers/Index values */
-#define         NRH             0               // Neck roll
-#define		NYH		1		// neck yaw
-#define		NPL		2		// neck pitch lower
-#define		NPH		3		// neck pitch high
-#define		LSP		4		//	Left Shoulder Pitch
-#define		LSR		5		//	Left Shoulder Yaw
-#define		LSY		6		//	Left Shoulder Roll
-#define		LEB		7		//	Left Elbow Pitch
-#define		LWY		8		// left wrist yaw
-#define		LWR		9		// left wrist roll
-#define		LWP		10		// left wrist pitch
-#define		RSP		11		//	Right Shoulder Pitch
-#define		RSR		12		//	Right Shoulder Roll
-#define		RSY		13		//	Right Shoulder Yaw
-#define		REB		14		//	Right Elbow Pitch
-#define		RWY		15		// right wrist yaw
-#define		RWR		16		// right wrist roll
-#define		RWP		17		// right wrist Pitch
-#define		WST		18		//	Trunk Yaw
-#define		RF1		19		//	Right Finger
-#define		RF2		20		//	Right Finger
-#define		RF3		21		//	Right Finger
-#define		RF4		22		//	Right Finger
-#define		RFR		23		//	Right Finger 1 roll (thumb)
-#define		LF1		24		//	Left Finger
-#define		LF2		25		//	Left Finger
-#define		LF3		26		//	Left Finger
-#define		LF4		27		//	Left Finger
-#define		LFR		28		//	Left Finger 1 roll (thumb)
+#define REP 0x0048
+#define RSY 0x0049
+#define RSR 0x004b
+#define LEP 0x004c
+#define LSY 0x004d
+#define LSR 0x004f
+#define RWR 0x0050
+#define RWY 0x0052
+#define LWR 0x0054
+#define LWY 0x0056
+#define RSP 0x005b
+#define WST 0x005c
+#define LSP 0x005f
+
+#define RightElbowFlex 0x0048
+#define RightUpperArmRoll 0x0049
+#define RightShoulderAbd 0x004b
+#define LeftElbowFlex 0x004c
+#define LeftUpperArmRoll 0x004d
+#define LeftShoulderAbd 0x004f
+#define RightWristFlex 0x0050
+#define RightWristRoll 0x0052
+#define LeftWristFlex 0x0054
+#define LeftWristRoll 0x0056
+#define RightShoulderExt 0x005b
+#define TorsoPan 0x005c
+#define LeftShoulderExt 0x005f
 
 #define 	MDS_CAN_CHAN_NUM	4	///> Number of CAN channels avaliable
 #define         MDS_JOINT_COUNT        100      ///> The max number of joints
