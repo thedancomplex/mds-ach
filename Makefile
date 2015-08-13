@@ -7,6 +7,7 @@ INSTALL_DIR := /usr/bin
 CONFIG_DIR := /etc/mds-ach
 SIM_DIR := model/mds
 PY_DIR := /usr/lib/python2.7/dist-packages
+INCLUDE_DIR := /usr/include
 BINARIES := mds-daemon mds-filter
 #BINARIES := mds-daemon mds-can-daemon
 all : $(BINARIES)
@@ -42,6 +43,7 @@ install:
 	cp ${BINARIES} ${INSTALL_DIR}
 	cp scripts/mds-ach ${INSTALL_DIR}
 	cp python/mds_ach.py ${PY_DIR}/
+	cp include/mds.h ${INCLUDE_DIR}/mds.h
 
 installsim:
 	rm /home/$$USER/.gazebo/models/mds
@@ -52,5 +54,6 @@ rm:
 	rm ${INSTALL_DIR}/mds-filter
 	rm -rf ${CONFIG_DIR}
 	rm ${PY_DIR}/mds_ach.py
+	rm ${INCLUDE_DIR}/mds.h
 	
         
