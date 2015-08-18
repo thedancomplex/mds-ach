@@ -3,8 +3,8 @@
 	<muscle  name="HeadRoll">
 		<parameter name="mdsachname" value="NKR" />
 		<parameter name="offset" value="0.0" />
-		<parameter name="direction" value="-1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="direction" value="1" />
+		<parameter name="enabled" value="1" />
 		
 	</muscle>
 	<muscle  name="LeftEyePan">
@@ -57,19 +57,19 @@
 		<parameter name="mdsachname" value="NKP1" />
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
 	</muscle>
 	<muscle  name="NeckPitch">
 		<parameter name="mdsachname" value="NKP2" />
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
 	</muscle>
 	<muscle  name="HeadPan">
 		<parameter name="mdsachname" value="NKY" />
 		<parameter name="offset" value="0.0" />
 		<parameter name="direction" value="1" />
-		<parameter name="enabled" value="0" />
+		<parameter name="enabled" value="1" />
         </muscle>
 	<muscle  name="JawRoll">
 		<parameter name="mdsachname" value="JAR" />

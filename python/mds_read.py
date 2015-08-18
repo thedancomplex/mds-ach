@@ -25,7 +25,7 @@ xd = 8
 shortnamex = x
 x = x + xd
 namex = x
-xd = 26
+xd = 22
 x = x + xd
 
 enabledx = x

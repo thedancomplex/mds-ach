@@ -11,7 +11,7 @@ sudo apt-get install libtool
 sudo apt-get install dkms
 sudo apt-get install screen
 
-sudo echo 'deb http://code.golems.org/debian squeeze golems.org' >> /etc/apt/sources.list
+sudo echo "deb http://code.golems.org/debian squeeze golems.org" >> /etc/apt/sources.list
 sudo apt-get update
 
 sudo apt-get update && sudo apt-get install libach-dev ach-utils ach-dkms
