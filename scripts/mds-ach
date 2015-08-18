@@ -174,7 +174,7 @@ ChangeRobot()
       ;;
       'octavia' )
         sudo cp $MDS_CONFIG_DIR/Octavia.anatomy.xml $MDS_CONFIG_DIR/anatomy.xml
-        echo '-- Robot Changed to Lucas --'
+        echo '-- Robot Changed to Octavia --'
       ;;
       *)
         echo '-- No Change to Robot --'
