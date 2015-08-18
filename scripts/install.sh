@@ -10,6 +10,14 @@ sudo apt-get install autoconf automake libtool autoconf-archive help2man man2htm
 sudo apt-get install libtool
 sudo apt-get install dkms
 sudo apt-get install screen
+
+sudo echo 'deb http://code.golems.org/debian squeeze golems.org' >> /etc/apt/sources.list
+sudo apt-get update
+
+sudo apt-get update && sudo apt-get install libach-dev ach-utils ach-dkms
+sudo dpkg-reconfigure ach-utils
+
+
 mkdir tmp
 cd tmp
 TMP_DIR="$PWD"
