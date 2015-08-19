@@ -1196,7 +1196,9 @@
       </link>
 
 
-    <plugin filename="/home/lofaro/.gazebo/models/mds/build/libmds_plugin.so" name="mds_plugin" >
+<!--    <plugin filename="/home/lofaro/.gazebo/models/mds/build/libmds_plugin.so" name="mds_plugin" >
+-->
+    <plugin filename="/etc/mds-ach/model/mds/build/libmds_plugin.so" name="mds_plugin" >
        <LSP>LSP</LSP>
        <LSR>LSR</LSR>
        <LSY>LSY</LSY>

@@ -365,9 +365,9 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None, itr=None):
  eff_err_max = 0.01
 
  if (err is not None):
-  eff_delta_theta = err[0] # change in goal in meters
+  eff_delta_theta = err[0] # change in goal in rad
   eff_delta_xyz = err[1] # change in goal in meters
-  eff_err_max = err[2]
+  eff_err_max = err[2]  # max linear error of eef
 
  A = getFkArm(eff_joint_space_current,arm)
 ## eff_current = np.array([ A[0,3], A[1,3], A[2,3]])
