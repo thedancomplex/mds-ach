@@ -43,6 +43,8 @@ install:
 	cp ${BINARIES} ${INSTALL_DIR}
 	cp scripts/mds-ach ${INSTALL_DIR}
 	cp python/mds_ach.py ${PY_DIR}/
+	cp python/mds_ik.py ${PY_DIR}/
+	cp python/mds_ik_include.py ${PY_DIR}/
 	cp include/mds.h ${INCLUDE_DIR}/mds.h
 
 installsim:
@@ -54,6 +56,8 @@ rm:
 	rm ${INSTALL_DIR}/mds-filter
 	rm -rf ${CONFIG_DIR}
 	rm ${PY_DIR}/mds_ach.py
+	rm ${PY_DIR}/mds_ik.py
+	rm ${PY_DIR}/mds_ik_include.py
 	rm ${INCLUDE_DIR}/mds.h
 	
         

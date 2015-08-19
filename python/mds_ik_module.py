@@ -128,6 +128,12 @@ def doIK(state, ref, eff_end,  dof, jointSet, arm):
              err = err*10
            elif dof == 5:
              order = ['p_x','p_y','p_z','t_x','t_y']
+           elif dof == 1:
+             order = ['p_x']
+           elif dof == 2:
+             order = ['p_x','p_y']
+           elif dof == 4:
+             order = ['p_x','p_y','p_z','t_x']
            # Get IK
            eff_end = eff_end[:dof]
            stepNum = 1000
