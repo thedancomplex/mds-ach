@@ -19,27 +19,20 @@ from mds_ach import *
 #define global variables
 # feed-forward will now be refered to as "state"
 state = mds.MDS_REF()
-#initial feed-back
-initial_ref = mds.MDS_REF()
-initial_state = mds.MDS_STATE()
+
 # feed-back will now be refered to as "state"
 ref = mds.MDS_REF()
 state = mds.MDS_STATE()
-# Command line for console
 ikc = mds.MDS_IK()
-#define arm constant
 
 def mainLoop():
   # Open Ach Channels
-  k = ach.Channel(mds.MDS_CHAN_IK_NAME)
   r = ach.Channel(mds.MDS_CHAN_REF_FILTER_NAME)
   s = ach.Channel(mds.MDS_CHAN_STATE_NAME)
-  k.flush()
 
   # Make Structs
   state = mds.MDS_STATE()
   ref = mds.MDS_REF()
-  ikc = mds.MDS_IK()
 
   # Get the latest on the channels
   [status, framesize] = s.get(state, wait=False, last=True)
@@ -88,7 +81,27 @@ def mainLoop():
     quit()
   # else set the new joint space
   else:
+    # returns in the followin order
+    # Joint space return = [LSP, LSR, LRY, LEP, LWY, LWR]
     eff_joint_space_current = jnt_return[0]
+
+
+  # Set to joint space
+  jntn = mds.getAddress('LSP',state)
+  ref.joint[jntn].ref = eff_joint_space_current[0]
+  jntn = mds.getAddress('LSR',state)
+  ref.joint[jntn].ref = eff_joint_space_current[1]
+  jntn = mds.getAddress('LSY',state)
+  ref.joint[jntn].ref = eff_joint_space_current[2]
+  jntn = mds.getAddress('LEP',state)
+  ref.joint[jntn].ref = eff_joint_space_current[3]
+  jntn = mds.getAddress('LWY',state)
+  ref.joint[jntn].ref = eff_joint_space_current[4]
+  jntn = mds.getAddress('LWR',state)
+  ref.joint[jntn].ref = eff_joint_space_current[5]
+ 
+  # Send to the robot 
+  r.put(ref)
 
   # get FK of arm
   A = ik.getFkArm(eff_joint_space_current,arm)
