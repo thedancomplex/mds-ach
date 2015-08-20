@@ -7,3 +7,4 @@ sudo apt-get install libbullet2.82-dev
 sudo apt-get install libgazebo5
 sudo apt-get install gazebo5
 sudo apt-get install libgazebo5-dev
+gazebo
