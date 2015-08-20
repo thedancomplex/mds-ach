@@ -48,7 +48,7 @@ install:
 	cp include/mds.h ${INCLUDE_DIR}/mds.h
 
 installsim:
-	rm /home/$$USER/.gazebo/models/mds
+	rm -f /home/$$USER/.gazebo/models/mds
 	ln -s ${CONFIG_DIR}/${SIM_DIR} /home/$$USER/.gazebo/models/mds
 
 rm:
