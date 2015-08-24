@@ -5,6 +5,7 @@ REPO='ln14ds20'
 sudo apt-get update
 sudo apt-get --force-yes -y install build-essential
 sudo apt-get --force-yes -y install autoconf automake libtool autoconf-archive
+sudo apt-get --force-yes -y install cmake
 sudo apt-get --force-yes -y install ia32-libs ia32-libs-dev libc6-dev-i386
 sudo apt-get --force-yes -y install ia32-libs 
 sudo apt-get --force-yes -y install ia32-libs-dev 
@@ -13,6 +14,7 @@ sudo apt-get --force-yes -y install autoconf automake libtool autoconf-archive h
 sudo apt-get --force-yes -y install libtool
 sudo apt-get --force-yes -y install dkms
 sudo apt-get --force-yes -y install screen
+sudo apt-get --force-yes -y install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 sudo apt-get --force-yes -y install python-dev
 
 echo 'deb http://code.golems.org/debian squeeze golems.org' | sudo tee --append /etc/apt/sources.list.d/ach-sources.list
