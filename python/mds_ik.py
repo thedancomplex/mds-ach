@@ -441,7 +441,8 @@ def getIK(eff_joint_space_current, eff_end, order, arm, err=None, itr=None):
   eff_dist_to_end = getDist2End2(eff_current, eff_end)
   print itr_i, ' - ', eff_dist_to_end
   if (itr_i >= itr):
-     return (eff_joint_space_orig, -1)
+     return (eff_joint_space_current, -1)
+#     return (eff_joint_space_orig, -1)
   else:
      itr_i = itr_i+1
 ##  print eff_dist_to_end

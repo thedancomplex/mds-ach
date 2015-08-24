@@ -139,7 +139,6 @@ def doIK(state, ref, eff_end,  dof, jointSet, arm):
            stepNum = 1000
            jnt_return = ik.getIK(eff_joint_space_current, eff_end, order, arm, err, stepNum)
            #eff_joint_space_current = ik.getIK3dof(eff_joint_space_current, eff_end, arm)
-
            # exits if no solution within 1000 itirations
            if (jnt_return[1] == -1):
                  ref = copy.deepcopy(ref_cpy)
@@ -147,7 +146,6 @@ def doIK(state, ref, eff_end,  dof, jointSet, arm):
                  return ref
            else:
                  eff_joint_space_current = jnt_return[0]
-
 
            # Print result
            A = ik.getFkArm(eff_joint_space_current,arm)
