@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.4'>
-  <model name="my_robot">
+  <model name="MDS - Lofaro Labs">
   
     <pose>0 0 1.24 0 0 0</pose>
  <static>false</static> 
@@ -191,6 +191,35 @@
  </link>
 
 
+<link name="lhead">
+    <pose>-0.01 0 0.27 1.78 0. 1.57</pose>
+        <visual name="visual2">
+          <geometry>
+            <mesh><uri>model://mds/mds_head.dae</uri></mesh>
+          </geometry>
+        </visual>
+        <collision name="collision2">
+          <geometry>
+            <mesh><uri>model://mds/mds_head.dae</uri></mesh>
+          </geometry>
+        </collision>
+      </link>
+
+<joint type="revolute" name="HEAD">
+        <pose>0 0.0 0 0 0  0</pose>
+        <child>lhead</child>
+        <parent>torso</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0</upper>
+            <effort>0</effort>
+          <velocity>0</velocity>
+          </limit>
+
+        </axis>
+</joint>
 
 
 
