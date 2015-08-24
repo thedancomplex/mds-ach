@@ -153,10 +153,11 @@ def doIK(state, ref, eff_end,  dof, jointSet, arm):
            A = ik.getFkArm(eff_joint_space_current,arm)
            eff_end_ret = ik.getPosCurrentFromOrder(A,order)
            eff_end_dif = eff_end - eff_end_ret
-           print 'N-3 DOF IK Solution - for ', arm, ' arm'
-           print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
-           print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
-           print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
+           print 'IK Found'
+#           print 'N-3 DOF IK Solution - for ', arm, ' arm'
+#           print 'des:\tx = ', round(eff_end[0],5)     , '\ty = ' , round(eff_end[1],5)     , '\tz = ', round(eff_end[2],5)
+#           print 'ret:\tx = ', round(eff_end_ret[0],5) , '\ty = ' , round(eff_end_ret[1],5) , '\tz = ', round(eff_end_ret[2],5)
+#           print 'dif:\tx = ', round(eff_end_dif[0],5) , '\ty = ' , round(eff_end_dif[1],5) , '\tz = ', round(eff_end_dif[2],5)
 
 
            if jointSet == 'set':
