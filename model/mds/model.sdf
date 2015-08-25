@@ -1,10 +1,11 @@
 <?xml version='1.0'?>
 <sdf version='1.4'>
-  <model name="MDS - Lofaro Labs">
+  <model name="MDS-Lofaro-Labs">
   
     <pose>0 0 1.24 0 0 0</pose>
  <static>false</static> 
  <static>true</static> 
+<self_collide>true</self_collide>
   
 <!------------------------------------------
 --------------------------------------------
@@ -19,6 +20,7 @@
   <!-- Rectangular base -->
   <link name='base'>
     <pose>0 0 -1.2065 0 0 0</pose>
+<!--
      <collision name='collision'>
       <geometry>
         <box>
@@ -26,7 +28,7 @@
         </box>
       </geometry>
      </collision>
-
+-->
      <visual name='visual'>
       <geometry>
         <box>
@@ -50,7 +52,6 @@
        </cylinder>
       </geometry>
      </collision>
-
      <visual name='visual'>
       <pose>0 0 .254 1.57 0 0</pose>
       <geometry>
@@ -126,7 +127,8 @@
       <pose>0 0 0   0 0 0</pose>
       <geometry>
         <box>
-         <size>0.09525 0.43815 0.5842</size>
+         <size>0.09625 0.50815 0.6242</size>
+         <!-- <size>0.09525 0.43815 0.5842</size> -->
         </box>
       </geometry>
      </collision>
@@ -192,7 +194,7 @@
 
 
 <link name="lhead">
-    <pose>-0.01 0 0.27 1.78 0. 1.57</pose>
+    <pose>-0.01 0 0.27 1.78 0.03 1.57</pose>
         <visual name="visual2">
           <geometry>
             <mesh><uri>model://mds/mds_head.dae</uri></mesh>
@@ -323,13 +325,6 @@
 <link name="RSP_body">
  <pose>0.0 -0.245510  0.0 1.57 0.0 0.0</pose>
 
- <collision name="collision">
-   <geometry>
-     <sphere>
-      <radius>0.04953</radius>
-     </sphere>
-   </geometry>
- </collision>
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -352,14 +347,6 @@
 <link name="RSP_body_fake">
  <pose>0.0 -0.122755 0.0    1.57 0.0 0.0</pose>
 
- <collision name="collision">
-   <geometry>
-     <cylinder>
-      <radius>0.051</radius>
-      <length>0.245510</length>
-     </cylinder>
-   </geometry>
- </collision>
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -368,8 +355,6 @@
      </cylinder>
    </geometry>
  </visual>
-<sensor name='dan_my_contact' type='contact'> <contact> <collision>box_collision</collision> </contact> </sensor>
-
 </link>
 <joint type="revolute" name="RSP">
         <pose>0 0.0 0 0 0  0</pose>
@@ -447,10 +432,12 @@
  <pose>0.0 -0.2455100  -0.1412875   0 0.0 1.57</pose>
 
  <collision name="collision">
+   <pose>0 0 0.1   0 0 0</pose>
    <geometry>
      <cylinder>
       <radius>0.051</radius>
-      <length>0.245510</length>
+      <length>0.045510</length>
+      <!--<length>0.245510</length>-->
      </cylinder>
    </geometry>
  </collision>
@@ -492,6 +479,13 @@
 <link name="REP_body">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 -0.2455100  -0.2825750 1.57 0.0 0.0</pose>
+ <collision name="collision">
+   <geometry>
+       <sphere>
+          <radius> 0.081275 </radius>
+       </sphere>
+   </geometry>
+ </collision>
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -525,7 +519,8 @@
    <geometry>
      <cylinder>
       <radius>0.051</radius>
-      <length>0.3127375</length>
+      <length>0.1527375</length>
+     <!-- <length>0.3127375</length>-->
      </cylinder>
    </geometry>
  </collision>
@@ -585,6 +580,18 @@
 <link name="RWR_body">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 -0.2455100  -0.5953125 0.0 1.57 0.0</pose>
+ <collision name="collision">
+   <pose> 0 0 0    0 1.57 0 </pose>
+   <geometry>
+     <cylinder>
+      <radius>0.06</radius>
+      <length>.03</length>
+     </cylinder>
+     <!--  <sphere>
+          <radius> 0.042 </radius>
+       </sphere> -->
+   </geometry>
+ </collision>
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -617,17 +624,6 @@
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 -0.2455100  -0.64765625     0.0 0.0 1.57</pose>
  
- <collision name="collision">
-   <geometry>
-     <cylinder>
-      <radius>0.051</radius>
-      <length>0.1046875</length>
-     </cylinder>
-   </geometry>
- </collision>
-
-
-
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -636,7 +632,7 @@
      </cylinder>
    </geometry>
  </visual>
-     <inertial> <mass>0.1</mass> </inertial>
+    <inertial> <mass>0.1</mass> </inertial>  
        
      
 </link>
@@ -669,7 +665,7 @@
  <visual name="visual">
    <geometry>
        <sphere>
-          <radius> 0.065 </radius>
+          <radius> 0.055 </radius>
        </sphere>
    </geometry>
   <material>
@@ -682,7 +678,7 @@
      <inertial> <mass>0.1</mass> </inertial>
        
      
-<sensor name='dan_my_contact_RHand' type='contact'> <contact> <collision>box_collision</collision> </contact> </sensor>
+<sensor name='my_contact' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
 </link>
 <joint type="revolute" name="RHAND">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -729,14 +725,6 @@
 <link name="LSP_body_fake">
  <pose>0.0 0.122755 0.0    1.57 0.0 0.0</pose>
 
- <collision name="collision">
-   <geometry>
-     <cylinder>
-      <radius>0.051</radius>
-      <length>0.245510</length>
-     </cylinder>
-   </geometry>
- </collision>
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -825,10 +813,12 @@
  <pose>0.0 0.2455100  -0.1412875   0 0.0 1.57</pose>
 
  <collision name="collision">
+   <pose>0 0 0.1   0 0 0</pose>
    <geometry>
      <cylinder>
       <radius>0.051</radius>
-      <length>0.245510</length>
+      <length>0.045510</length>
+      <!-- <length>0.245510</length> -->
      </cylinder>
    </geometry>
  </collision>
@@ -871,13 +861,14 @@
 <link name="LEP_body">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 0.2455100  -0.2825750 1.57 0.0 0.0</pose>
- <collision name="collision">
+<collision name="collision">
    <geometry>
-     <sphere>
-      <radius>0.041275</radius>
-     </sphere>
+       <sphere>
+          <radius> 0.081275 </radius>
+       </sphere>
    </geometry>
  </collision>
+
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -912,7 +903,8 @@
    <geometry>
      <cylinder>
       <radius>0.051</radius>
-      <length>0.3127375</length>
+      <length>0.1527375</length>
+      <!-- <length>0.3127375</length> -->
      </cylinder>
    </geometry>
  </collision>
@@ -978,13 +970,6 @@
 <link name="LWY_body">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 0.2455100  -0.5953125 0 0.0 1.57</pose>
- <collision name="collision">
-   <geometry>
-     <sphere>
-      <radius>0.041275</radius>
-     </sphere>
-   </geometry>
- </collision>
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -1015,6 +1000,19 @@
 <link name="LWR_body">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 0.2455100  -0.5953125 0.0 1.57 0.0</pose>
+ <collision name="collision">
+   <pose> 0 0 0    0 1.57 0 </pose>
+   <geometry>
+     <cylinder>
+      <radius>0.06</radius>
+      <length>.03</length>
+     </cylinder>
+     <!--  <sphere>
+          <radius> 0.042 </radius>
+       </sphere> -->
+   </geometry>
+ </collision>
+
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -1046,16 +1044,6 @@
 <link name="LWR_body_fake">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 0.2455100  -0.64765625     0.0 0.0 1.57</pose>
- <collision name="collision">
-   <geometry>
-     <cylinder>
-      <radius>0.051</radius>
-      <length>0.1046875</length>
-     </cylinder>
-   </geometry>
- </collision>
-
-
 
  <visual name="visual">
    <geometry>
@@ -1090,18 +1078,15 @@
  <pose>0.0 0.2455100  -0.70 0 0.0 0.0</pose>
  <collision name="box_collision">
    <geometry>
-       <!--
        <sphere>
           <radius> 0.065 </radius>
        </sphere>
-       -->
-       <box> <size>0.065 0.065 0.065 </size></box>
    </geometry>
  </collision>
  <visual name="visual">
    <geometry>
        <sphere>
-          <radius> 0.065 </radius>
+          <radius> 0.055 </radius>
        </sphere>
    </geometry>
   <material>
@@ -1112,12 +1097,6 @@
   </material>
  </visual>
      <inertial> <mass>0.1</mass> </inertial>
-       
-        <sensor name='my_contact' type='contact'>
-          <contact>
-            <collision>box_collision</collision>
-          </contact>
-        </sensor> 
 </link>
 <joint type="revolute" name="LHAND">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
