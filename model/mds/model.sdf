@@ -6,7 +6,6 @@
  <static>false</static> 
  <static>true</static> 
 <self_collide>true</self_collide>
-  
 <!------------------------------------------
 --------------------------------------------
 --------------------------------------------
@@ -20,15 +19,14 @@
   <!-- Rectangular base -->
   <link name='base'>
     <pose>0 0 -1.2065 0 0 0</pose>
-<!--
+    <!--<pose>0 0 -1.2065 0 0 0</pose>-->
      <collision name='collision'>
       <geometry>
         <box>
-         <size> 0.4 0.4 0.01</size>
+         <size> 40.4 40.4 0.0001</size>
         </box>
       </geometry>
      </collision>
--->
      <visual name='visual'>
       <geometry>
         <box>
@@ -37,7 +35,7 @@
       </geometry>
     </visual>
 
-     <inertial> <mass>100.1</mass> </inertial>
+     <inertial> <mass>1000.1</mass> </inertial>
  </link>
 
 
@@ -451,6 +449,7 @@
 
    </geometry>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -500,6 +499,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -532,6 +532,7 @@
      </cylinder>
    </geometry>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -606,6 +607,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -675,10 +677,10 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
-<sensor name='my_contact' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
 </link>
 <joint type="revolute" name="RHAND">
  <pose>0.0 0.0 0.0 0 0.0 0.0</pose>
@@ -833,6 +835,7 @@
 
    </geometry>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -883,6 +886,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -918,6 +922,7 @@
      </cylinder>
    </geometry>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -1027,6 +1032,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
        
      
@@ -1096,6 +1102,7 @@
     <emissive>0 0 0 0</emissive>
   </material>
  </visual>
+<sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
 </link>
 <joint type="revolute" name="LHAND">
