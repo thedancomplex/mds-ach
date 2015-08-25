@@ -625,7 +625,7 @@
 <link name="RWR_body_fake">
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 -0.2455100  -0.64765625     0.0 0.0 1.57</pose>
- 
+<!-- 
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -634,6 +634,7 @@
      </cylinder>
    </geometry>
  </visual>
+-->
     <inertial> <mass>0.1</mass> </inertial>  
        
      
@@ -657,14 +658,24 @@
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
 <!-- <pose>0.0635 0.2455100  -0.70 0 0.0 0.0</pose> -->
  <pose>0.0 -0.2455100  -0.70 0 0.0 0.0</pose>
- <collision name="collision">
+
+ <collision name="box_collision">
+   <pose> 0.02 0 -0.025  0 0 0 </pose>
    <geometry>
        <sphere>
-          <radius> 0.065 </radius>
+          <radius> 0.1 </radius>
        </sphere>
    </geometry>
  </collision>
  <visual name="visual">
+  <pose>0.04 0 0   0 -0.1 0  </pose>
+          <geometry>
+            <mesh><uri>model://mds/mds_R_hand.dae</uri></mesh>
+          </geometry>
+
+
+
+<!--
    <geometry>
        <sphere>
           <radius> 0.055 </radius>
@@ -676,6 +687,7 @@
     <specular>0.1 0.1 0.1 1</specular>
     <emissive>0 0 0 0</emissive>
   </material>
+-->
  </visual>
 <sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
@@ -1051,6 +1063,7 @@
  <!--<pose>0.0 0.2455100  -0.2825750 0 0.0 0.0</pose>-->
  <pose>0.0 0.2455100  -0.64765625     0.0 0.0 1.57</pose>
 
+<!--
  <visual name="visual">
    <geometry>
      <cylinder>
@@ -1059,6 +1072,7 @@
      </cylinder>
    </geometry>
  </visual>
+-->
      <inertial> <mass>0.1</mass> </inertial>
 </link>
 
@@ -1083,13 +1097,19 @@
 <!-- <pose>0.0635 0.2455100  -0.70 0 0.0 0.0</pose> -->
  <pose>0.0 0.2455100  -0.70 0 0.0 0.0</pose>
  <collision name="box_collision">
+   <pose> 0.02 0 -0.025  0 0 0 </pose>
    <geometry>
        <sphere>
-          <radius> 0.065 </radius>
+          <radius> 0.1 </radius>
        </sphere>
    </geometry>
  </collision>
  <visual name="visual">
+  <pose>0.04 0 0   0 -0.1 0  </pose>
+          <geometry>
+            <mesh><uri>model://mds/mds_L_hand.dae</uri></mesh>
+          </geometry>
+<!--
    <geometry>
        <sphere>
           <radius> 0.055 </radius>
@@ -1101,6 +1121,7 @@
     <specular>0.1 0.1 0.1 1</specular>
     <emissive>0 0 0 0</emissive>
   </material>
+-->
  </visual>
 <sensor name='collision_sensor' type='contact'> <contact> <collision>collision</collision> </contact><update_rate> 100 </update_rate> </sensor>
      <inertial> <mass>0.1</mass> </inertial>
