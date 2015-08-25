@@ -18,12 +18,13 @@
 
   <!-- Rectangular base -->
   <link name='base'>
+    <self_collide>false</self_collide>
     <pose>0 0 -1.2065 0 0 0</pose>
     <!--<pose>0 0 -1.2065 0 0 0</pose>-->
      <collision name='collision'>
       <geometry>
         <box>
-         <size> 40.4 40.4 0.0001</size>
+         <size> 1000.4 1000.4 0.0001</size>
         </box>
       </geometry>
      </collision>
@@ -35,7 +36,7 @@
       </geometry>
     </visual>
 
-     <inertial> <mass>1000.1</mass> </inertial>
+     <inertial> <mass>1000.1</mass>   </inertial>
  </link>
 
 
