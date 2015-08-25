@@ -199,8 +199,11 @@
           </geometry>
         </visual>
         <collision name="collision2">
+          <pose> 0 0.04 0   0 0 0 </pose>
           <geometry>
-            <mesh><uri>model://mds/mds_head.dae</uri></mesh>
+           <sphere>
+            <radius>0.21</radius>
+           </sphere>
           </geometry>
         </collision>
       </link>
