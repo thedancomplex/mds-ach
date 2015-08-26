@@ -10,5 +10,5 @@ include_directories(${GAZEBO_INCLUDE_DIRS})
 link_directories(${GAZEBO_LIBRARY_DIRS})
 list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 
-add_executable(mds_collision_checker mds_collision_checker.cc)
-target_link_libraries(mds_collision_checker ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} pthread ach )
+add_executable(mds-collision-checker mds-collision-checker.cc)
+target_link_libraries(mds-collision-checker ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} pthread ach )

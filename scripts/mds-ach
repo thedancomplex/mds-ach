@@ -246,6 +246,7 @@ Start()
   nohup sudo mds-filter & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
   nohup python $MDS_PYTHON_DIR/mds_ik_module.py >> /dev/null & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
   gzserver $MDS_MODEL_DIR/model.world & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  mds-collision-checker & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
 #  screen -S mdsik -d -m mds_ik_module.py
 }
 

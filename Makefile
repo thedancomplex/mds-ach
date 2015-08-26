@@ -6,6 +6,8 @@ CC := gcc
 INSTALL_DIR := /usr/bin
 CONFIG_DIR := /etc/mds-ach
 SIM_DIR := model/mds
+COL_DIR := collision_checker
+COL_BIN := mds-collision-checker
 PY_DIR := /usr/lib/python2.7/dist-packages
 INCLUDE_DIR := /usr/include
 BINARIES := mds-daemon mds-filter
@@ -34,6 +36,10 @@ makesim:
 	mkdir -p ${SIM_DIR}/build
 	cmake -B${SIM_DIR}/build -H${SIM_DIR}
 	make -C ${SIM_DIR}/build
+	rm -rf ${COL_DIR}/build
+	mkdir -p ${COL_DIR}/build
+	cmake -B${COL_DIR}/build -H${COL_DIR}
+	make -C ${COL_DIR}/build
 
 install:
 	mkdir -p /etc/mds-ach
@@ -46,6 +52,7 @@ install:
 	cp python/mds_ik.py ${PY_DIR}/
 	cp python/mds_ik_include.py ${PY_DIR}/
 	cp include/mds.h ${INCLUDE_DIR}/mds.h
+	cp ${COL_DIR}/build/${COL_BIN} ${INSTALL_DIR}
 
 installsim:
 	rm -f /home/$$USER/.gazebo/models/mds
@@ -54,6 +61,7 @@ installsim:
 rm:
 	rm ${INSTALL_DIR}/mds-daemon
 	rm ${INSTALL_DIR}/mds-filter
+	rm ${INSTALL_DIR}/${COL_BIN}
 	rm -rf ${CONFIG_DIR}
 	rm ${PY_DIR}/mds_ach.py
 	rm ${PY_DIR}/mds_ik.py
