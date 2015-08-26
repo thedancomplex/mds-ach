@@ -122,6 +122,8 @@ void cb(const std::string &_msg)
     ach_put(&chan_collide, &jnt, sizeof(jnt));
 
     /* print */
+
+/*
     printf("Col  = ");
     for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
        if (jnt.joint[i].isCollide == 1){
@@ -129,7 +131,7 @@ void cb(const std::string &_msg)
        }
     }
     printf("\n");
-
+*/
 
 //    printf("%d\n",totalCollisions);
 //    printf("%d\n",_msg.size());

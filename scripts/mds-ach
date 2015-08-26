@@ -152,7 +152,8 @@ Sim()
    *)
         echo 'running sim in gazebo'
         echo $MDS_MODEL_DIR
-        gazebo $MDS_MODEL_DIR/model.world
+       # gazebo $MDS_MODEL_DIR/model.world
+        gzclient
    ;;
    esac
 }
@@ -244,6 +245,7 @@ Start()
   nohup sudo mds-daemon $DAEMON_ARGS & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
   nohup sudo mds-filter & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
   nohup python $MDS_PYTHON_DIR/mds_ik_module.py >> /dev/null & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
+  gzserver $MDS_MODEL_DIR/model.world & echo $! >> $MDS_HOME_DIR/$MDS_PID_FILE
 #  screen -S mdsik -d -m mds_ik_module.py
 }
 
