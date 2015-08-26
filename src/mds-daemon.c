@@ -379,15 +379,17 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
 
 
 
+        /* send CAN only if there is no colisions */
+        if( s->collide.isCollide == 0){
           /* Send CAN only if commanded pos is not the same as previous pos */
           if (rad != deg_hist[i]){
             if (address > 0){
               setRef(rad, radss, address, p, skt, f);
-           //   printf("address = 0x%04x\n",address);
               j = j+1;
             }
           }
-          deg_hist[i] = rad;
+        }
+        deg_hist[i] = rad;
        }
        //printf("%d\n",j);
 }
