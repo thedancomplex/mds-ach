@@ -485,7 +485,7 @@
  <collision name="collision">
    <geometry>
        <sphere>
-          <radius> 0.081275 </radius>
+          <radius> 0.075 </radius>
        </sphere>
    </geometry>
  </collision>
@@ -883,7 +883,7 @@
 <collision name="collision">
    <geometry>
        <sphere>
-          <radius> 0.081275 </radius>
+          <radius> 0.075 </radius>
        </sphere>
    </geometry>
  </collision>

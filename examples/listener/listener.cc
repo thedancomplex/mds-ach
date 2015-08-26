@@ -15,13 +15,42 @@
  *
 */
 #include <boost/bind.hpp>
-
+#include <ctime>
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
 #include <gazebo/gazebo_client.hh>
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/sensors.hh>
 #include <iostream>
+
+#define jntLen 10
+typedef struct collision_jnt{
+   int collision;
+   int collide;
+   double time;
+}__attribute((packed)) jnt_t;
+
+jnt_t jnt[jntLen];
+int tstart = 0.0;
+
+/* time that you must be collision free */
+double tcut = 0.7;
+int icut = 50;
+
+#define LHAND    0
+#define RHAND    1
+#define RSY      2
+#define LSY      3
+#define REP_fake 4
+#define LEP_fake 5
+#define REP_body 6
+#define LEP_body 7
+#define RWR      8
+#define LWR      9
+
+
+
+
 
 /////////////////////////////////////////////////
 // Function is called everytime a message is received.
@@ -41,11 +70,66 @@ void cb(const std::string &_msg)
     //gazebo::sensors::ContactSensor con;
     //unsigned int c = con.GetCollisionContactCount(_msg);
     //int c = _msg->gazebo::physics::ContactManager::GetContactCount();
-    printf("%d\n",_msg.size());
-    printf("%d\n",_msg.find("MDS"));
+
+    /* get time */
+    int ustime = clock() - tstart;
+    double sysTime = ustime/1000000.0;
+//    std::cout << "System time = " << sysTime << "\n";
+
+
+    int jnti = -1;
+
+    if((int)_msg.find("RHAND") > -1)           jnti = RHAND;
+    if((int)_msg.find("LHAND") > -1)           jnti = LHAND;
+    if((int)_msg.find("RSY") > -1)             jnti = RSY;
+    if((int)_msg.find("LSY") > -1)             jnti = LSY;
+    if((int)_msg.find("REP_body_fake") > -1)   jnti = REP_fake;
+    else if ((int)_msg.find("REP_body") >-1)   jnti = REP_body;
+    if((int)_msg.find("LEP_body_fake") > -1)   jnti = LEP_fake;
+    else if ((int)_msg.find("LEP_body") >-1)   jnti = LEP_body;
+    if((int)_msg.find("RWR") > -1)             jnti = RWR;
+    if((int)_msg.find("LWR") > -1)             jnti = LWR;
+
+    /* update joint and time */
+    if( jnti > -1){
+      jnt[jnti].collision = jnt[jnti].collision + 1;
+      jnt[jnti].time = sysTime;
+    }
+
+    /* incroment collision */
+    for( int i = 0; i < jntLen; i++){
+      if((sysTime - jnt[i].time) > tcut) jnt[i].collision = jnt[i].collision-1;
+      if(jnt[i].collision < 0) jnt[i].collision = -1;
+    }
+
+    /* say if collided */
+    for( int i = 0; i < jntLen; i++){
+      if(jnt[i].collision > icut) jnt[i].collide = 1;
+      else jnt[i].collide = 0;
+    }
+
+    /* print */
+    int totalCollisions = 0;
+    printf("Col  = ");
+    for( int i = 0; i < jntLen; i++){
+       if (jnt[i].collide == 1){
+       totalCollisions = totalCollisions + 1;  
+       printf(" - %d ",i);
+       }
+    }
+    printf("\n");
+
+
+//    printf("%d\n",totalCollisions);
+//    printf("%d\n",_msg.size());
+//    printf("%d\n",_msg.find("LHAND"));
+
+
+
+
    // printf("%s\n",_msg.c_str());
 //    gazebo::msgs::Contact contact;
-    std::map<std::string, gazebo::msgs::Contact> con = _msg;
+//    std::map<std::string, gazebo::msgs::Contact> con = _msg;
 //    memcpy(&contact, &_msg, sizeof(contact));
 //    printf("%d\n",contact.time().sec());
 }
@@ -53,6 +137,12 @@ void cb(const std::string &_msg)
 /////////////////////////////////////////////////
 int main(int _argc, char **_argv)
 {
+
+  // ini
+  memset(&jnt, 0, sizeof(jnt));
+  tstart = clock();
+
+
   // Load gazebo
   gazebo::client::setup(_argc, _argv);
 

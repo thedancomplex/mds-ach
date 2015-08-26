@@ -98,6 +98,7 @@ extern "C" {
 
 #define 	MDS_CAN_CHAN_NUM	4	///> Number of CAN channels avaliable
 #define         MDS_JOINT_COUNT        100      ///> The max number of joints
+#define         MDS_COLLIDE_COUNT       10      ///> Number of collide points
 #define         MDS_ARM_COUNT          2        ///> The max number of arms
 
 #define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> mds ach channel
@@ -159,6 +160,17 @@ enum {
 #define RIGHT 0
 #define LEFT 1
 
+typedef struct mds_jnt_collide{
+    int16_t collide;
+    double time;
+}__attribute__((packed)) mds_jnt_collide_t;
+
+
+typedef struct mds_collide{
+    mds_jnt_collide_t joint[MDS_COLLIDE_COUNT];
+    int16_t isCollide;
+    double time;
+}__attribute__((packed)) mds_collide_t;
 
 
 typedef struct mds_jnt_param {
