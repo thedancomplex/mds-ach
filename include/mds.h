@@ -268,7 +268,7 @@ typedef struct mds_power {
 
 typedef struct mds_state {
 	struct mds_joint_state joint[MDS_JOINT_COUNT]; ///> Joint pos, velos, and current
-        struct mds_jnt_collide collide[MDS_COLLIDE_JNT_NUM];
+        struct mds_collide collide;
 	mds_power_t power; // back power board
         double time;
         uint8_t refWait;  // is the robot in a waiting pattern 

@@ -293,7 +293,7 @@ class MDS_STATE(Structure):
     _pack_ = 1
     _fields_ = [
                 ("joint"  , MDS_JOINT_STATE*MDS_JOINT_COUNT),
-                ("collide", MDS_JNT_COLLIDE*MDS_COLLIDE_JNT_NUM),
+                ("collide", MDS_COLLIDE),
 		("power"  , MDS_POWER),
                 ("time"   , c_double),
                 ("refWait", c_int16)]

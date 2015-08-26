@@ -57,6 +57,7 @@ def mainLoop(enabled):
     stdscr.addstr(heady,posrefx, "Commanded Pos", curses.A_BOLD)
     stdscr.addstr(heady,posstatex, "Actual Pos", curses.A_BOLD)
     i = 0
+    y = 0
     stdscr.addstr(timey,timex, str(state.time))
 #    for j in range(rMin,rMax):
     for j in range(39,mds.MDS_JOINT_COUNT):
@@ -89,6 +90,37 @@ def mainLoop(enabled):
         #stdscr.addstr(y,posstatex, str(jnt.pos))
 
         i += 1
+
+    y = i+heady+2
+    stdscr.addstr(y, shortnamex, "-----------------[ Collisions ]-----------------------")
+    y = y+1
+    colx = 9
+    stdscr.addstr(y, namex+colx*0, "Hand")
+    stdscr.addstr(y, namex+colx*1, "Wrist")
+    stdscr.addstr(y, namex+colx*2, "Forearm")
+    stdscr.addstr(y, namex+colx*3, "Elbow")
+    stdscr.addstr(y, namex+colx*4, "Shoulder")
+
+    y = y+1
+    colx2 = 2
+    stdscr.addstr(y, shortnamex, "Right:")
+    stdscr.addstr(y, namex+colx2+colx*0, str(state.collide.joint[mds.COLLISION_R_HAND].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*1, str(state.collide.joint[mds.COLLISION_R_WRIST].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*2, str(state.collide.joint[mds.COLLISION_R_FOREARM].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*3, str(state.collide.joint[mds.COLLISION_R_ELBOW].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*4, str(state.collide.joint[mds.COLLISION_R_SHOULDER].isCollide))
+
+    y = y+1
+    stdscr.addstr(y, shortnamex, "Left:")
+    stdscr.addstr(y, namex+colx2+colx*0, str(state.collide.joint[mds.COLLISION_L_HAND].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*1, str(state.collide.joint[mds.COLLISION_L_WRIST].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*2, str(state.collide.joint[mds.COLLISION_L_FOREARM].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*3, str(state.collide.joint[mds.COLLISION_L_ELBOW].isCollide))
+    stdscr.addstr(y, namex+colx2+colx*4, str(state.collide.joint[mds.COLLISION_L_SHOULDER].isCollide))
+
+    y = y+1
+    stdscr.addstr(y, shortnamex, ("Collide: %r  " % bool(state.collide.isCollide)))
+
     stdscr.refresh()
     time.sleep(0.05)
 

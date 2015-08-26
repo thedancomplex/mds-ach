@@ -312,8 +312,14 @@ void mainLoop(int vcan) {
         }
 
 
-        memset(&H_state.collide, &H_collide, sizeof(H_collide));
-
+        memcpy(&H_state.collide, &H_collide, sizeof(H_collide));
+//        for (int i = 0; i < MDS_COLLIDE_JNT_NUM, i++){
+//            H_state.collide[i].collision = H_collide.joint[i].collision;
+//            H_state.collide[i].isCollide = H_collide.joint[i].isCollide;
+//            H_state.collide[i].time      = H_collide.joint[i].time;
+//        }
+//        H_state.collide.isCollide = H_collide.isCollide;
+//        H_state.collide.time      = H_collide.time;
 
 
 

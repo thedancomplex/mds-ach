@@ -118,12 +118,10 @@ void cb(const std::string &_msg)
     if (totalCollisions > 0) jnt.isCollide = 1;
     else jnt.isCollide = 0;
 
-
     /* put on ach channel */
     ach_put(&chan_collide, &jnt, sizeof(jnt));
 
     /* print */
-    /*
     printf("Col  = ");
     for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
        if (jnt.joint[i].isCollide == 1){
@@ -131,7 +129,6 @@ void cb(const std::string &_msg)
        }
     }
     printf("\n");
-    */
 
 
 //    printf("%d\n",totalCollisions);
@@ -156,7 +153,7 @@ int main(int _argc, char **_argv)
   memset(&jnt, 0, sizeof(jnt));
   tstart = clock();
 
-  // open reference
+  // open collision
   int r = ach_open(&chan_collide, MDS_CHAN_COLLIDE_NAME, NULL);
   assert( ACH_OK == r);
   ach_put(&chan_collide, &jnt, sizeof(jnt));
