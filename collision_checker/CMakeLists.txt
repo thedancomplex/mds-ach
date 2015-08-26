@@ -10,5 +10,5 @@ include_directories(${GAZEBO_INCLUDE_DIRS})
 link_directories(${GAZEBO_LIBRARY_DIRS})
 list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 
-add_executable(listener listener.cc)
-target_link_libraries(listener ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} pthread)
+add_executable(mds_collision_checker mds_collision_checker.cc)
+target_link_libraries(mds_collision_checker ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES} pthread ach )

@@ -17,9 +17,6 @@ import mds_ik_include as ike
 from mds_ach import *
 
 #define global variables
-# feed-forward will now be refered to as "state"
-state = mds.MDS_REF()
-
 # feed-back will now be refered to as "state"
 ref = mds.MDS_REF()
 state = mds.MDS_STATE()

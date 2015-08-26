@@ -98,13 +98,14 @@ extern "C" {
 
 #define 	MDS_CAN_CHAN_NUM	4	///> Number of CAN channels avaliable
 #define         MDS_JOINT_COUNT        100      ///> The max number of joints
-#define         MDS_COLLIDE_COUNT       10      ///> Number of collide points
+#define         MDS_COLLIDE_JNT_NUM    10      ///> Number of collide points
 #define         MDS_ARM_COUNT          2        ///> The max number of arms
 
 #define		MDS_CHAN_REF_NAME         "mds-ref"                    ///> mds ach channel
 #define		MDS_CHAN_BOARD_CMD_NAME   "mds-cmd"                    ///> mds console channel for ach
 #define         MDS_CHAN_PARAM_NAME       "mds-param"                  ///> mds param channel
 #define         MDS_CHAN_IK_NAME          "mds-ik"                     ///> ik channel
+#define		MDS_CHAN_COLLIDE_NAME     "mds-collide"                ///> collide channel
 #define		MDS_CHAN_CAN_DAEMON_NAME  "mds-can-daemon"             ///> daemon for reading CAN
 #define		MDS_CHAN_STATE_NAME       "mds-state"                  ///> mds state ach channel
 #define 	MDS_CHAN_REF_FILTER_NAME  "mds-ref-filter"             ///> mds reference with filter ach channel
@@ -160,14 +161,30 @@ enum {
 #define RIGHT 0
 #define LEFT 1
 
+
+
+/* Collisions */
+#define COLLISION_L_HAND          0
+#define COLLISION_R_HAND          1
+#define COLLISION_R_SHOULDER      2
+#define COLLISION_L_SHOULDER      3
+#define COLLISION_R_FOREARM       4
+#define COLLISION_L_FOREARM       5
+#define COLLISION_R_ELBOW         6
+#define COLLISION_L_ELBOW         7
+#define COLLISION_R_WRIST         8
+#define COLLISION_L_WRIST         9
+
+
 typedef struct mds_jnt_collide{
-    int16_t collide;
+    int16_t collision;
+    int16_t isCollide;
     double time;
 }__attribute__((packed)) mds_jnt_collide_t;
 
 
 typedef struct mds_collide{
-    mds_jnt_collide_t joint[MDS_COLLIDE_COUNT];
+    struct mds_jnt_collide joint[MDS_COLLIDE_JNT_NUM];
     int16_t isCollide;
     double time;
 }__attribute__((packed)) mds_collide_t;
@@ -251,6 +268,7 @@ typedef struct mds_power {
 
 typedef struct mds_state {
 	struct mds_joint_state joint[MDS_JOINT_COUNT]; ///> Joint pos, velos, and current
+        struct mds_jnt_collide collide[MDS_COLLIDE_JNT_NUM];
 	mds_power_t power; // back power board
         double time;
         uint8_t refWait;  // is the robot in a waiting pattern 

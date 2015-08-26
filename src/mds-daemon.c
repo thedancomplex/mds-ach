@@ -144,6 +144,7 @@ ach_channel_t chan_board_cmd; // mds-ach-console
 ach_channel_t chan_state;     // mds-ach-state
 ach_channel_t chan_to_sim;    // mds-ach-to-sim
 ach_channel_t chan_from_sim;  // mds-ach-from-sim
+ach_channel_t chan_collide;  // collide channel
 
 
 static inline void tsnorm(struct timespec *ts){
@@ -197,10 +198,14 @@ void mainLoop(int vcan) {
     mds_ref_t H_ref_filter;
     mds_state_t H_state;
     mds_joint_param_t H_param;
+    mds_collide_t H_collide;
     memset( &H_ref,   0, sizeof(H_ref));
     memset( &H_state, 0, sizeof(H_state));
     memset( &H_ref_filter,   0, sizeof(H_ref_filter));
     memset( &H_param,   0, sizeof(H_param));
+    memset( &H_collide,   0, sizeof(H_collide));
+
+    ach_put(&chan_collide, &H_collide, sizeof(H_collide));
 
     /* Get latest ACH message */
     size_t fs = 0;
@@ -298,6 +303,19 @@ void mainLoop(int vcan) {
         else{    assert( sizeof(H_ref) == fs); 
         }
         
+        r = ach_get( &chan_collide, &H_collide, sizeof(H_collide), &fs, NULL, ACH_O_LAST );
+        if(ACH_OK != r) {
+            if(debug) {
+                    fprintf(stderr, "collide r = %s\n",ach_result_to_string(r));}
+            }
+        else{    assert( sizeof(H_collide) == fs); 
+        }
+
+
+        memset(&H_state.collide, &H_collide, sizeof(H_collide));
+
+
+
 
 
         //int address = 0x004c; // LEB
@@ -701,6 +719,11 @@ int main(int argc, char **argv) {
     // open param channel
     r = ach_open(&chan_param, MDS_CHAN_PARAM_NAME, NULL);
     assert( ACH_OK == r);
+
+    // open collision
+    r = ach_open(&chan_collide, MDS_CHAN_COLLIDE_NAME, NULL);
+    assert( ACH_OK == r);
+
 
     // initilize control channel
 //    r = ach_open(&chan_board_cmd, MDS_CHAN_BOARD_CMD_NAME, NULL);

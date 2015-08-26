@@ -23,31 +23,31 @@
 #include <gazebo/sensors/sensors.hh>
 #include <iostream>
 
-#define jntLen 10
-typedef struct collision_jnt{
-   int collision;
-   int collide;
-   double time;
-}__attribute((packed)) jnt_t;
+// For Ach
+#include <errno.h>
+#include <fcntl.h>
+#include <assert.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <math.h>
+#include <inttypes.h>
+#include <ach.h>
+#include <string.h>
+#include "../include/mds.h"
 
-jnt_t jnt[jntLen];
+
+
+mds_collide_t jnt;
 int tstart = 0.0;
 
 /* time that you must be collision free */
 double tcut = 0.7;
 int icut = 50;
 
-#define LHAND    0
-#define RHAND    1
-#define RSY      2
-#define LSY      3
-#define REP_fake 4
-#define LEP_fake 5
-#define REP_body 6
-#define LEP_body 7
-#define RWR      8
-#define LWR      9
-
+/* Ach channels */
+ach_channel_t chan_collide;  // collide channel
 
 
 
@@ -79,45 +79,59 @@ void cb(const std::string &_msg)
 
     int jnti = -1;
 
-    if((int)_msg.find("RHAND") > -1)           jnti = RHAND;
-    if((int)_msg.find("LHAND") > -1)           jnti = LHAND;
-    if((int)_msg.find("RSY") > -1)             jnti = RSY;
-    if((int)_msg.find("LSY") > -1)             jnti = LSY;
-    if((int)_msg.find("REP_body_fake") > -1)   jnti = REP_fake;
-    else if ((int)_msg.find("REP_body") >-1)   jnti = REP_body;
-    if((int)_msg.find("LEP_body_fake") > -1)   jnti = LEP_fake;
-    else if ((int)_msg.find("LEP_body") >-1)   jnti = LEP_body;
-    if((int)_msg.find("RWR") > -1)             jnti = RWR;
-    if((int)_msg.find("LWR") > -1)             jnti = LWR;
+    if((int)_msg.find("RHAND") > -1)           jnti = COLLISION_R_HAND;
+    if((int)_msg.find("LHAND") > -1)           jnti = COLLISION_L_HAND;
+    if((int)_msg.find("RSY") > -1)             jnti = COLLISION_R_SHOULDER;
+    if((int)_msg.find("LSY") > -1)             jnti = COLLISION_L_SHOULDER;
+    if((int)_msg.find("REP_body_fake") > -1)   jnti = COLLISION_R_FOREARM;
+    else if ((int)_msg.find("REP_body") >-1)   jnti = COLLISION_R_ELBOW;
+    if((int)_msg.find("LEP_body_fake") > -1)   jnti = COLLISION_L_FOREARM;
+    else if ((int)_msg.find("LEP_body") >-1)   jnti = COLLISION_L_ELBOW;
+    if((int)_msg.find("RWR") > -1)             jnti = COLLISION_R_WRIST;
+    if((int)_msg.find("LWR") > -1)             jnti = COLLISION_L_WRIST;
 
     /* update joint and time */
     if( jnti > -1){
-      jnt[jnti].collision = jnt[jnti].collision + 1;
-      jnt[jnti].time = sysTime;
+      jnt.joint[jnti].collision = jnt.joint[jnti].collision + 1;
+      jnt.joint[jnti].time = sysTime;
+      jnt.time = sysTime;
     }
 
     /* incroment collision */
-    for( int i = 0; i < jntLen; i++){
-      if((sysTime - jnt[i].time) > tcut) jnt[i].collision = jnt[i].collision-1;
-      if(jnt[i].collision < 0) jnt[i].collision = -1;
+    for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
+      if((sysTime - jnt.joint[i].time) > tcut) jnt.joint[i].collision = jnt.joint[i].collision-1;
+      if(jnt.joint[i].collision < 0) jnt.joint[i].collision = -1;
     }
 
     /* say if collided */
-    for( int i = 0; i < jntLen; i++){
-      if(jnt[i].collision > icut) jnt[i].collide = 1;
-      else jnt[i].collide = 0;
+    for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
+      if(jnt.joint[i].collision > icut) jnt.joint[i].isCollide = 1;
+      else jnt.joint[i].isCollide = 0;
     }
 
-    /* print */
+    /* get total collions */
     int totalCollisions = 0;
+    for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
+       if (jnt.joint[i].isCollide == 1) totalCollisions = totalCollisions + 1;  
+    }
+
+    if (totalCollisions > 0) jnt.isCollide = 1;
+    else jnt.isCollide = 0;
+
+
+    /* put on ach channel */
+    ach_put(&chan_collide, &jnt, sizeof(jnt));
+
+    /* print */
+    /*
     printf("Col  = ");
-    for( int i = 0; i < jntLen; i++){
-       if (jnt[i].collide == 1){
-       totalCollisions = totalCollisions + 1;  
-       printf(" - %d ",i);
+    for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
+       if (jnt.joint[i].isCollide == 1){
+          printf(" - %d ",i);
        }
     }
     printf("\n");
+    */
 
 
 //    printf("%d\n",totalCollisions);
@@ -142,6 +156,11 @@ int main(int _argc, char **_argv)
   memset(&jnt, 0, sizeof(jnt));
   tstart = clock();
 
+  // open reference
+  int r = ach_open(&chan_collide, MDS_CHAN_COLLIDE_NAME, NULL);
+  assert( ACH_OK == r);
+  ach_put(&chan_collide, &jnt, sizeof(jnt));
+
 
   // Load gazebo
   gazebo::client::setup(_argc, _argv);
@@ -152,6 +171,8 @@ int main(int _argc, char **_argv)
 
   // Listen to Gazebo world_stats topic
   //gazebo::transport::SubscriberPtr LHAND = node->Subscribe("/gazebo/default/MDS-Lofaro-Labs/LHAND_body/collision_sensor", cb);
+
+  printf("MDS-Ach Collision Checker Running: Lofaro Labs\n");
   gazebo::transport::SubscriberPtr contact_all = node->Subscribe("~/physics/contacts", cb);
  /*
   gazebo::transport::SubscriberPtr LE = node->Subscribe("/gazebo/default/MDS-Lofaro-Labs/LEP_body/collision_sensor", cb);

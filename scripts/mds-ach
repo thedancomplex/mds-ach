@@ -16,6 +16,7 @@ MDS_NAMESPACE='mds'
 MDS_REF_CHAN='mds-ref'
 MDS_REF_FILTER_CHAN='mds-ref-filter'
 MDS_IK_CHAN='mds-ik'
+MDS_COLLIDE_CHAN='mds-collide'
 MDS_PARAM_CHAN='mds-param'
 MDS_STATE_CHAN='mds-state'
 MDS_CMD_CHAN='mds-cmd'
@@ -50,6 +51,7 @@ MakeAch()
         ach -1 mk $MDS_STATE_CHAN -m 10 -n 3000
         ach -1 mk $MDS_CMD_CHAN -m 10 -n 3000
         ach -1 mk $MDS_IK_CHAN -m 10 -n 3000
+        ach -1 mk $MDS_COLLIDE_CHAN -m 10 -n 3000
         sudo chmod 777 /dev/shm/achshm-$MDS_NAMESPACE*
 }
 

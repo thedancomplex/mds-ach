@@ -43,9 +43,11 @@ MDS_CHAN_IK_NAME	 	 = 'mds-ik'
 MDS_CHAN_BOARD_CMD_NAME          = 'mds-board-cmd'
 MDS_CHAN_PARAM_NAME              = "mds-param"
 MDS_CHAN_STATE_NAME              = 'mds-state'
+MDS_CHAN_COLLLIDE_NAME           = 'mds-collide'
 MDS_LOOP_PERIOD                  = 0.005
 MDS_CHAR_PARAM_BUFFER_SIZE       = 30
 MAX_EFF				 = 6
+MDS_COLLIDE_JNT_NUM              = 10
 
 RIGHT = 0
 LEFT = 1
@@ -57,6 +59,22 @@ IK3 = 3
 IK4 = 4
 IK5 = 5
 IK6 = 6
+
+
+# /* Collisions */
+COLLISION_L_HAND          = 0
+COLLISION_R_HAND          = 1
+COLLISION_R_SHOULDER      = 2
+COLLISION_L_SHOULDER      = 3
+COLLISION_R_FOREARM       = 4
+COLLISION_L_FOREARM       = 5
+COLLISION_R_ELBOW         = 6
+COLLISION_L_ELBOW         = 7
+COLLISION_R_WRIST         = 8
+COLLISION_L_WRIST         = 9
+
+
+
 
 H = 0 # Neck roll
 NYH = 1 # neck yaw
@@ -187,6 +205,21 @@ def getNameShort(a,state):
 
 
 
+
+
+class MDS_JNT_COLLIDE(Structure):
+    _pack_ = 1
+    _fields_ = [("collision"     , c_int16),
+                ("isCollide"     , c_int16),
+                ("time"          , c_double)]
+
+class MDS_COLLIDE(Structure):
+    _pack_ = 1
+    _fields_ = [("joint"         , MDS_JNT_COLLIDE*MDS_COLLIDE_JNT_NUM),
+                ("isCollide"     , c_int16),
+                ("time"          , c_double)]
+
+
 class MDS_JNT_PARAM(Structure):
     _pack_ = 1
     _fields_ = [("rom"                          , c_double),
@@ -260,6 +293,7 @@ class MDS_STATE(Structure):
     _pack_ = 1
     _fields_ = [
                 ("joint"  , MDS_JOINT_STATE*MDS_JOINT_COUNT),
+                ("collide", MDS_JNT_COLLIDE*MDS_COLLIDE_JNT_NUM),
 		("power"  , MDS_POWER),
                 ("time"   , c_double),
                 ("refWait", c_int16)]
