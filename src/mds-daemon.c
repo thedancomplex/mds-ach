@@ -388,8 +388,8 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
               j = j+1;
             }
           }
+          deg_hist[i] = rad;
         }
-        deg_hist[i] = rad;
        }
        //printf("%d\n",j);
 }

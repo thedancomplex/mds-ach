@@ -437,7 +437,7 @@
       <radius>0.051</radius>
       <length>0.045510</length>
       <!--<length>0.245510</length>-->
-     </cylinder>
+    </cylinder>
    </geometry>
  </collision>
 
@@ -590,7 +590,7 @@
    <geometry>
      <cylinder>
       <radius>0.06</radius>
-      <length>.03</length>
+      <length>.01</length>
      </cylinder>
      <!--  <sphere>
           <radius> 0.042 </radius>
@@ -1026,7 +1026,7 @@
    <geometry>
      <cylinder>
       <radius>0.06</radius>
-      <length>.03</length>
+      <length>.01</length>
      </cylinder>
      <!--  <sphere>
           <radius> 0.042 </radius>

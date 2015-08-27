@@ -89,6 +89,7 @@ OpenCan()
 	sudo rmmod vcan
         sudo modprobe vcan
 	sudo ip link add dev vcan42 type vcan
+        sudo ipconfig vcan42 up
 	echo "vcan42 set"
   fi
 
