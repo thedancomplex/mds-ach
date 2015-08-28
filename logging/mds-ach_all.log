@@ -1,0 +1,1425 @@
+sudo mds-daemon -v                41:57  0.0  0.0
+sudo mds-filter                   41:57  0.0  0.0
+python /etc/mds-ach/python/       41:57  0.5  0.2
+gzserver /etc/mds-ach/model       41:57 76.7  0.5
+mds-collision-checker             41:57 29.2  0.2
+sudo mds-daemon -v                41:58  0.0  0.0
+sudo mds-filter                   41:58  0.0  0.0
+python /etc/mds-ach/python/       41:58  0.5  0.2
+gzserver /etc/mds-ach/model       41:58 76.7  0.5
+mds-collision-checker             41:58 29.2  0.2
+sudo mds-daemon -v                41:59  0.0  0.0
+sudo mds-filter                   41:59  0.0  0.0
+python /etc/mds-ach/python/       41:59  0.5  0.2
+gzserver /etc/mds-ach/model       41:59 76.7  0.5
+mds-collision-checker             41:59 29.2  0.2
+sudo mds-daemon -v                42:00  0.0  0.0
+sudo mds-filter                   42:00  0.0  0.0
+python /etc/mds-ach/python/       42:00  0.5  0.2
+gzserver /etc/mds-ach/model       42:00 76.7  0.5
+mds-collision-checker             42:00 29.2  0.2
+sudo mds-daemon -v                42:01  0.0  0.0
+sudo mds-filter                   42:01  0.0  0.0
+python /etc/mds-ach/python/       42:01  0.5  0.2
+gzserver /etc/mds-ach/model       42:01 76.7  0.5
+mds-collision-checker             42:01 29.2  0.2
+sudo mds-daemon -v                42:02  0.0  0.0
+sudo mds-filter                   42:02  0.0  0.0
+python /etc/mds-ach/python/       42:02  0.5  0.2
+gzserver /etc/mds-ach/model       42:02 76.7  0.5
+mds-collision-checker             42:02 29.2  0.2
+sudo mds-daemon -v                42:03  0.0  0.0
+sudo mds-filter                   42:03  0.0  0.0
+python /etc/mds-ach/python/       42:03  0.5  0.2
+gzserver /etc/mds-ach/model       42:03 76.8  0.5
+mds-collision-checker             42:03 29.2  0.2
+sudo mds-daemon -v                42:04  0.0  0.0
+sudo mds-filter                   42:04  0.0  0.0
+python /etc/mds-ach/python/       42:04  0.5  0.2
+gzserver /etc/mds-ach/model       42:04 76.8  0.5
+mds-collision-checker             42:04 29.2  0.2
+sudo mds-daemon -v                42:05  0.0  0.0
+sudo mds-filter                   42:05  0.0  0.0
+python /etc/mds-ach/python/       42:05  0.5  0.2
+gzserver /etc/mds-ach/model       42:05 76.8  0.5
+mds-collision-checker             42:05 29.2  0.2
+sudo mds-daemon -v                42:06  0.0  0.0
+sudo mds-filter                   42:06  0.0  0.0
+python /etc/mds-ach/python/       42:06  0.5  0.2
+gzserver /etc/mds-ach/model       42:06 76.8  0.5
+mds-collision-checker             42:07 29.2  0.2
+sudo mds-daemon -v                42:08  0.0  0.0
+sudo mds-filter                   42:08  0.0  0.0
+python /etc/mds-ach/python/       42:08  0.5  0.2
+gzserver /etc/mds-ach/model       42:08 76.7  0.5
+mds-collision-checker             42:08 29.2  0.2
+sudo mds-daemon -v                42:09  0.0  0.0
+sudo mds-filter                   42:09  0.0  0.0
+python /etc/mds-ach/python/       42:09  0.5  0.2
+gzserver /etc/mds-ach/model       42:09 76.7  0.5
+mds-collision-checker             42:09 29.2  0.2
+sudo mds-daemon -v                42:10  0.0  0.0
+sudo mds-filter                   42:10  0.0  0.0
+python /etc/mds-ach/python/       42:10  0.5  0.2
+gzserver /etc/mds-ach/model       42:10 76.7  0.5
+mds-collision-checker             42:10 29.2  0.2
+sudo mds-daemon -v                42:11  0.0  0.0
+sudo mds-filter                   42:11  0.0  0.0
+python /etc/mds-ach/python/       42:11  0.5  0.2
+gzserver /etc/mds-ach/model       42:11 76.7  0.5
+mds-collision-checker             42:11 29.2  0.2
+sudo mds-daemon -v                42:12  0.0  0.0
+sudo mds-filter                   42:12  0.0  0.0
+python /etc/mds-ach/python/       42:12  0.5  0.2
+gzserver /etc/mds-ach/model       42:12 76.7  0.5
+mds-collision-checker             42:12 29.2  0.2
+sudo mds-daemon -v                42:13  0.0  0.0
+sudo mds-filter                   42:13  0.0  0.0
+python /etc/mds-ach/python/       42:13  0.5  0.2
+gzserver /etc/mds-ach/model       42:13 76.7  0.5
+mds-collision-checker             42:13 29.2  0.2
+sudo mds-daemon -v                42:14  0.0  0.0
+sudo mds-filter                   42:14  0.0  0.0
+python /etc/mds-ach/python/       42:14  0.5  0.2
+gzserver /etc/mds-ach/model       42:14 76.7  0.5
+mds-collision-checker             42:14 29.2  0.2
+sudo mds-daemon -v                42:15  0.0  0.0
+sudo mds-filter                   42:15  0.0  0.0
+python /etc/mds-ach/python/       42:15  0.5  0.2
+gzserver /etc/mds-ach/model       42:15 76.7  0.5
+mds-collision-checker             42:15 29.2  0.2
+sudo mds-daemon -v                42:16  0.0  0.0
+sudo mds-filter                   42:16  0.0  0.0
+python /etc/mds-ach/python/       42:16  0.5  0.2
+gzserver /etc/mds-ach/model       42:16 76.7  0.5
+mds-collision-checker             42:16 29.2  0.2
+sudo mds-daemon -v                42:17  0.0  0.0
+sudo mds-filter                   42:17  0.0  0.0
+python /etc/mds-ach/python/       42:17  0.5  0.2
+gzserver /etc/mds-ach/model       42:17 76.7  0.5
+mds-collision-checker             42:17 29.2  0.2
+sudo mds-daemon -v                42:18  0.0  0.0
+sudo mds-filter                   42:18  0.0  0.0
+python /etc/mds-ach/python/       42:18  0.5  0.2
+gzserver /etc/mds-ach/model       42:18 76.7  0.5
+mds-collision-checker             42:18 29.2  0.2
+sudo mds-daemon -v                42:19  0.0  0.0
+sudo mds-filter                   42:19  0.0  0.0
+python /etc/mds-ach/python/       42:19  0.5  0.2
+gzserver /etc/mds-ach/model       42:19 76.7  0.5
+mds-collision-checker             42:19 29.2  0.2
+sudo mds-daemon -v                42:20  0.0  0.0
+sudo mds-filter                   42:20  0.0  0.0
+python /etc/mds-ach/python/       42:20  0.5  0.2
+gzserver /etc/mds-ach/model       42:20 76.7  0.5
+mds-collision-checker             42:20 29.2  0.2
+sudo mds-daemon -v                42:21  0.0  0.0
+sudo mds-filter                   42:21  0.0  0.0
+python /etc/mds-ach/python/       42:21  0.5  0.2
+gzserver /etc/mds-ach/model       42:21 76.7  0.5
+mds-collision-checker             42:21 29.2  0.2
+sudo mds-daemon -v                42:22  0.0  0.0
+sudo mds-filter                   42:22  0.0  0.0
+python /etc/mds-ach/python/       42:22  0.5  0.2
+gzserver /etc/mds-ach/model       42:22 76.7  0.5
+mds-collision-checker             42:22 29.2  0.2
+sudo mds-daemon -v                42:23  0.0  0.0
+sudo mds-filter                   42:23  0.0  0.0
+python /etc/mds-ach/python/       42:23  0.5  0.2
+gzserver /etc/mds-ach/model       42:23 76.7  0.5
+mds-collision-checker             42:23 29.2  0.2
+sudo mds-daemon -v                42:24  0.0  0.0
+sudo mds-filter                   42:24  0.0  0.0
+python /etc/mds-ach/python/       42:24  0.5  0.2
+gzserver /etc/mds-ach/model       42:24 76.7  0.5
+mds-collision-checker             42:24 29.2  0.2
+sudo mds-daemon -v                42:25  0.0  0.0
+sudo mds-filter                   42:25  0.0  0.0
+python /etc/mds-ach/python/       42:25  0.5  0.2
+gzserver /etc/mds-ach/model       42:25 76.7  0.5
+mds-collision-checker             42:25 29.2  0.2
+sudo mds-daemon -v                42:26  0.0  0.0
+sudo mds-filter                   42:26  0.0  0.0
+python /etc/mds-ach/python/       42:26  0.5  0.2
+gzserver /etc/mds-ach/model       42:27 76.7  0.5
+mds-collision-checker             42:27 29.2  0.2
+sudo mds-daemon -v                42:28  0.0  0.0
+sudo mds-filter                   42:28  0.0  0.0
+python /etc/mds-ach/python/       42:28  0.5  0.2
+gzserver /etc/mds-ach/model       42:28 76.7  0.5
+mds-collision-checker             42:28 29.2  0.2
+sudo mds-daemon -v                42:29  0.0  0.0
+sudo mds-filter                   42:29  0.0  0.0
+python /etc/mds-ach/python/       42:29  0.5  0.2
+gzserver /etc/mds-ach/model       42:29 76.7  0.5
+mds-collision-checker             42:29 29.2  0.2
+sudo mds-daemon -v                42:30  0.0  0.0
+sudo mds-filter                   42:30  0.0  0.0
+python /etc/mds-ach/python/       42:30  0.5  0.2
+gzserver /etc/mds-ach/model       42:30 76.7  0.5
+mds-collision-checker             42:30 29.2  0.2
+sudo mds-daemon -v                42:31  0.0  0.0
+sudo mds-filter                   42:31  0.0  0.0
+python /etc/mds-ach/python/       42:31  0.5  0.2
+gzserver /etc/mds-ach/model       42:31 76.7  0.5
+mds-collision-checker             42:31 29.2  0.2
+sudo mds-daemon -v                42:32  0.0  0.0
+sudo mds-filter                   42:32  0.0  0.0
+python /etc/mds-ach/python/       42:32  0.5  0.2
+gzserver /etc/mds-ach/model       42:32 76.7  0.5
+mds-collision-checker             42:32 29.2  0.2
+sudo mds-daemon -v                42:33  0.0  0.0
+sudo mds-filter                   42:33  0.0  0.0
+python /etc/mds-ach/python/       42:33  0.5  0.2
+gzserver /etc/mds-ach/model       42:33 76.7  0.5
+mds-collision-checker             42:33 29.2  0.2
+sudo mds-daemon -v                42:34  0.0  0.0
+sudo mds-filter                   42:34  0.0  0.0
+python /etc/mds-ach/python/       42:34  0.5  0.2
+gzserver /etc/mds-ach/model       42:34 76.7  0.5
+mds-collision-checker             42:34 29.2  0.2
+sudo mds-daemon -v                42:35  0.0  0.0
+sudo mds-filter                   42:35  0.0  0.0
+python /etc/mds-ach/python/       42:35  0.5  0.2
+gzserver /etc/mds-ach/model       42:35 76.7  0.5
+mds-collision-checker             42:35 29.2  0.2
+sudo mds-daemon -v                42:36  0.0  0.0
+sudo mds-filter                   42:36  0.0  0.0
+python /etc/mds-ach/python/       42:36  0.5  0.2
+gzserver /etc/mds-ach/model       42:36 76.7  0.5
+mds-collision-checker             42:36 29.2  0.2
+sudo mds-daemon -v                42:37  0.0  0.0
+sudo mds-filter                   42:37  0.0  0.0
+python /etc/mds-ach/python/       42:37  0.5  0.2
+gzserver /etc/mds-ach/model       42:37 76.7  0.5
+mds-collision-checker             42:37 29.2  0.2
+sudo mds-daemon -v                42:38  0.0  0.0
+sudo mds-filter                   42:38  0.0  0.0
+python /etc/mds-ach/python/       42:38  0.5  0.2
+gzserver /etc/mds-ach/model       42:38 76.7  0.5
+mds-collision-checker             42:38 29.2  0.2
+sudo mds-daemon -v                42:39  0.0  0.0
+sudo mds-filter                   42:39  0.0  0.0
+python /etc/mds-ach/python/       42:39  0.5  0.2
+gzserver /etc/mds-ach/model       42:39 76.7  0.5
+mds-collision-checker             42:39 29.2  0.2
+sudo mds-daemon -v                42:40  0.0  0.0
+sudo mds-filter                   42:40  0.0  0.0
+python /etc/mds-ach/python/       42:40  0.5  0.2
+gzserver /etc/mds-ach/model       42:40 76.7  0.5
+mds-collision-checker             42:40 29.2  0.2
+sudo mds-daemon -v                42:41  0.0  0.0
+sudo mds-filter                   42:41  0.0  0.0
+python /etc/mds-ach/python/       42:41  0.5  0.2
+gzserver /etc/mds-ach/model       42:41 76.7  0.5
+mds-collision-checker             42:41 29.2  0.2
+sudo mds-daemon -v                42:42  0.0  0.0
+sudo mds-filter                   42:42  0.0  0.0
+python /etc/mds-ach/python/       42:42  0.5  0.2
+gzserver /etc/mds-ach/model       42:42 76.7  0.5
+mds-collision-checker             42:42 29.2  0.2
+sudo mds-daemon -v                42:43  0.0  0.0
+sudo mds-filter                   42:43  0.0  0.0
+python /etc/mds-ach/python/       42:43  0.5  0.2
+gzserver /etc/mds-ach/model       42:43 76.7  0.5
+mds-collision-checker             42:43 29.2  0.2
+sudo mds-daemon -v                42:44  0.0  0.0
+sudo mds-filter                   42:44  0.0  0.0
+python /etc/mds-ach/python/       42:44  0.5  0.2
+gzserver /etc/mds-ach/model       42:44 76.7  0.5
+mds-collision-checker             42:44 29.2  0.2
+sudo mds-daemon -v                42:45  0.0  0.0
+sudo mds-filter                   42:45  0.0  0.0
+python /etc/mds-ach/python/       42:45  0.5  0.2
+gzserver /etc/mds-ach/model       42:45 76.7  0.5
+mds-collision-checker             42:45 29.2  0.2
+sudo mds-daemon -v                42:46  0.0  0.0
+sudo mds-filter                   42:46  0.0  0.0
+python /etc/mds-ach/python/       42:46  0.5  0.2
+gzserver /etc/mds-ach/model       42:46 76.7  0.5
+mds-collision-checker             42:46 29.2  0.2
+sudo mds-daemon -v                42:47  0.0  0.0
+sudo mds-filter                   42:47  0.0  0.0
+python /etc/mds-ach/python/       42:47  0.5  0.2
+gzserver /etc/mds-ach/model       42:48 76.7  0.5
+mds-collision-checker             42:48 29.2  0.2
+sudo mds-daemon -v                42:49  0.0  0.0
+sudo mds-filter                   42:49  0.0  0.0
+python /etc/mds-ach/python/       42:49  0.5  0.2
+gzserver /etc/mds-ach/model       42:49 76.7  0.5
+mds-collision-checker             42:49 29.2  0.2
+sudo mds-daemon -v                42:50  0.0  0.0
+sudo mds-filter                   42:50  0.0  0.0
+python /etc/mds-ach/python/       42:50  0.5  0.2
+gzserver /etc/mds-ach/model       42:50 76.7  0.5
+mds-collision-checker             42:50 29.2  0.2
+sudo mds-daemon -v                42:51  0.0  0.0
+sudo mds-filter                   42:51  0.0  0.0
+python /etc/mds-ach/python/       42:51  0.5  0.2
+gzserver /etc/mds-ach/model       42:51 76.7  0.5
+mds-collision-checker             42:51 29.2  0.2
+sudo mds-daemon -v                42:52  0.0  0.0
+sudo mds-filter                   42:52  0.0  0.0
+python /etc/mds-ach/python/       42:52  0.5  0.2
+gzserver /etc/mds-ach/model       42:52 76.7  0.5
+mds-collision-checker             42:52 29.2  0.2
+sudo mds-daemon -v                42:53  0.0  0.0
+sudo mds-filter                   42:53  0.0  0.0
+python /etc/mds-ach/python/       42:53  0.5  0.2
+gzserver /etc/mds-ach/model       42:53 76.7  0.5
+mds-collision-checker             42:53 29.2  0.2
+sudo mds-daemon -v                42:54  0.0  0.0
+sudo mds-filter                   42:54  0.0  0.0
+python /etc/mds-ach/python/       42:54  0.5  0.2
+gzserver /etc/mds-ach/model       42:54 76.7  0.5
+mds-collision-checker             42:54 29.2  0.2
+sudo mds-daemon -v                42:55  0.0  0.0
+sudo mds-filter                   42:55  0.0  0.0
+python /etc/mds-ach/python/       42:55  0.5  0.2
+gzserver /etc/mds-ach/model       42:55 76.7  0.5
+mds-collision-checker             42:55 29.2  0.2
+sudo mds-daemon -v                42:56  0.0  0.0
+sudo mds-filter                   42:56  0.0  0.0
+python /etc/mds-ach/python/       42:56  0.5  0.2
+gzserver /etc/mds-ach/model       42:56 76.7  0.5
+mds-collision-checker             42:56 29.2  0.2
+sudo mds-daemon -v                42:57  0.0  0.0
+sudo mds-filter                   42:57  0.0  0.0
+python /etc/mds-ach/python/       42:57  0.5  0.2
+gzserver /etc/mds-ach/model       42:57 76.7  0.5
+mds-collision-checker             42:57 29.2  0.2
+sudo mds-daemon -v                42:58  0.0  0.0
+sudo mds-filter                   42:58  0.0  0.0
+python /etc/mds-ach/python/       42:58  0.5  0.2
+gzserver /etc/mds-ach/model       42:58 76.7  0.5
+mds-collision-checker             42:58 29.2  0.2
+sudo mds-daemon -v                42:59  0.0  0.0
+sudo mds-filter                   42:59  0.0  0.0
+python /etc/mds-ach/python/       42:59  0.5  0.2
+gzserver /etc/mds-ach/model       42:59 76.7  0.5
+mds-collision-checker             42:59 29.2  0.2
+sudo mds-daemon -v                43:00  0.0  0.0
+sudo mds-filter                   43:00  0.0  0.0
+python /etc/mds-ach/python/       43:00  0.5  0.2
+gzserver /etc/mds-ach/model       43:00 76.7  0.5
+mds-collision-checker             43:00 29.2  0.2
+sudo mds-daemon -v                43:01  0.0  0.0
+sudo mds-filter                   43:01  0.0  0.0
+python /etc/mds-ach/python/       43:01  0.5  0.2
+gzserver /etc/mds-ach/model       43:01 76.7  0.5
+mds-collision-checker             43:01 29.2  0.2
+sudo mds-daemon -v                43:02  0.0  0.0
+sudo mds-filter                   43:02  0.0  0.0
+python /etc/mds-ach/python/       43:02  0.5  0.2
+gzserver /etc/mds-ach/model       43:02 76.7  0.5
+mds-collision-checker             43:02 29.2  0.2
+sudo mds-daemon -v                43:03  0.0  0.0
+sudo mds-filter                   43:03  0.0  0.0
+python /etc/mds-ach/python/       43:03  0.5  0.2
+gzserver /etc/mds-ach/model       43:03 76.8  0.5
+mds-collision-checker             43:03 29.2  0.2
+sudo mds-daemon -v                43:04  0.0  0.0
+sudo mds-filter                   43:04  0.0  0.0
+python /etc/mds-ach/python/       43:04  0.5  0.2
+gzserver /etc/mds-ach/model       43:04 76.8  0.5
+mds-collision-checker             43:04 29.2  0.2
+sudo mds-daemon -v                43:05  0.0  0.0
+sudo mds-filter                   43:05  0.0  0.0
+python /etc/mds-ach/python/       43:05  0.5  0.2
+gzserver /etc/mds-ach/model       43:05 76.8  0.5
+mds-collision-checker             43:05 29.2  0.2
+sudo mds-daemon -v                43:06  0.0  0.0
+sudo mds-filter                   43:06  0.0  0.0
+python /etc/mds-ach/python/       43:06  0.5  0.2
+gzserver /etc/mds-ach/model       43:06 76.8  0.5
+mds-collision-checker             43:06 29.2  0.2
+sudo mds-daemon -v                43:07  0.0  0.0
+sudo mds-filter                   43:07  0.0  0.0
+python /etc/mds-ach/python/       43:07  0.5  0.2
+gzserver /etc/mds-ach/model       43:07 76.8  0.5
+mds-collision-checker             43:07 29.2  0.2
+sudo mds-daemon -v                43:09  0.0  0.0
+sudo mds-filter                   43:09  0.0  0.0
+python /etc/mds-ach/python/       43:09  0.5  0.2
+gzserver /etc/mds-ach/model       43:09 76.7  0.5
+mds-collision-checker             43:09 29.2  0.2
+sudo mds-daemon -v                43:10  0.0  0.0
+sudo mds-filter                   43:10  0.0  0.0
+python /etc/mds-ach/python/       43:10  0.5  0.2
+gzserver /etc/mds-ach/model       43:10 76.7  0.5
+mds-collision-checker             43:10 29.2  0.2
+sudo mds-daemon -v                43:11  0.0  0.0
+sudo mds-filter                   43:11  0.0  0.0
+python /etc/mds-ach/python/       43:11  0.5  0.2
+gzserver /etc/mds-ach/model       43:11 76.8  0.5
+mds-collision-checker             43:11 29.2  0.2
+sudo mds-daemon -v                43:12  0.0  0.0
+sudo mds-filter                   43:12  0.0  0.0
+python /etc/mds-ach/python/       43:12  0.5  0.2
+gzserver /etc/mds-ach/model       43:12 76.8  0.5
+mds-collision-checker             43:12 29.2  0.2
+sudo mds-daemon -v                43:13  0.0  0.0
+sudo mds-filter                   43:13  0.0  0.0
+python /etc/mds-ach/python/       43:13  0.5  0.2
+gzserver /etc/mds-ach/model       43:13 76.8  0.5
+mds-collision-checker             43:13 29.2  0.2
+sudo mds-daemon -v                43:14  0.0  0.0
+sudo mds-filter                   43:14  0.0  0.0
+python /etc/mds-ach/python/       43:14  0.5  0.2
+gzserver /etc/mds-ach/model       43:14 76.8  0.5
+mds-collision-checker             43:14 29.2  0.2
+sudo mds-daemon -v                43:15  0.0  0.0
+sudo mds-filter                   43:15  0.0  0.0
+python /etc/mds-ach/python/       43:15  0.5  0.2
+gzserver /etc/mds-ach/model       43:15 76.8  0.5
+mds-collision-checker             43:15 29.2  0.2
+sudo mds-daemon -v                43:16  0.0  0.0
+sudo mds-filter                   43:16  0.0  0.0
+python /etc/mds-ach/python/       43:16  0.5  0.2
+gzserver /etc/mds-ach/model       43:16 76.8  0.5
+mds-collision-checker             43:16 29.2  0.2
+sudo mds-daemon -v                43:17  0.0  0.0
+sudo mds-filter                   43:17  0.0  0.0
+python /etc/mds-ach/python/       43:17  0.5  0.2
+gzserver /etc/mds-ach/model       43:17 76.8  0.5
+mds-collision-checker             43:17 29.2  0.2
+sudo mds-daemon -v                43:18  0.0  0.0
+sudo mds-filter                   43:18  0.0  0.0
+python /etc/mds-ach/python/       43:18  0.5  0.2
+gzserver /etc/mds-ach/model       43:18 76.8  0.5
+mds-collision-checker             43:18 29.2  0.2
+sudo mds-daemon -v                43:19  0.0  0.0
+sudo mds-filter                   43:19  0.0  0.0
+python /etc/mds-ach/python/       43:19  0.5  0.2
+gzserver /etc/mds-ach/model       43:19 76.8  0.5
+mds-collision-checker             43:19 29.2  0.2
+sudo mds-daemon -v                43:20  0.0  0.0
+sudo mds-filter                   43:20  0.0  0.0
+python /etc/mds-ach/python/       43:20  0.5  0.2
+gzserver /etc/mds-ach/model       43:20 76.8  0.5
+mds-collision-checker             43:20 29.2  0.2
+sudo mds-daemon -v                43:21  0.0  0.0
+sudo mds-filter                   43:21  0.0  0.0
+python /etc/mds-ach/python/       43:21  0.5  0.2
+gzserver /etc/mds-ach/model       43:21 76.8  0.5
+mds-collision-checker             43:21 29.2  0.2
+sudo mds-daemon -v                43:22  0.0  0.0
+sudo mds-filter                   43:22  0.0  0.0
+python /etc/mds-ach/python/       43:22  0.5  0.2
+gzserver /etc/mds-ach/model       43:22 76.8  0.5
+mds-collision-checker             43:22 29.2  0.2
+sudo mds-daemon -v                43:23  0.0  0.0
+sudo mds-filter                   43:23  0.0  0.0
+python /etc/mds-ach/python/       43:23  0.5  0.2
+gzserver /etc/mds-ach/model       43:23 76.8  0.5
+mds-collision-checker             43:23 29.2  0.2
+sudo mds-daemon -v                43:24  0.0  0.0
+sudo mds-filter                   43:24  0.0  0.0
+python /etc/mds-ach/python/       43:24  0.5  0.2
+gzserver /etc/mds-ach/model       43:24 76.8  0.5
+mds-collision-checker             43:24 29.2  0.2
+sudo mds-daemon -v                43:25  0.0  0.0
+sudo mds-filter                   43:25  0.0  0.0
+python /etc/mds-ach/python/       43:25  0.5  0.2
+gzserver /etc/mds-ach/model       43:25 76.8  0.5
+mds-collision-checker             43:25 29.2  0.2
+sudo mds-daemon -v                43:26  0.0  0.0
+sudo mds-filter                   43:26  0.0  0.0
+python /etc/mds-ach/python/       43:26  0.5  0.2
+gzserver /etc/mds-ach/model       43:26 76.8  0.5
+mds-collision-checker             43:26 29.2  0.2
+sudo mds-daemon -v                43:27  0.0  0.0
+sudo mds-filter                   43:27  0.0  0.0
+python /etc/mds-ach/python/       43:27  0.5  0.2
+gzserver /etc/mds-ach/model       43:27 76.8  0.5
+mds-collision-checker             43:27 29.2  0.2
+sudo mds-daemon -v                43:28  0.0  0.0
+sudo mds-filter                   43:28  0.0  0.0
+python /etc/mds-ach/python/       43:28  0.5  0.2
+gzserver /etc/mds-ach/model       43:28 76.8  0.5
+mds-collision-checker             43:29 29.2  0.2
+sudo mds-daemon -v                43:30  0.0  0.0
+sudo mds-filter                   43:30  0.0  0.0
+python /etc/mds-ach/python/       43:30  0.5  0.2
+gzserver /etc/mds-ach/model       43:30 76.8  0.5
+mds-collision-checker             43:30 29.2  0.2
+sudo mds-daemon -v                43:31  0.0  0.0
+sudo mds-filter                   43:31  0.0  0.0
+python /etc/mds-ach/python/       43:31  0.5  0.2
+gzserver /etc/mds-ach/model       43:31 76.8  0.5
+mds-collision-checker             43:31 29.2  0.2
+sudo mds-daemon -v                43:32  0.0  0.0
+sudo mds-filter                   43:32  0.0  0.0
+python /etc/mds-ach/python/       43:32  0.5  0.2
+gzserver /etc/mds-ach/model       43:32 76.8  0.5
+mds-collision-checker             43:32 29.2  0.2
+sudo mds-daemon -v                43:33  0.0  0.0
+sudo mds-filter                   43:33  0.0  0.0
+python /etc/mds-ach/python/       43:33  0.5  0.2
+gzserver /etc/mds-ach/model       43:33 76.8  0.5
+mds-collision-checker             43:33 29.2  0.2
+sudo mds-daemon -v                43:34  0.0  0.0
+sudo mds-filter                   43:34  0.0  0.0
+python /etc/mds-ach/python/       43:34  0.5  0.2
+gzserver /etc/mds-ach/model       43:34 76.8  0.5
+mds-collision-checker             43:34 29.2  0.2
+sudo mds-daemon -v                43:35  0.0  0.0
+sudo mds-filter                   43:35  0.0  0.0
+python /etc/mds-ach/python/       43:35  0.5  0.2
+gzserver /etc/mds-ach/model       43:35 76.8  0.5
+mds-collision-checker             43:35 29.2  0.2
+sudo mds-daemon -v                43:36  0.0  0.0
+sudo mds-filter                   43:36  0.0  0.0
+python /etc/mds-ach/python/       43:36  0.5  0.2
+gzserver /etc/mds-ach/model       43:36 76.8  0.5
+mds-collision-checker             43:36 29.2  0.2
+sudo mds-daemon -v                43:37  0.0  0.0
+sudo mds-filter                   43:37  0.0  0.0
+python /etc/mds-ach/python/       43:37  0.5  0.2
+gzserver /etc/mds-ach/model       43:37 76.8  0.5
+mds-collision-checker             43:37 29.2  0.2
+sudo mds-daemon -v                43:38  0.0  0.0
+sudo mds-filter                   43:38  0.0  0.0
+python /etc/mds-ach/python/       43:38  0.5  0.2
+gzserver /etc/mds-ach/model       43:38 76.8  0.5
+mds-collision-checker             43:38 29.2  0.2
+sudo mds-daemon -v                43:39  0.0  0.0
+sudo mds-filter                   43:39  0.0  0.0
+python /etc/mds-ach/python/       43:39  0.5  0.2
+gzserver /etc/mds-ach/model       43:39 76.8  0.5
+mds-collision-checker             43:39 29.2  0.2
+sudo mds-daemon -v                43:40  0.0  0.0
+sudo mds-filter                   43:40  0.0  0.0
+python /etc/mds-ach/python/       43:40  0.5  0.2
+gzserver /etc/mds-ach/model       43:40 76.8  0.5
+mds-collision-checker             43:40 29.2  0.2
+sudo mds-daemon -v                43:41  0.0  0.0
+sudo mds-filter                   43:41  0.0  0.0
+python /etc/mds-ach/python/       43:41  0.5  0.2
+gzserver /etc/mds-ach/model       43:41 76.8  0.5
+mds-collision-checker             43:41 29.2  0.2
+sudo mds-daemon -v                43:42  0.0  0.0
+sudo mds-filter                   43:42  0.0  0.0
+python /etc/mds-ach/python/       43:42  0.5  0.2
+gzserver /etc/mds-ach/model       43:42 76.8  0.5
+mds-collision-checker             43:42 29.2  0.2
+sudo mds-daemon -v                43:43  0.0  0.0
+sudo mds-filter                   43:43  0.0  0.0
+python /etc/mds-ach/python/       43:43  0.5  0.2
+gzserver /etc/mds-ach/model       43:43 76.8  0.5
+mds-collision-checker             43:43 29.2  0.2
+sudo mds-daemon -v                43:44  0.0  0.0
+sudo mds-filter                   43:44  0.0  0.0
+python /etc/mds-ach/python/       43:44  0.5  0.2
+gzserver /etc/mds-ach/model       43:44 76.8  0.5
+mds-collision-checker             43:44 29.2  0.2
+sudo mds-daemon -v                43:45  0.0  0.0
+sudo mds-filter                   43:45  0.0  0.0
+python /etc/mds-ach/python/       43:45  0.5  0.2
+gzserver /etc/mds-ach/model       43:45 76.8  0.5
+mds-collision-checker             43:45 29.2  0.2
+sudo mds-daemon -v                43:46  0.0  0.0
+sudo mds-filter                   43:46  0.0  0.0
+python /etc/mds-ach/python/       43:46  0.5  0.2
+gzserver /etc/mds-ach/model       43:46 76.8  0.5
+mds-collision-checker             43:46 29.2  0.2
+sudo mds-daemon -v                43:47  0.0  0.0
+sudo mds-filter                   43:47  0.0  0.0
+python /etc/mds-ach/python/       43:47  0.5  0.2
+gzserver /etc/mds-ach/model       43:47 76.8  0.5
+mds-collision-checker             43:47 29.2  0.2
+sudo mds-daemon -v                43:48  0.0  0.0
+sudo mds-filter                   43:48  0.0  0.0
+python /etc/mds-ach/python/       43:48  0.5  0.2
+gzserver /etc/mds-ach/model       43:48 76.8  0.5
+mds-collision-checker             43:48 29.2  0.2
+sudo mds-daemon -v                43:50  0.0  0.0
+sudo mds-filter                   43:50  0.0  0.0
+python /etc/mds-ach/python/       43:50  0.5  0.2
+gzserver /etc/mds-ach/model       43:50 76.8  0.5
+mds-collision-checker             43:50 29.2  0.2
+sudo mds-daemon -v                43:51  0.0  0.0
+sudo mds-filter                   43:51  0.0  0.0
+python /etc/mds-ach/python/       43:51  0.5  0.2
+gzserver /etc/mds-ach/model       43:51 76.8  0.5
+mds-collision-checker             43:51 29.2  0.2
+sudo mds-daemon -v                43:52  0.0  0.0
+sudo mds-filter                   43:52  0.0  0.0
+python /etc/mds-ach/python/       43:52  0.5  0.2
+gzserver /etc/mds-ach/model       43:52 76.8  0.5
+mds-collision-checker             43:52 29.2  0.2
+sudo mds-daemon -v                43:53  0.0  0.0
+sudo mds-filter                   43:53  0.0  0.0
+python /etc/mds-ach/python/       43:53  0.5  0.2
+gzserver /etc/mds-ach/model       43:53 76.8  0.5
+mds-collision-checker             43:53 29.2  0.2
+sudo mds-daemon -v                43:54  0.0  0.0
+sudo mds-filter                   43:54  0.0  0.0
+python /etc/mds-ach/python/       43:54  0.5  0.2
+gzserver /etc/mds-ach/model       43:54 76.8  0.5
+mds-collision-checker             43:54 29.2  0.2
+sudo mds-daemon -v                43:55  0.0  0.0
+sudo mds-filter                   43:55  0.0  0.0
+python /etc/mds-ach/python/       43:55  0.5  0.2
+gzserver /etc/mds-ach/model       43:55 76.8  0.5
+mds-collision-checker             43:55 29.2  0.2
+sudo mds-daemon -v                43:56  0.0  0.0
+sudo mds-filter                   43:56  0.0  0.0
+python /etc/mds-ach/python/       43:56  0.5  0.2
+gzserver /etc/mds-ach/model       43:56 76.8  0.5
+mds-collision-checker             43:56 29.2  0.2
+sudo mds-daemon -v                43:57  0.0  0.0
+sudo mds-filter                   43:57  0.0  0.0
+python /etc/mds-ach/python/       43:57  0.5  0.2
+gzserver /etc/mds-ach/model       43:57 76.8  0.5
+mds-collision-checker             43:57 29.2  0.2
+sudo mds-daemon -v                43:58  0.0  0.0
+sudo mds-filter                   43:58  0.0  0.0
+python /etc/mds-ach/python/       43:58  0.5  0.2
+gzserver /etc/mds-ach/model       43:58 76.8  0.5
+mds-collision-checker             43:58 29.2  0.2
+sudo mds-daemon -v                43:59  0.0  0.0
+sudo mds-filter                   43:59  0.0  0.0
+python /etc/mds-ach/python/       43:59  0.5  0.2
+gzserver /etc/mds-ach/model       43:59 76.9  0.5
+mds-collision-checker             43:59 29.2  0.2
+sudo mds-daemon -v                44:00  0.0  0.0
+sudo mds-filter                   44:00  0.0  0.0
+python /etc/mds-ach/python/       44:00  0.5  0.2
+gzserver /etc/mds-ach/model       44:00 76.9  0.5
+mds-collision-checker             44:00 29.2  0.2
+sudo mds-daemon -v                44:01  0.0  0.0
+sudo mds-filter                   44:01  0.0  0.0
+python /etc/mds-ach/python/       44:01  0.5  0.2
+gzserver /etc/mds-ach/model       44:01 76.9  0.5
+mds-collision-checker             44:01 29.2  0.2
+sudo mds-daemon -v                44:02  0.0  0.0
+sudo mds-filter                   44:02  0.0  0.0
+python /etc/mds-ach/python/       44:02  0.5  0.2
+gzserver /etc/mds-ach/model       44:02 76.9  0.5
+mds-collision-checker             44:02 29.2  0.2
+sudo mds-daemon -v                44:03  0.0  0.0
+sudo mds-filter                   44:03  0.0  0.0
+python /etc/mds-ach/python/       44:03  0.5  0.2
+gzserver /etc/mds-ach/model       44:03 76.9  0.5
+mds-collision-checker             44:03 29.2  0.2
+sudo mds-daemon -v                44:04  0.0  0.0
+sudo mds-filter                   44:04  0.0  0.0
+python /etc/mds-ach/python/       44:04  0.5  0.2
+gzserver /etc/mds-ach/model       44:04 76.9  0.5
+mds-collision-checker             44:04 29.2  0.2
+sudo mds-daemon -v                44:05  0.0  0.0
+sudo mds-filter                   44:05  0.0  0.0
+python /etc/mds-ach/python/       44:05  0.5  0.2
+gzserver /etc/mds-ach/model       44:05 76.9  0.5
+mds-collision-checker             44:05 29.2  0.2
+sudo mds-daemon -v                44:06  0.0  0.0
+sudo mds-filter                   44:06  0.0  0.0
+python /etc/mds-ach/python/       44:06  0.5  0.2
+gzserver /etc/mds-ach/model       44:06 76.9  0.5
+mds-collision-checker             44:06 29.2  0.2
+sudo mds-daemon -v                44:07  0.0  0.0
+sudo mds-filter                   44:07  0.0  0.0
+python /etc/mds-ach/python/       44:07  0.5  0.2
+gzserver /etc/mds-ach/model       44:07 76.9  0.5
+mds-collision-checker             44:07 29.2  0.2
+sudo mds-daemon -v                44:08  0.0  0.0
+sudo mds-filter                   44:08  0.0  0.0
+python /etc/mds-ach/python/       44:08  0.5  0.2
+gzserver /etc/mds-ach/model       44:08 77.0  0.5
+mds-collision-checker             44:08 29.2  0.2
+sudo mds-daemon -v                44:09  0.0  0.0
+sudo mds-filter                   44:09  0.0  0.0
+python /etc/mds-ach/python/       44:10  0.5  0.2
+gzserver /etc/mds-ach/model       44:10 76.9  0.5
+mds-collision-checker             44:10 29.2  0.2
+sudo mds-daemon -v                44:11  0.0  0.0
+sudo mds-filter                   44:11  0.0  0.0
+python /etc/mds-ach/python/       44:11  0.5  0.2
+gzserver /etc/mds-ach/model       44:11 76.9  0.5
+mds-collision-checker             44:11 29.2  0.2
+sudo mds-daemon -v                44:12  0.0  0.0
+sudo mds-filter                   44:12  0.0  0.0
+python /etc/mds-ach/python/       44:12  0.5  0.2
+gzserver /etc/mds-ach/model       44:12 77.0  0.5
+mds-collision-checker             44:12 29.2  0.2
+sudo mds-daemon -v                44:13  0.0  0.0
+sudo mds-filter                   44:13  0.0  0.0
+python /etc/mds-ach/python/       44:13  0.5  0.2
+gzserver /etc/mds-ach/model       44:13 77.0  0.5
+mds-collision-checker             44:13 29.2  0.2
+sudo mds-daemon -v                44:14  0.0  0.0
+sudo mds-filter                   44:14  0.0  0.0
+python /etc/mds-ach/python/       44:14  0.5  0.2
+gzserver /etc/mds-ach/model       44:14 77.0  0.5
+mds-collision-checker             44:14 29.2  0.2
+sudo mds-daemon -v                44:15  0.0  0.0
+sudo mds-filter                   44:15  0.0  0.0
+python /etc/mds-ach/python/       44:15  0.5  0.2
+gzserver /etc/mds-ach/model       44:15 77.0  0.5
+mds-collision-checker             44:15 29.2  0.2
+sudo mds-daemon -v                44:16  0.0  0.0
+sudo mds-filter                   44:16  0.0  0.0
+python /etc/mds-ach/python/       44:16  0.5  0.2
+gzserver /etc/mds-ach/model       44:16 77.0  0.5
+mds-collision-checker             44:16 29.2  0.2
+sudo mds-daemon -v                44:17  0.0  0.0
+sudo mds-filter                   44:17  0.0  0.0
+python /etc/mds-ach/python/       44:17  0.5  0.2
+gzserver /etc/mds-ach/model       44:17 77.0  0.5
+mds-collision-checker             44:17 29.2  0.2
+sudo mds-daemon -v                44:18  0.0  0.0
+sudo mds-filter                   44:18  0.0  0.0
+python /etc/mds-ach/python/       44:18  0.5  0.2
+gzserver /etc/mds-ach/model       44:18 77.0  0.5
+mds-collision-checker             44:18 29.2  0.2
+sudo mds-daemon -v                44:19  0.0  0.0
+sudo mds-filter                   44:19  0.0  0.0
+python /etc/mds-ach/python/       44:19  0.5  0.2
+gzserver /etc/mds-ach/model       44:19 77.0  0.5
+mds-collision-checker             44:19 29.2  0.2
+sudo mds-daemon -v                44:20  0.0  0.0
+sudo mds-filter                   44:20  0.0  0.0
+python /etc/mds-ach/python/       44:20  0.5  0.2
+gzserver /etc/mds-ach/model       44:20 77.0  0.5
+mds-collision-checker             44:20 29.2  0.2
+sudo mds-daemon -v                44:21  0.0  0.0
+sudo mds-filter                   44:21  0.0  0.0
+python /etc/mds-ach/python/       44:21  0.5  0.2
+gzserver /etc/mds-ach/model       44:21 77.1  0.5
+mds-collision-checker             44:21 29.2  0.2
+sudo mds-daemon -v                44:22  0.0  0.0
+sudo mds-filter                   44:22  0.0  0.0
+python /etc/mds-ach/python/       44:22  0.5  0.2
+gzserver /etc/mds-ach/model       44:22 77.1  0.5
+mds-collision-checker             44:22 29.2  0.2
+sudo mds-daemon -v                44:23  0.0  0.0
+sudo mds-filter                   44:23  0.0  0.0
+python /etc/mds-ach/python/       44:23  0.5  0.2
+gzserver /etc/mds-ach/model       44:23 77.1  0.5
+mds-collision-checker             44:23 29.2  0.2
+sudo mds-daemon -v                44:24  0.0  0.0
+sudo mds-filter                   44:24  0.0  0.0
+python /etc/mds-ach/python/       44:24  0.5  0.2
+gzserver /etc/mds-ach/model       44:24 77.1  0.5
+mds-collision-checker             44:24 29.2  0.2
+sudo mds-daemon -v                44:25  0.0  0.0
+sudo mds-filter                   44:25  0.0  0.0
+python /etc/mds-ach/python/       44:25  0.5  0.2
+gzserver /etc/mds-ach/model       44:25 77.1  0.5
+mds-collision-checker             44:25 29.2  0.2
+sudo mds-daemon -v                44:26  0.0  0.0
+sudo mds-filter                   44:26  0.0  0.0
+python /etc/mds-ach/python/       44:26  0.5  0.2
+gzserver /etc/mds-ach/model       44:26 77.1  0.5
+mds-collision-checker             44:26 29.2  0.2
+sudo mds-daemon -v                44:27  0.0  0.0
+sudo mds-filter                   44:27  0.0  0.0
+python /etc/mds-ach/python/       44:27  0.5  0.2
+gzserver /etc/mds-ach/model       44:27 77.1  0.5
+mds-collision-checker             44:27 29.2  0.2
+sudo mds-daemon -v                44:28  0.0  0.0
+sudo mds-filter                   44:28  0.0  0.0
+python /etc/mds-ach/python/       44:28  0.5  0.2
+gzserver /etc/mds-ach/model       44:28 77.1  0.5
+mds-collision-checker             44:28 29.2  0.2
+sudo mds-daemon -v                44:29  0.0  0.0
+sudo mds-filter                   44:30  0.0  0.0
+python /etc/mds-ach/python/       44:30  0.5  0.2
+gzserver /etc/mds-ach/model       44:30 77.1  0.5
+mds-collision-checker             44:30 29.2  0.2
+sudo mds-daemon -v                44:31  0.0  0.0
+sudo mds-filter                   44:31  0.0  0.0
+python /etc/mds-ach/python/       44:31  0.5  0.2
+gzserver /etc/mds-ach/model       44:31 77.1  0.5
+mds-collision-checker             44:31 29.2  0.2
+sudo mds-daemon -v                44:32  0.0  0.0
+sudo mds-filter                   44:32  0.0  0.0
+python /etc/mds-ach/python/       44:32  0.5  0.2
+gzserver /etc/mds-ach/model       44:32 77.1  0.5
+mds-collision-checker             44:32 29.2  0.2
+sudo mds-daemon -v                44:33  0.0  0.0
+sudo mds-filter                   44:33  0.0  0.0
+python /etc/mds-ach/python/       44:33  0.5  0.2
+gzserver /etc/mds-ach/model       44:33 77.1  0.5
+mds-collision-checker             44:33 29.2  0.2
+sudo mds-daemon -v                44:34  0.0  0.0
+sudo mds-filter                   44:34  0.0  0.0
+python /etc/mds-ach/python/       44:34  0.5  0.2
+gzserver /etc/mds-ach/model       44:34 77.1  0.5
+mds-collision-checker             44:34 29.2  0.2
+sudo mds-daemon -v                44:35  0.0  0.0
+sudo mds-filter                   44:35  0.0  0.0
+python /etc/mds-ach/python/       44:35  0.5  0.2
+gzserver /etc/mds-ach/model       44:35 77.2  0.5
+mds-collision-checker             44:35 29.2  0.2
+sudo mds-daemon -v                44:36  0.0  0.0
+sudo mds-filter                   44:36  0.0  0.0
+python /etc/mds-ach/python/       44:36  0.5  0.2
+gzserver /etc/mds-ach/model       44:36 77.2  0.5
+mds-collision-checker             44:36 29.2  0.2
+sudo mds-daemon -v                44:37  0.0  0.0
+sudo mds-filter                   44:37  0.0  0.0
+python /etc/mds-ach/python/       44:37  0.5  0.2
+gzserver /etc/mds-ach/model       44:37 77.2  0.5
+mds-collision-checker             44:37 29.2  0.2
+sudo mds-daemon -v                44:38  0.0  0.0
+sudo mds-filter                   44:38  0.0  0.0
+python /etc/mds-ach/python/       44:38  0.5  0.2
+gzserver /etc/mds-ach/model       44:38 77.2  0.5
+mds-collision-checker             44:38 29.2  0.2
+sudo mds-daemon -v                44:39  0.0  0.0
+sudo mds-filter                   44:39  0.0  0.0
+python /etc/mds-ach/python/       44:39  0.5  0.2
+gzserver /etc/mds-ach/model       44:39 77.2  0.5
+mds-collision-checker             44:39 29.2  0.2
+sudo mds-daemon -v                44:40  0.0  0.0
+sudo mds-filter                   44:40  0.0  0.0
+python /etc/mds-ach/python/       44:40  0.5  0.2
+gzserver /etc/mds-ach/model       44:40 77.2  0.5
+mds-collision-checker             44:40 29.2  0.2
+sudo mds-daemon -v                44:41  0.0  0.0
+sudo mds-filter                   44:41  0.0  0.0
+python /etc/mds-ach/python/       44:41  0.5  0.2
+gzserver /etc/mds-ach/model       44:41 77.2  0.5
+mds-collision-checker             44:41 29.2  0.2
+sudo mds-daemon -v                44:42  0.0  0.0
+sudo mds-filter                   44:42  0.0  0.0
+python /etc/mds-ach/python/       44:42  0.5  0.2
+gzserver /etc/mds-ach/model       44:42 77.2  0.5
+mds-collision-checker             44:42 29.2  0.2
+sudo mds-daemon -v                44:43  0.0  0.0
+sudo mds-filter                   44:43  0.0  0.0
+python /etc/mds-ach/python/       44:43  0.5  0.2
+gzserver /etc/mds-ach/model       44:43 77.2  0.5
+mds-collision-checker             44:43 29.2  0.2
+sudo mds-daemon -v                44:44  0.0  0.0
+sudo mds-filter                   44:44  0.0  0.0
+python /etc/mds-ach/python/       44:44  0.5  0.2
+gzserver /etc/mds-ach/model       44:44 77.2  0.5
+mds-collision-checker             44:44 29.2  0.2
+sudo mds-daemon -v                44:45  0.0  0.0
+sudo mds-filter                   44:45  0.0  0.0
+python /etc/mds-ach/python/       44:45  0.5  0.2
+gzserver /etc/mds-ach/model       44:45 77.3  0.5
+mds-collision-checker             44:45 29.2  0.2
+sudo mds-daemon -v                44:46  0.0  0.0
+sudo mds-filter                   44:46  0.0  0.0
+python /etc/mds-ach/python/       44:46  0.5  0.2
+gzserver /etc/mds-ach/model       44:46 77.3  0.5
+mds-collision-checker             44:46 29.2  0.2
+sudo mds-daemon -v                44:47  0.0  0.0
+sudo mds-filter                   44:47  0.0  0.0
+python /etc/mds-ach/python/       44:47  0.5  0.2
+gzserver /etc/mds-ach/model       44:47 77.3  0.5
+mds-collision-checker             44:47 29.2  0.2
+sudo mds-daemon -v                44:48  0.0  0.0
+sudo mds-filter                   44:48  0.0  0.0
+python /etc/mds-ach/python/       44:48  0.5  0.2
+gzserver /etc/mds-ach/model       44:48 77.3  0.5
+mds-collision-checker             44:48 29.2  0.2
+sudo mds-daemon -v                44:49  0.0  0.0
+sudo mds-filter                   44:49  0.0  0.0
+python /etc/mds-ach/python/       44:49  0.5  0.2
+gzserver /etc/mds-ach/model       44:50 77.3  0.5
+mds-collision-checker             44:50 29.1  0.2
+sudo mds-daemon -v                44:51  0.0  0.0
+sudo mds-filter                   44:51  0.0  0.0
+python /etc/mds-ach/python/       44:51  0.5  0.2
+gzserver /etc/mds-ach/model       44:51 77.3  0.5
+mds-collision-checker             44:51 29.1  0.2
+sudo mds-daemon -v                44:52  0.0  0.0
+sudo mds-filter                   44:52  0.0  0.0
+python /etc/mds-ach/python/       44:52  0.5  0.2
+gzserver /etc/mds-ach/model       44:52 77.3  0.5
+mds-collision-checker             44:52 29.1  0.2
+sudo mds-daemon -v                44:53  0.0  0.0
+sudo mds-filter                   44:53  0.0  0.0
+python /etc/mds-ach/python/       44:53  0.5  0.2
+gzserver /etc/mds-ach/model       44:53 77.3  0.5
+mds-collision-checker             44:53 29.1  0.2
+sudo mds-daemon -v                44:54  0.0  0.0
+sudo mds-filter                   44:54  0.0  0.0
+python /etc/mds-ach/python/       44:54  0.5  0.2
+gzserver /etc/mds-ach/model       44:54 77.3  0.5
+mds-collision-checker             44:54 29.1  0.2
+sudo mds-daemon -v                44:55  0.0  0.0
+sudo mds-filter                   44:55  0.0  0.0
+python /etc/mds-ach/python/       44:55  0.5  0.2
+gzserver /etc/mds-ach/model       44:55 77.3  0.5
+mds-collision-checker             44:55 29.1  0.2
+sudo mds-daemon -v                44:56  0.0  0.0
+sudo mds-filter                   44:56  0.0  0.0
+python /etc/mds-ach/python/       44:56  0.5  0.2
+gzserver /etc/mds-ach/model       44:56 77.3  0.5
+mds-collision-checker             44:56 29.1  0.2
+sudo mds-daemon -v                44:57  0.0  0.0
+sudo mds-filter                   44:57  0.0  0.0
+python /etc/mds-ach/python/       44:57  0.5  0.2
+gzserver /etc/mds-ach/model       44:57 77.3  0.5
+mds-collision-checker             44:57 29.1  0.2
+sudo mds-daemon -v                44:58  0.0  0.0
+sudo mds-filter                   44:58  0.0  0.0
+python /etc/mds-ach/python/       44:58  0.6  0.2
+gzserver /etc/mds-ach/model       44:58 77.4  0.5
+mds-collision-checker             44:58 29.1  0.2
+sudo mds-daemon -v                44:59  0.0  0.0
+sudo mds-filter                   44:59  0.0  0.0
+python /etc/mds-ach/python/       44:59  0.6  0.2
+gzserver /etc/mds-ach/model       44:59 77.4  0.5
+mds-collision-checker             44:59 29.1  0.2
+sudo mds-daemon -v                45:00  0.0  0.0
+sudo mds-filter                   45:00  0.0  0.0
+python /etc/mds-ach/python/       45:00  0.6  0.2
+gzserver /etc/mds-ach/model       45:00 77.4  0.5
+mds-collision-checker             45:00 29.1  0.2
+sudo mds-daemon -v                45:01  0.0  0.0
+sudo mds-filter                   45:01  0.0  0.0
+python /etc/mds-ach/python/       45:01  0.6  0.2
+gzserver /etc/mds-ach/model       45:01 77.4  0.5
+mds-collision-checker             45:01 29.1  0.2
+sudo mds-daemon -v                45:02  0.0  0.0
+sudo mds-filter                   45:02  0.0  0.0
+python /etc/mds-ach/python/       45:02  0.6  0.2
+gzserver /etc/mds-ach/model       45:02 77.4  0.5
+mds-collision-checker             45:02 29.1  0.2
+sudo mds-daemon -v                45:03  0.0  0.0
+sudo mds-filter                   45:03  0.0  0.0
+python /etc/mds-ach/python/       45:03  0.6  0.2
+gzserver /etc/mds-ach/model       45:03 77.4  0.5
+mds-collision-checker             45:03 29.1  0.2
+sudo mds-daemon -v                45:04  0.0  0.0
+sudo mds-filter                   45:04  0.0  0.0
+python /etc/mds-ach/python/       45:04  0.6  0.2
+gzserver /etc/mds-ach/model       45:04 77.4  0.5
+mds-collision-checker             45:04 29.1  0.2
+sudo mds-daemon -v                45:05  0.0  0.0
+sudo mds-filter                   45:05  0.0  0.0
+python /etc/mds-ach/python/       45:05  0.6  0.2
+gzserver /etc/mds-ach/model       45:05 77.4  0.5
+mds-collision-checker             45:05 29.1  0.2
+sudo mds-daemon -v                45:06  0.0  0.0
+sudo mds-filter                   45:06  0.0  0.0
+python /etc/mds-ach/python/       45:06  0.6  0.2
+gzserver /etc/mds-ach/model       45:06 77.4  0.5
+mds-collision-checker             45:06 29.1  0.2
+sudo mds-daemon -v                45:07  0.0  0.0
+sudo mds-filter                   45:07  0.0  0.0
+python /etc/mds-ach/python/       45:07  0.6  0.2
+gzserver /etc/mds-ach/model       45:07 77.4  0.5
+mds-collision-checker             45:07 29.1  0.2
+sudo mds-daemon -v                45:08  0.0  0.0
+sudo mds-filter                   45:09  0.0  0.0
+python /etc/mds-ach/python/       45:09  0.6  0.2
+gzserver /etc/mds-ach/model       45:09 77.4  0.5
+mds-collision-checker             45:09 29.1  0.2
+sudo mds-daemon -v                45:10  0.0  0.0
+sudo mds-filter                   45:10  0.0  0.0
+python /etc/mds-ach/python/       45:10  0.6  0.2
+gzserver /etc/mds-ach/model       45:10 77.4  0.5
+mds-collision-checker             45:10 29.1  0.2
+sudo mds-daemon -v                45:11  0.0  0.0
+sudo mds-filter                   45:11  0.0  0.0
+python /etc/mds-ach/python/       45:11  0.6  0.2
+gzserver /etc/mds-ach/model       45:11 77.4  0.5
+mds-collision-checker             45:11 29.1  0.2
+sudo mds-daemon -v                45:12  0.0  0.0
+sudo mds-filter                   45:12  0.0  0.0
+python /etc/mds-ach/python/       45:12  0.6  0.2
+gzserver /etc/mds-ach/model       45:12 77.4  0.5
+mds-collision-checker             45:12 29.1  0.2
+sudo mds-daemon -v                45:13  0.0  0.0
+sudo mds-filter                   45:13  0.0  0.0
+python /etc/mds-ach/python/       45:13  0.6  0.2
+gzserver /etc/mds-ach/model       45:13 77.4  0.5
+mds-collision-checker             45:13 29.1  0.2
+sudo mds-daemon -v                45:14  0.0  0.0
+sudo mds-filter                   45:14  0.0  0.0
+python /etc/mds-ach/python/       45:14  0.6  0.2
+gzserver /etc/mds-ach/model       45:14 77.4  0.5
+mds-collision-checker             45:14 29.1  0.2
+sudo mds-daemon -v                45:15  0.0  0.0
+sudo mds-filter                   45:15  0.0  0.0
+python /etc/mds-ach/python/       45:15  0.6  0.2
+gzserver /etc/mds-ach/model       45:15 77.4  0.5
+mds-collision-checker             45:15 29.1  0.2
+sudo mds-daemon -v                45:16  0.0  0.0
+sudo mds-filter                   45:16  0.0  0.0
+python /etc/mds-ach/python/       45:16  0.6  0.2
+gzserver /etc/mds-ach/model       45:16 77.4  0.5
+mds-collision-checker             45:16 29.1  0.2
+sudo mds-daemon -v                45:17  0.0  0.0
+sudo mds-filter                   45:17  0.0  0.0
+python /etc/mds-ach/python/       45:17  0.6  0.2
+gzserver /etc/mds-ach/model       45:17 77.4  0.5
+mds-collision-checker             45:17 29.1  0.2
+sudo mds-daemon -v                45:18  0.0  0.0
+sudo mds-filter                   45:18  0.0  0.0
+python /etc/mds-ach/python/       45:18  0.6  0.2
+gzserver /etc/mds-ach/model       45:18 77.4  0.5
+mds-collision-checker             45:18 29.1  0.2
+sudo mds-daemon -v                45:19  0.0  0.0
+sudo mds-filter                   45:19  0.0  0.0
+python /etc/mds-ach/python/       45:19  0.6  0.2
+gzserver /etc/mds-ach/model       45:19 77.4  0.5
+mds-collision-checker             45:19 29.1  0.2
+sudo mds-daemon -v                45:20  0.0  0.0
+sudo mds-filter                   45:20  0.0  0.0
+python /etc/mds-ach/python/       45:20  0.6  0.2
+gzserver /etc/mds-ach/model       45:20 77.5  0.5
+mds-collision-checker             45:20 29.1  0.2
+sudo mds-daemon -v                45:21  0.0  0.0
+sudo mds-filter                   45:21  0.0  0.0
+python /etc/mds-ach/python/       45:21  0.6  0.2
+gzserver /etc/mds-ach/model       45:21 77.5  0.5
+mds-collision-checker             45:21 29.1  0.2
+sudo mds-daemon -v                45:22  0.0  0.0
+sudo mds-filter                   45:22  0.0  0.0
+python /etc/mds-ach/python/       45:22  0.6  0.2
+gzserver /etc/mds-ach/model       45:22 77.5  0.5
+mds-collision-checker             45:22 29.1  0.2
+sudo mds-daemon -v                45:23  0.0  0.0
+sudo mds-filter                   45:23  0.0  0.0
+python /etc/mds-ach/python/       45:23  0.6  0.2
+gzserver /etc/mds-ach/model       45:23 77.5  0.5
+mds-collision-checker             45:23 29.1  0.2
+sudo mds-daemon -v                45:24  0.0  0.0
+sudo mds-filter                   45:24  0.0  0.0
+python /etc/mds-ach/python/       45:24  0.6  0.2
+gzserver /etc/mds-ach/model       45:24 77.5  0.5
+mds-collision-checker             45:24 29.1  0.2
+sudo mds-daemon -v                45:25  0.0  0.0
+sudo mds-filter                   45:25  0.0  0.0
+python /etc/mds-ach/python/       45:25  0.6  0.2
+gzserver /etc/mds-ach/model       45:26 77.5  0.5
+mds-collision-checker             45:26 29.1  0.2
+sudo mds-daemon -v                45:27  0.0  0.0
+sudo mds-filter                   45:27  0.0  0.0
+python /etc/mds-ach/python/       45:27  0.6  0.2
+gzserver /etc/mds-ach/model       45:27 77.5  0.5
+mds-collision-checker             45:27 29.1  0.2
+sudo mds-daemon -v                45:28  0.0  0.0
+sudo mds-filter                   45:28  0.0  0.0
+python /etc/mds-ach/python/       45:28  0.6  0.2
+gzserver /etc/mds-ach/model       45:28 77.5  0.5
+mds-collision-checker             45:28 29.1  0.2
+sudo mds-daemon -v                45:29  0.0  0.0
+sudo mds-filter                   45:29  0.0  0.0
+python /etc/mds-ach/python/       45:29  0.6  0.2
+gzserver /etc/mds-ach/model       45:29 77.5  0.5
+mds-collision-checker             45:29 29.1  0.2
+sudo mds-daemon -v                45:30  0.0  0.0
+sudo mds-filter                   45:30  0.0  0.0
+python /etc/mds-ach/python/       45:30  0.6  0.2
+gzserver /etc/mds-ach/model       45:30 77.5  0.5
+mds-collision-checker             45:30 29.1  0.2
+sudo mds-daemon -v                45:31  0.0  0.0
+sudo mds-filter                   45:31  0.0  0.0
+python /etc/mds-ach/python/       45:31  0.6  0.2
+gzserver /etc/mds-ach/model       45:31 77.5  0.5
+mds-collision-checker             45:31 29.1  0.2
+sudo mds-daemon -v                45:32  0.0  0.0
+sudo mds-filter                   45:32  0.0  0.0
+python /etc/mds-ach/python/       45:32  0.6  0.2
+gzserver /etc/mds-ach/model       45:32 77.5  0.5
+mds-collision-checker             45:32 29.1  0.2
+sudo mds-daemon -v                45:33  0.0  0.0
+sudo mds-filter                   45:33  0.0  0.0
+python /etc/mds-ach/python/       45:33  0.6  0.2
+gzserver /etc/mds-ach/model       45:33 77.5  0.5
+mds-collision-checker             45:33 29.1  0.2
+sudo mds-daemon -v                45:34  0.0  0.0
+sudo mds-filter                   45:34  0.0  0.0
+python /etc/mds-ach/python/       45:34  0.6  0.2
+gzserver /etc/mds-ach/model       45:34 77.5  0.5
+mds-collision-checker             45:34 29.1  0.2
+sudo mds-daemon -v                45:35  0.0  0.0
+sudo mds-filter                   45:35  0.0  0.0
+python /etc/mds-ach/python/       45:35  0.6  0.2
+gzserver /etc/mds-ach/model       45:35 77.5  0.5
+mds-collision-checker             45:35 29.1  0.2
+sudo mds-daemon -v                45:36  0.0  0.0
+sudo mds-filter                   45:36  0.0  0.0
+python /etc/mds-ach/python/       45:36  0.6  0.2
+gzserver /etc/mds-ach/model       45:36 77.5  0.5
+mds-collision-checker             45:36 29.1  0.2
+sudo mds-daemon -v                45:37  0.0  0.0
+sudo mds-filter                   45:37  0.0  0.0
+python /etc/mds-ach/python/       45:37  0.6  0.2
+gzserver /etc/mds-ach/model       45:37 77.5  0.5
+mds-collision-checker             45:37 29.1  0.2
+sudo mds-daemon -v                45:38  0.0  0.0
+sudo mds-filter                   45:38  0.0  0.0
+python /etc/mds-ach/python/       45:38  0.6  0.2
+gzserver /etc/mds-ach/model       45:38 77.5  0.5
+mds-collision-checker             45:38 29.1  0.2
+sudo mds-daemon -v                45:39  0.0  0.0
+sudo mds-filter                   45:39  0.0  0.0
+python /etc/mds-ach/python/       45:39  0.6  0.2
+gzserver /etc/mds-ach/model       45:39 77.5  0.5
+mds-collision-checker             45:39 29.1  0.2
+sudo mds-daemon -v                45:40  0.0  0.0
+sudo mds-filter                   45:40  0.0  0.0
+python /etc/mds-ach/python/       45:40  0.6  0.2
+gzserver /etc/mds-ach/model       45:40 77.5  0.5
+mds-collision-checker             45:40 29.1  0.2
+sudo mds-daemon -v                45:41  0.0  0.0
+sudo mds-filter                   45:41  0.0  0.0
+python /etc/mds-ach/python/       45:41  0.6  0.2
+gzserver /etc/mds-ach/model       45:41 77.5  0.5
+mds-collision-checker             45:41 29.1  0.2
+sudo mds-daemon -v                45:42  0.0  0.0
+sudo mds-filter                   45:42  0.0  0.0
+python /etc/mds-ach/python/       45:42  0.6  0.2
+gzserver /etc/mds-ach/model       45:42 77.6  0.5
+mds-collision-checker             45:42 29.1  0.2
+sudo mds-daemon -v                45:43  0.0  0.0
+sudo mds-filter                   45:43  0.0  0.0
+python /etc/mds-ach/python/       45:43  0.6  0.2
+gzserver /etc/mds-ach/model       45:44 77.5  0.5
+mds-collision-checker             45:44 29.1  0.2
+sudo mds-daemon -v                45:45  0.0  0.0
+sudo mds-filter                   45:45  0.0  0.0
+python /etc/mds-ach/python/       45:45  0.6  0.2
+gzserver /etc/mds-ach/model       45:45 77.5  0.5
+mds-collision-checker             45:45 29.1  0.2
+sudo mds-daemon -v                45:46  0.0  0.0
+sudo mds-filter                   45:46  0.0  0.0
+python /etc/mds-ach/python/       45:46  0.6  0.2
+gzserver /etc/mds-ach/model       45:46 77.5  0.5
+mds-collision-checker             45:46 29.1  0.2
+sudo mds-daemon -v                45:47  0.0  0.0
+sudo mds-filter                   45:47  0.0  0.0
+python /etc/mds-ach/python/       45:47  0.6  0.2
+gzserver /etc/mds-ach/model       45:47 77.5  0.5
+mds-collision-checker             45:47 29.1  0.2
+sudo mds-daemon -v                45:48  0.0  0.0
+sudo mds-filter                   45:48  0.0  0.0
+python /etc/mds-ach/python/       45:48  0.6  0.2
+gzserver /etc/mds-ach/model       45:48 77.5  0.5
+mds-collision-checker             45:48 29.1  0.2
+sudo mds-daemon -v                45:49  0.0  0.0
+sudo mds-filter                   45:49  0.0  0.0
+python /etc/mds-ach/python/       45:49  0.6  0.2
+gzserver /etc/mds-ach/model       45:49 77.6  0.5
+mds-collision-checker             45:49 29.1  0.2
+sudo mds-daemon -v                45:50  0.0  0.0
+sudo mds-filter                   45:50  0.0  0.0
+python /etc/mds-ach/python/       45:50  0.6  0.2
+gzserver /etc/mds-ach/model       45:50 77.6  0.5
+mds-collision-checker             45:50 29.1  0.2
+sudo mds-daemon -v                45:51  0.0  0.0
+sudo mds-filter                   45:51  0.0  0.0
+python /etc/mds-ach/python/       45:51  0.6  0.2
+gzserver /etc/mds-ach/model       45:51 77.6  0.5
+mds-collision-checker             45:51 29.1  0.2
+sudo mds-daemon -v                45:52  0.0  0.0
+sudo mds-filter                   45:52  0.0  0.0
+python /etc/mds-ach/python/       45:52  0.6  0.2
+gzserver /etc/mds-ach/model       45:52 77.6  0.5
+mds-collision-checker             45:52 29.1  0.2
+sudo mds-daemon -v                45:53  0.0  0.0
+sudo mds-filter                   45:53  0.0  0.0
+python /etc/mds-ach/python/       45:53  0.6  0.2
+gzserver /etc/mds-ach/model       45:53 77.6  0.5
+mds-collision-checker             45:53 29.1  0.2
+sudo mds-daemon -v                45:54  0.0  0.0
+sudo mds-filter                   45:54  0.0  0.0
+python /etc/mds-ach/python/       45:54  0.6  0.2
+gzserver /etc/mds-ach/model       45:54 77.6  0.5
+mds-collision-checker             45:54 29.1  0.2
+sudo mds-daemon -v                45:55  0.0  0.0
+sudo mds-filter                   45:55  0.0  0.0
+python /etc/mds-ach/python/       45:55  0.6  0.2
+gzserver /etc/mds-ach/model       45:55 77.6  0.5
+mds-collision-checker             45:55 29.1  0.2
+sudo mds-daemon -v                45:56  0.0  0.0
+sudo mds-filter                   45:56  0.0  0.0
+python /etc/mds-ach/python/       45:56  0.6  0.2
+gzserver /etc/mds-ach/model       45:56 77.6  0.5
+mds-collision-checker             45:56 29.1  0.2
+sudo mds-daemon -v                45:57  0.0  0.0
+sudo mds-filter                   45:57  0.0  0.0
+python /etc/mds-ach/python/       45:57  0.6  0.2
+gzserver /etc/mds-ach/model       45:57 77.6  0.5
+mds-collision-checker             45:57 29.1  0.2
+sudo mds-daemon -v                45:58  0.0  0.0
+sudo mds-filter                   45:58  0.0  0.0
+python /etc/mds-ach/python/       45:58  0.6  0.2
+gzserver /etc/mds-ach/model       45:58 77.6  0.5
+mds-collision-checker             45:58 29.1  0.2
+sudo mds-daemon -v                45:59  0.0  0.0
+sudo mds-filter                   45:59  0.0  0.0
+python /etc/mds-ach/python/       45:59  0.6  0.2
+gzserver /etc/mds-ach/model       45:59 77.6  0.5
+mds-collision-checker             45:59 29.1  0.2
+sudo mds-daemon -v                46:00  0.0  0.0
+sudo mds-filter                   46:00  0.0  0.0
+python /etc/mds-ach/python/       46:00  0.6  0.2
+gzserver /etc/mds-ach/model       46:00 77.6  0.5
+mds-collision-checker             46:00 29.1  0.2
+sudo mds-daemon -v                46:01  0.0  0.0
+sudo mds-filter                   46:01  0.0  0.0
+python /etc/mds-ach/python/       46:01  0.6  0.2
+gzserver /etc/mds-ach/model       46:01 77.6  0.5
+mds-collision-checker             46:01 29.1  0.2
+sudo mds-daemon -v                46:02  0.0  0.0
+sudo mds-filter                   46:02  0.0  0.0
+python /etc/mds-ach/python/       46:02  0.6  0.2
+gzserver /etc/mds-ach/model       46:02 77.6  0.5
+mds-collision-checker             46:02 29.1  0.2
+sudo mds-daemon -v                46:04  0.0  0.0
+sudo mds-filter                   46:04  0.0  0.0
+python /etc/mds-ach/python/       46:04  0.6  0.2
+gzserver /etc/mds-ach/model       46:04 77.6  0.5
+mds-collision-checker             46:04 29.1  0.2
+sudo mds-daemon -v                46:05  0.0  0.0
+sudo mds-filter                   46:05  0.0  0.0
+python /etc/mds-ach/python/       46:05  0.6  0.2
+gzserver /etc/mds-ach/model       46:05 77.6  0.5
+mds-collision-checker             46:05 29.1  0.2
+sudo mds-daemon -v                46:06  0.0  0.0
+sudo mds-filter                   46:06  0.0  0.0
+python /etc/mds-ach/python/       46:06  0.6  0.2
+gzserver /etc/mds-ach/model       46:06 77.6  0.5
+mds-collision-checker             46:06 29.1  0.2
+sudo mds-daemon -v                46:07  0.0  0.0
+sudo mds-filter                   46:07  0.0  0.0
+python /etc/mds-ach/python/       46:07  0.6  0.2
+gzserver /etc/mds-ach/model       46:07 77.6  0.5
+mds-collision-checker             46:07 29.1  0.2
+sudo mds-daemon -v                46:08  0.0  0.0
+sudo mds-filter                   46:08  0.0  0.0
+python /etc/mds-ach/python/       46:08  0.6  0.2
+gzserver /etc/mds-ach/model       46:08 77.6  0.5
+mds-collision-checker             46:08 29.1  0.2
+sudo mds-daemon -v                46:09  0.0  0.0
+sudo mds-filter                   46:09  0.0  0.0
+python /etc/mds-ach/python/       46:09  0.6  0.2
+gzserver /etc/mds-ach/model       46:09 77.6  0.5
+mds-collision-checker             46:09 29.1  0.2
+sudo mds-daemon -v                46:10  0.0  0.0
+sudo mds-filter                   46:10  0.0  0.0
+python /etc/mds-ach/python/       46:10  0.6  0.2
+gzserver /etc/mds-ach/model       46:10 77.6  0.5
+mds-collision-checker             46:10 29.1  0.2
+sudo mds-daemon -v                46:11  0.0  0.0
+sudo mds-filter                   46:11  0.0  0.0
+python /etc/mds-ach/python/       46:11  0.6  0.2
+gzserver /etc/mds-ach/model       46:11 77.6  0.5
+mds-collision-checker             46:11 29.1  0.2
+sudo mds-daemon -v                46:12  0.0  0.0
+sudo mds-filter                   46:12  0.0  0.0
+python /etc/mds-ach/python/       46:12  0.6  0.2
+gzserver /etc/mds-ach/model       46:12 77.6  0.5
+mds-collision-checker             46:12 29.1  0.2
+sudo mds-daemon -v                46:13  0.0  0.0
+sudo mds-filter                   46:13  0.0  0.0
+python /etc/mds-ach/python/       46:13  0.6  0.2
+gzserver /etc/mds-ach/model       46:13 77.6  0.5
+mds-collision-checker             46:13 29.1  0.2
+sudo mds-daemon -v                46:14  0.0  0.0
+sudo mds-filter                   46:14  0.0  0.0
+python /etc/mds-ach/python/       46:14  0.6  0.2
+gzserver /etc/mds-ach/model       46:14 77.6  0.5
+mds-collision-checker             46:14 29.1  0.2
+sudo mds-daemon -v                46:15  0.0  0.0
+sudo mds-filter                   46:15  0.0  0.0
+python /etc/mds-ach/python/       46:15  0.6  0.2
+gzserver /etc/mds-ach/model       46:15 77.6  0.5
+mds-collision-checker             46:15 29.1  0.2
+sudo mds-daemon -v                46:16  0.0  0.0
+sudo mds-filter                   46:16  0.0  0.0
+python /etc/mds-ach/python/       46:16  0.6  0.2
+gzserver /etc/mds-ach/model       46:16 77.6  0.5
+mds-collision-checker             46:16 29.1  0.2
+sudo mds-daemon -v                46:17  0.0  0.0
+sudo mds-filter                   46:17  0.0  0.0
+python /etc/mds-ach/python/       46:17  0.6  0.2
+gzserver /etc/mds-ach/model       46:17 77.6  0.5
+mds-collision-checker             46:17 29.1  0.2
+sudo mds-daemon -v                46:18  0.0  0.0
+sudo mds-filter                   46:18  0.0  0.0
+python /etc/mds-ach/python/       46:18  0.6  0.2
+gzserver /etc/mds-ach/model       46:18 77.6  0.5
+mds-collision-checker             46:18 29.1  0.2
+sudo mds-daemon -v                46:19  0.0  0.0
+sudo mds-filter                   46:19  0.0  0.0
+python /etc/mds-ach/python/       46:19  0.6  0.2
+gzserver /etc/mds-ach/model       46:19 77.6  0.5
+mds-collision-checker             46:19 29.1  0.2
+sudo mds-daemon -v                46:20  0.0  0.0
+sudo mds-filter                   46:20  0.0  0.0
+python /etc/mds-ach/python/       46:20  0.6  0.2
+gzserver /etc/mds-ach/model       46:20 77.6  0.5
+mds-collision-checker             46:20 29.1  0.2
+sudo mds-daemon -v                46:21  0.0  0.0
+sudo mds-filter                   46:21  0.0  0.0
+python /etc/mds-ach/python/       46:21  0.6  0.2
+gzserver /etc/mds-ach/model       46:21 77.6  0.5
+mds-collision-checker             46:21 29.1  0.2
+sudo mds-daemon -v                46:22  0.0  0.0
+sudo mds-filter                   46:22  0.0  0.0
+python /etc/mds-ach/python/       46:22  0.6  0.2
+gzserver /etc/mds-ach/model       46:22 77.6  0.5
+mds-collision-checker             46:22 29.1  0.2
+sudo mds-daemon -v                46:23  0.0  0.0
+sudo mds-filter                   46:23  0.0  0.0
+python /etc/mds-ach/python/       46:23  0.6  0.2
+gzserver /etc/mds-ach/model       46:23 77.6  0.5
+mds-collision-checker             46:23 29.1  0.2
+sudo mds-daemon -v                46:25  0.0  0.0
+sudo mds-filter                   46:25  0.0  0.0
+python /etc/mds-ach/python/       46:25  0.6  0.2
+gzserver /etc/mds-ach/model       46:25 77.6  0.5
+mds-collision-checker             46:25 29.1  0.2
+sudo mds-daemon -v                46:26  0.0  0.0
+sudo mds-filter                   46:26  0.0  0.0
+python /etc/mds-ach/python/       46:26  0.6  0.2
+gzserver /etc/mds-ach/model       46:26 77.6  0.5
+mds-collision-checker             46:26 29.1  0.2
+sudo mds-daemon -v                46:27  0.0  0.0
+sudo mds-filter                   46:27  0.0  0.0
+python /etc/mds-ach/python/       46:27  0.6  0.2
+gzserver /etc/mds-ach/model       46:27 77.6  0.5
+mds-collision-checker             46:27 29.1  0.2
+sudo mds-daemon -v                46:28  0.0  0.0
+sudo mds-filter                   46:28  0.0  0.0
+python /etc/mds-ach/python/       46:28  0.6  0.2
+gzserver /etc/mds-ach/model       46:28 77.6  0.5
+mds-collision-checker             46:28 29.1  0.2
+sudo mds-daemon -v                46:29  0.0  0.0
+sudo mds-filter                   46:29  0.0  0.0
+python /etc/mds-ach/python/       46:29  0.6  0.2
+gzserver /etc/mds-ach/model       46:29 77.6  0.5
+mds-collision-checker             46:29 29.1  0.2
+sudo mds-daemon -v                46:30  0.0  0.0
+sudo mds-filter                   46:30  0.0  0.0
+python /etc/mds-ach/python/       46:30  0.6  0.2
+gzserver /etc/mds-ach/model       46:30 77.6  0.5
+mds-collision-checker             46:30 29.1  0.2
+sudo mds-daemon -v                46:31  0.0  0.0
+sudo mds-filter                   46:31  0.0  0.0
+python /etc/mds-ach/python/       46:31  0.6  0.2
+gzserver /etc/mds-ach/model       46:31 77.6  0.5
+mds-collision-checker             46:31 29.1  0.2
+sudo mds-daemon -v                46:32  0.0  0.0
+sudo mds-filter                   46:32  0.0  0.0
+python /etc/mds-ach/python/       46:32  0.6  0.2
+gzserver /etc/mds-ach/model       46:32 77.6  0.5
+mds-collision-checker             46:32 29.1  0.2
+sudo mds-daemon -v                46:33  0.0  0.0
+sudo mds-filter                   46:33  0.0  0.0
+python /etc/mds-ach/python/       46:33  0.6  0.2
+gzserver /etc/mds-ach/model       46:33 77.6  0.5
+mds-collision-checker             46:33 29.1  0.2
+sudo mds-daemon -v                46:34  0.0  0.0
+sudo mds-filter                   46:34  0.0  0.0
+python /etc/mds-ach/python/       46:34  0.6  0.2
+gzserver /etc/mds-ach/model       46:34 77.6  0.5
+mds-collision-checker             46:34 29.1  0.2
+sudo mds-daemon -v                46:35  0.0  0.0
+sudo mds-filter                   46:35  0.0  0.0
+python /etc/mds-ach/python/       46:35  0.6  0.2
+gzserver /etc/mds-ach/model       46:35 77.6  0.5
+mds-collision-checker             46:35 29.1  0.2
+sudo mds-daemon -v                46:36  0.0  0.0
+sudo mds-filter                   46:36  0.0  0.0
+python /etc/mds-ach/python/       46:36  0.6  0.2
+gzserver /etc/mds-ach/model       46:36 77.6  0.5
+mds-collision-checker             46:36 29.1  0.2
+sudo mds-daemon -v                46:37  0.0  0.0
+sudo mds-filter                   46:37  0.0  0.0
+python /etc/mds-ach/python/       46:37  0.6  0.2
+gzserver /etc/mds-ach/model       46:37 77.6  0.5
+mds-collision-checker             46:37 29.1  0.2
+sudo mds-daemon -v                46:38  0.0  0.0
+sudo mds-filter                   46:38  0.0  0.0
+python /etc/mds-ach/python/       46:38  0.6  0.2
+gzserver /etc/mds-ach/model       46:38 77.6  0.5
+mds-collision-checker             46:38 29.1  0.2
+sudo mds-daemon -v                46:39  0.0  0.0
+sudo mds-filter                   46:39  0.0  0.0
+python /etc/mds-ach/python/       46:39  0.6  0.2
+gzserver /etc/mds-ach/model       46:39 77.6  0.5
+mds-collision-checker             46:39 29.1  0.2
+sudo mds-daemon -v                46:40  0.0  0.0
+sudo mds-filter                   46:40  0.0  0.0
+python /etc/mds-ach/python/       46:40  0.6  0.2
+gzserver /etc/mds-ach/model       46:40 77.6  0.5
+mds-collision-checker             46:40 29.1  0.2
+sudo mds-daemon -v                46:41  0.0  0.0
+sudo mds-filter                   46:41  0.0  0.0
+python /etc/mds-ach/python/       46:41  0.6  0.2
+gzserver /etc/mds-ach/model       46:41 77.6  0.5
+mds-collision-checker             46:41 29.1  0.2
+sudo mds-daemon -v                46:42  0.0  0.0
+sudo mds-filter                   46:42  0.0  0.0
+python /etc/mds-ach/python/       46:42  0.6  0.2
+gzserver /etc/mds-ach/model       46:42 77.6  0.5
+mds-collision-checker             46:42 29.1  0.2
+sudo mds-daemon -v                46:43  0.0  0.0
+sudo mds-filter                   46:43  0.0  0.0
+python /etc/mds-ach/python/       46:43  0.6  0.2
+gzserver /etc/mds-ach/model       46:43 77.6  0.5
+mds-collision-checker             46:43 29.1  0.2
+sudo mds-daemon -v                46:44  0.0  0.0
+sudo mds-filter                   46:44  0.0  0.0
+python /etc/mds-ach/python/       46:44  0.6  0.2
+gzserver /etc/mds-ach/model       46:44 77.6  0.5
+mds-collision-checker             46:44 29.1  0.2
+sudo mds-daemon -v                46:45  0.0  0.0
+sudo mds-filter                   46:46  0.0  0.0
+python /etc/mds-ach/python/       46:46  0.6  0.2
+gzserver /etc/mds-ach/model       46:46 77.6  0.5
+mds-collision-checker             46:46 29.1  0.2
+sudo mds-daemon -v                46:47  0.0  0.0
+sudo mds-filter                   46:47  0.0  0.0
+python /etc/mds-ach/python/       46:47  0.6  0.2
+gzserver /etc/mds-ach/model       46:47 77.6  0.5
+mds-collision-checker             46:47 29.1  0.2
+sudo mds-daemon -v                46:48  0.0  0.0
+sudo mds-filter                   46:48  0.0  0.0
+python /etc/mds-ach/python/       46:48  0.6  0.2
+gzserver /etc/mds-ach/model       46:48 77.6  0.5
+mds-collision-checker             46:48 29.1  0.2
+sudo mds-daemon -v                46:49  0.0  0.0
+sudo mds-filter                   46:49  0.0  0.0
+python /etc/mds-ach/python/       46:49  0.6  0.2
+gzserver /etc/mds-ach/model       46:49 77.6  0.5
+mds-collision-checker             46:49 29.1  0.2
+sudo mds-daemon -v                46:50  0.0  0.0
+sudo mds-filter                   46:50  0.0  0.0
+python /etc/mds-ach/python/       46:50  0.6  0.2
+gzserver /etc/mds-ach/model       46:50 77.6  0.5
+mds-collision-checker             46:50 29.1  0.2
+sudo mds-daemon -v                46:51  0.0  0.0
+sudo mds-filter                   46:51  0.0  0.0
+python /etc/mds-ach/python/       46:51  0.6  0.2
+gzserver /etc/mds-ach/model       46:51 77.6  0.5
+mds-collision-checker             46:51 29.1  0.2
+sudo mds-daemon -v                46:52  0.0  0.0
+sudo mds-filter                   46:52  0.0  0.0
+python /etc/mds-ach/python/       46:52  0.6  0.2
+gzserver /etc/mds-ach/model       46:52 77.6  0.5
+mds-collision-checker             46:52 29.1  0.2
+sudo mds-daemon -v                46:53  0.0  0.0
+sudo mds-filter                   46:53  0.0  0.0
+python /etc/mds-ach/python/       46:53  0.6  0.2
+gzserver /etc/mds-ach/model       46:53 77.6  0.5
+mds-collision-checker             46:53 29.1  0.2
+sudo mds-daemon -v                46:54  0.0  0.0
+sudo mds-filter                   46:54  0.0  0.0
+python /etc/mds-ach/python/       46:54  0.6  0.2
+gzserver /etc/mds-ach/model       46:54 77.6  0.5
+mds-collision-checker             46:54 29.1  0.2
+sudo mds-daemon -v                46:55  0.0  0.0
+sudo mds-filter                   46:55  0.0  0.0
+python /etc/mds-ach/python/       46:55  0.6  0.2
+gzserver /etc/mds-ach/model       46:55 77.6  0.5
+mds-collision-checker             46:55 29.1  0.2
+sudo mds-daemon -v                46:56  0.0  0.0
+sudo mds-filter                   46:56  0.0  0.0
+python /etc/mds-ach/python/       46:56  0.6  0.2
+gzserver /etc/mds-ach/model       46:56 77.6  0.5
+mds-collision-checker             46:56 29.1  0.2
