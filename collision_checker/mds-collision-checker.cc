@@ -43,8 +43,8 @@ mds_collide_t jnt;
 int tstart = 0.0;
 
 /* time that you must be collision free */
-double tcut = 0.7;
-int icut = 50;
+double tcut = 0.1;
+int icut = 80;
 
 /* Ach channels */
 ach_channel_t chan_collide;  // collide channel
@@ -95,8 +95,13 @@ void cb(const std::string &_msg)
 
     /* say if collided */
     for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
-      if(jnt.joint[i].collision > icut) jnt.joint[i].isCollide = 1;
+      if(jnt.joint[i].collision > icut) {
+        jnt.joint[i].isCollide = 1;
+      }
       else jnt.joint[i].isCollide = 0;
+      if(jnt.joint[i].collision > icut*3) {
+         jnt.joint[i].collision = icut*3;
+      }
     }
 
     /* get total collions */
