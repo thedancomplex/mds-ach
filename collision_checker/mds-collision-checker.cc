@@ -61,21 +61,9 @@ ach_channel_t chan_collide;  // collide channel
 //void cb( gazebo::physics::WorldPtr &_msg)
 void cb(const std::string &_msg)
 {
-   
-  // Dump the message contents to stdout.
-//  std::cout << _msg->DebugString();
-    //gazebo::physics::ContactManager con[100];
-//    std::cout << con.gazebo::physics::ContactManager::GetContactCount();
-    //gazebo::msgs::Contact con = gazebo::msgs::Contact();
-    //gazebo::sensors::ContactSensor con;
-    //unsigned int c = con.GetCollisionContactCount(_msg);
-    //int c = _msg->gazebo::physics::ContactManager::GetContactCount();
-
     /* get time */
     int ustime = clock() - tstart;
     double sysTime = ustime/1000000.0;
-//    std::cout << "System time = " << sysTime << "\n";
-
 
     int jnti = -1;
 
@@ -91,10 +79,12 @@ void cb(const std::string &_msg)
     if((int)_msg.find("LWR") > -1)             jnti = COLLISION_L_WRIST;
 
     /* update joint and time */
+    jnt.time_dt = sysTime - jnt.time;
+    jnt.time = sysTime;
     if( jnti > -1){
       jnt.joint[jnti].collision = jnt.joint[jnti].collision + 1;
+      jnt.joint[jnti].time_dt = sysTime - jnt.joint[jnti].time;
       jnt.joint[jnti].time = sysTime;
-      jnt.time = sysTime;
     }
 
     /* incroment collision */
@@ -121,30 +111,6 @@ void cb(const std::string &_msg)
     /* put on ach channel */
     ach_put(&chan_collide, &jnt, sizeof(jnt));
 
-    /* print */
-
-/*
-    printf("Col  = ");
-    for( int i = 0; i < MDS_COLLIDE_JNT_NUM; i++){
-       if (jnt.joint[i].isCollide == 1){
-          printf(" - %d ",i);
-       }
-    }
-    printf("\n");
-*/
-
-//    printf("%d\n",totalCollisions);
-//    printf("%d\n",_msg.size());
-//    printf("%d\n",_msg.find("LHAND"));
-
-
-
-
-   // printf("%s\n",_msg.c_str());
-//    gazebo::msgs::Contact contact;
-//    std::map<std::string, gazebo::msgs::Contact> con = _msg;
-//    memcpy(&contact, &_msg, sizeof(contact));
-//    printf("%d\n",contact.time().sec());
 }
 
 /////////////////////////////////////////////////

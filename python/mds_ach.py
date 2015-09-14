@@ -211,13 +211,15 @@ class MDS_JNT_COLLIDE(Structure):
     _pack_ = 1
     _fields_ = [("collision"     , c_int16),
                 ("isCollide"     , c_int16),
-                ("time"          , c_double)]
+                ("time"          , c_double),
+                ("time_dt"          , c_double)]
 
 class MDS_COLLIDE(Structure):
     _pack_ = 1
     _fields_ = [("joint"         , MDS_JNT_COLLIDE*MDS_COLLIDE_JNT_NUM),
                 ("isCollide"     , c_int16),
-                ("time"          , c_double)]
+                ("time"          , c_double),
+                ("time_dt"          , c_double)]
 
 
 class MDS_JNT_PARAM(Structure):

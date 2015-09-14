@@ -86,8 +86,8 @@ def mainLoop(enabled):
         #stdscr.addstr(y,posrefx, str(jnt.ref))
 
         # actuial pos
-#        stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
-        stdscr.addstr(y,posstatex, str(format(jnt.ref_c_send,'.5f')))
+        stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
+#        stdscr.addstr(y,posstatex, str(format(jnt.ref_c_send,'.5f')))
         #stdscr.addstr(y,posstatex, str(jnt.pos))
 
         i += 1
@@ -110,6 +110,14 @@ def mainLoop(enabled):
     stdscr.addstr(y, namex+colx2+colx*2, str(state.collide.joint[mds.COLLISION_R_FOREARM].isCollide))
     stdscr.addstr(y, namex+colx2+colx*3, str(state.collide.joint[mds.COLLISION_R_ELBOW].isCollide))
     stdscr.addstr(y, namex+colx2+colx*4, str(state.collide.joint[mds.COLLISION_R_SHOULDER].isCollide))
+ 
+    y = y+1
+    stdscr.addstr(y, shortnamex, "  dt:")
+    stdscr.addstr(y, namex+colx2+colx*0, str(state.collide.joint[mds.COLLISION_R_HAND].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*1, str(state.collide.joint[mds.COLLISION_R_WRIST].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*2, str(state.collide.joint[mds.COLLISION_R_FOREARM].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*3, str(state.collide.joint[mds.COLLISION_R_ELBOW].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*4, str(state.collide.joint[mds.COLLISION_R_SHOULDER].time_dt))
 
     y = y+1
     stdscr.addstr(y, shortnamex, "Left:")
@@ -120,7 +128,16 @@ def mainLoop(enabled):
     stdscr.addstr(y, namex+colx2+colx*4, str(state.collide.joint[mds.COLLISION_L_SHOULDER].isCollide))
 
     y = y+1
+    stdscr.addstr(y, shortnamex, "  dt:")
+    stdscr.addstr(y, namex+colx2+colx*0, str(state.collide.joint[mds.COLLISION_L_HAND].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*1, str(state.collide.joint[mds.COLLISION_L_WRIST].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*2, str(state.collide.joint[mds.COLLISION_L_FOREARM].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*3, str(state.collide.joint[mds.COLLISION_L_ELBOW].time_dt))
+    stdscr.addstr(y, namex+colx2+colx*4, str(state.collide.joint[mds.COLLISION_L_SHOULDER].time_dt))
+
+    y = y+1
     stdscr.addstr(y, shortnamex, ("Collide: %r  " % bool(state.collide.isCollide)))
+    stdscr.addstr(y, namex+colx2+colx*1, str(state.collide.time_dt))
 
     stdscr.refresh()
     time.sleep(0.05)

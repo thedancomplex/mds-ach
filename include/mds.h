@@ -180,6 +180,7 @@ typedef struct mds_jnt_collide{
     int16_t collision;
     int16_t isCollide;
     double time;
+    double time_dt;
 }__attribute__((packed)) mds_jnt_collide_t;
 
 
@@ -187,6 +188,7 @@ typedef struct mds_collide{
     struct mds_jnt_collide joint[MDS_COLLIDE_JNT_NUM];
     int16_t isCollide;
     double time;
+    double time_dt;
 }__attribute__((packed)) mds_collide_t;
 
 
