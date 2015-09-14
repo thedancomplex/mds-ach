@@ -295,7 +295,16 @@ void mainLoop(int vcan) {
         fs = 0;
 
         /* Get latest ACH message */
-        int r = ach_get( &chan_ref, &H_ref, sizeof(H_ref), &fs, NULL, ACH_O_LAST );
+        int r = ach_get( &chan_collide, &H_collide, sizeof(H_collide), &fs, NULL, ACH_O_LAST );
+        if(ACH_OK != r) {
+            if(debug) {
+                    fprintf(stderr, "collide r = %s\n",ach_result_to_string(r));}
+            }
+        else{    assert( sizeof(H_collide) == fs); 
+        }
+
+
+        r = ach_get( &chan_ref, &H_ref, sizeof(H_ref), &fs, NULL, ACH_O_LAST );
         if(ACH_OK != r) {
             if(debug) {
                     fprintf(stderr, "Ref r = %s\n",ach_result_to_string(r));}
@@ -303,13 +312,6 @@ void mainLoop(int vcan) {
         else{    assert( sizeof(H_ref) == fs); 
         }
         
-        r = ach_get( &chan_collide, &H_collide, sizeof(H_collide), &fs, NULL, ACH_O_LAST );
-        if(ACH_OK != r) {
-            if(debug) {
-                    fprintf(stderr, "collide r = %s\n",ach_result_to_string(r));}
-            }
-        else{    assert( sizeof(H_collide) == fs); 
-        }
 
 
         memcpy(&H_state.collide, &H_collide, sizeof(H_collide));
@@ -381,6 +383,7 @@ void setRefAll(mds_ref_t *r, mds_state_t *s, mds_ref_t *fi, mds_joint_param_t *p
 
         /* send CAN only if there is no colisions */
         if( s->collide.isCollide == 0){
+          s->joint[i].ref_c_send = s->joint[i].ref;
           /* Send CAN only if commanded pos is not the same as previous pos */
           if (rad != deg_hist[i]){
             if (address > 0){

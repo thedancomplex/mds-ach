@@ -6,6 +6,7 @@ CC := gcc
 INSTALL_DIR := /usr/bin
 CONFIG_DIR := /etc/mds-ach
 SIM_DIR := model/mds
+SIM_REAL_DIR := model/mds-real
 COL_DIR := collision_checker
 COL_BIN := mds-collision-checker
 PY_DIR := /usr/lib/python2.7/dist-packages
@@ -36,6 +37,10 @@ makesim:
 	mkdir -p ${SIM_DIR}/build
 	cmake -B${SIM_DIR}/build -H${SIM_DIR}
 	make -C ${SIM_DIR}/build
+	rm -rf ${SIM_REAL_DIR}/build
+	mkdir -p ${SIM_REAL_DIR}/build
+	cmake -B${SIM_REAL_DIR}/build -H${SIM_REAL_DIR}
+	make -C ${SIM_REAL_DIR}/build
 	rm -rf ${COL_DIR}/build
 	mkdir -p ${COL_DIR}/build
 	cmake -B${COL_DIR}/build -H${COL_DIR}
@@ -56,7 +61,9 @@ install:
 
 installsim:
 	rm -f /home/$$USER/.gazebo/models/mds
+	rm -f /home/$$USER/.gazebo/models/mds-real
 	ln -s ${CONFIG_DIR}/${SIM_DIR} /home/$$USER/.gazebo/models/mds
+	ln -s ${CONFIG_DIR}/${SIM_REAL_DIR} /home/$$USER/.gazebo/models/mds-real
 
 rm:
 	rm ${INSTALL_DIR}/mds-daemon

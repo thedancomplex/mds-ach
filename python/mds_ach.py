@@ -255,6 +255,7 @@ class MDS_JOINT_STATE(Structure):
     _pack_ = 1
     _fields_ = [("ref_r"     , c_double),
                 ("ref"       , c_double),
+                ("ref_c_send", c_double),
                 ("ref_c"     , c_double),
                 ("pos"       , c_double),
                 ("cur"       , c_double),

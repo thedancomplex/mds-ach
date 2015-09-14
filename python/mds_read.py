@@ -86,7 +86,8 @@ def mainLoop(enabled):
         #stdscr.addstr(y,posrefx, str(jnt.ref))
 
         # actuial pos
-        stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
+#        stdscr.addstr(y,posstatex, str(format(jnt.pos,'.5f')))
+        stdscr.addstr(y,posstatex, str(format(jnt.ref_c_send,'.5f')))
         #stdscr.addstr(y,posstatex, str(jnt.pos))
 
         i += 1

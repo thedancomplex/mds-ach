@@ -246,6 +246,7 @@ typedef struct mds_ik{
 typedef struct mds_joint_state {
         double ref_r;           ///< Last reference value received
         double ref;             ///< Last reference value sent
+        double ref_c_send;      ///< Last reference value sent
         double ref_c;           ///< Last reference valuse commanded on motorcontroller
 	double pos;     	///< actual position (rad)
 	double cur;     	///< actual current (amps)
